@@ -22,7 +22,7 @@ Download repository and install utilities/compile tools:
 
 If there are no errors, then prepare the files for act running:
 
-        ./mypipeline.sh prepfiles
+	./mypipeline.sh prepfiles
 
 
 
