@@ -6,6 +6,7 @@ Download repository:
 
 	git clone https://github.com/fg6/forACT.git
 Usage:
+
 	$ ./launchme.sh <command> 
 	  command: command to be run. Options: install, setup, test, run, debug
 
