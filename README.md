@@ -1,4 +1,5 @@
 # forACT
+## nor ready yet! In progress !!
 Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
 
 ## Instructions
