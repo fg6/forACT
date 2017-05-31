@@ -19,8 +19,6 @@ thisdir=`pwd`
 scriptdir=$myforACT/utils/myscripts
 # shred in:
 shred=10000
-
-
 mkdir -p $dir
 
 sub1="s#MYFORACT#$myforACT#g"
@@ -31,4 +29,7 @@ sub4="s#MYDESTDIR#$dir#g"
 sed $sub1 $myforACT/utils/myscripts/pipeline.sh | sed $sub2 | sed $sub3 | sed $sub4 > $dir/mypipeline.sh
 chmod +x $dir/mypipeline.sh
 
-$dir/mypipeline.sh
+echo; echo  " Your new project is set in folder: " $dir;
+echo " To launch it: "
+echo "  $ cd " $dir
+echo "  $ ./mypipeline.sh"
