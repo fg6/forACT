@@ -21,8 +21,8 @@ Download repository and install utilities/compile tools:
 	$ ./mypipeline.sh align
 	$ ./mypipeline.sh prepfiles
 	
-## Step 3:Launch ACT
-If Step 2 ave no errors, then launch ACT:
+#### Step 3: Launch ACT
+If Step 2 gave no errors, then launch ACT:
 
 
 
