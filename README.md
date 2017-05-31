@@ -16,8 +16,14 @@ Download repository and install utilities/compile tools:
 	/full/path/to/draft:  draft assembly fasta (Please provide full path)
 	/full/path/to/destdir: folder where to run the pipeline (Please provide full path)
 #### Step 2: run the pipeline:
+
 	cd /full/path/to/destdir
-	./mypipeline.sh
+	./mypipeline.sh align
+
+If there are no errors, then prepare the files for act running:
+
+        ./mypipeline.sh prepfiles
+
 
 
 
