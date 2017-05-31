@@ -12,7 +12,6 @@ if [ $# -lt 1 ]  || [ $1 == '-h' ]; then
     echo "  "
     echo "  "
 
-
     exit
 fi
 
