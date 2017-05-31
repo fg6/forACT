@@ -12,21 +12,17 @@ Download repository and install utilities/compile tools:
 ### Run the pipeline for a project: 
 #### Step 1: setup folder and scripts:
 	$ ./launchme.sh setup </full/path/to/reference> </full/path/to/draft>  </full/path/to/destdir>
-	/full/path/to/reference:  Reference fasta (Please provide full path)
-	/full/path/to/draft:  draft assembly fasta (Please provide full path)
-	/full/path/to/destdir: folder where to run the pipeline (Please provide full path)
+	    /full/path/to/reference:  Reference fasta (Please provide full path)
+	    /full/path/to/draft:  draft assembly fasta (Please provide full path)
+	    /full/path/to/destdir: folder where to run the pipeline (Please provide full path)
 #### Step 2: run the pipeline:
 
-	cd /full/path/to/destdir
-	./mypipeline.sh align
-
-#### Step 3: prepare the files for ACT
-If Step 2 gave no errors, then prepare the files for ACT running:
-
-	./mypipeline.sh prepfiles
-
-#### Step 4: Launch ACT
-If Step 3 gave no errors, then launch ACT:
+	$ cd /full/path/to/destdir
+	$ ./mypipeline.sh align
+	$ ./mypipeline.sh prepfiles
+	
+## Step 3:Launch ACT
+If Step 2 ave no errors, then launch ACT:
 
 
 
