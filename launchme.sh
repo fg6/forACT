@@ -1,6 +1,8 @@
 #!/bin/bash
 set -o errexit
 
+whattodo=$1
+
 thisdir=`pwd`
 launchdir="$(dirname $0)"
 
@@ -9,9 +11,6 @@ if [[ $launchdir == '.' ]]; then
 else
     myforACT=$launchdir
 fi
-
-whattodo=$1
-
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
