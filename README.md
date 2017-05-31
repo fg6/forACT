@@ -20,9 +20,15 @@ Download repository and install utilities/compile tools:
 	cd /full/path/to/destdir
 	./mypipeline.sh align
 
-If there are no errors, then prepare the files for act running:
+#### Step 3: prepare the files for ACT
+If Step 2 gave no errors, then prepare the files for ACT running:
 
 	./mypipeline.sh prepfiles
+
+#### Step 4: Launch ACT
+If Step 3 gave no errors, then launch ACT:
+
+
 
 
 
