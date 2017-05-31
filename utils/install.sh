@@ -2,12 +2,9 @@
 set -o errexit
 
 thisdir=`pwd`
-myforACT=`echo $forACTdir`
-myscripts=$forACTdir/utils/myscripts
-#genscripts=$forACTdir/utils/genscripts
 
-mkdir -p $myscripts
 
+#myscripts=$forACTdir/utils/myscripts
 #shscripts=( setup.sh test.sh debug.sh pipeline.sh )
 #for script in "${shscripts[@]}"; do 
 #    genscript=$genscripts/$script
