@@ -6,7 +6,7 @@ Pipeline to prepare alignments between a Reference fasta and a draft assembly fo
 Download repository and install utilities/compile tools: 
 
 	git clone https://github.com/fg6/forACT.git
-        cd forACT
+	cd forACT
 	./launchme.sh install
 
 ### Run the pipeline for a project: 
