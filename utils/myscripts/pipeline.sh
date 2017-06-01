@@ -17,7 +17,6 @@ fi
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-
 mkdir -p $dir
 cd $dir
 
@@ -26,6 +25,7 @@ if [ $whattodo == "align" ]; then
     #######################################################
     ###############   ALIGN PIPELINE    ##################
     #######################################################
+    cd $dir
     ok=0
     if [ ! -f $fullpathref ]; then echo; echo "Could not find Reference in" $fullpathref;  else ok=$(($ok+1)); fi
     if [ ! -d $scriptdir ]; then echo; echo "Could not find script-dir in" $scriptdir; else ok=$(($ok+1)); fi
@@ -33,37 +33,24 @@ if [ $whattodo == "align" ]; then
     if [ ! $ok -eq 3 ]; then echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; exit; 
     else echo; echo " All input files found! Proceeding with pipeline.."; fi
 
-    $runalign $debug 2>&1 | tee -a $oalign
-# $folder $fullpathref $notshred $shred $scriptdir 2>&1 #| tee -a $oalign
+    $runalign $debug 2>&1 #| tee -a $oalign
+fi
 
-exit
-    # check for errors:
-    check=`grep Error $oalign | wc -l`
-    if [ $check -gt 0 ]; then  
-	echo; echo " Runpipeline exited with errors!"; echo;
-	cat $oalign
-	echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
-	exit; 
-    fi
+
+if [ $whattodo == "prepfiles" ]; then
+    #######################################################
+    ##################   PREPARE FILES  ###################
+    #######################################################
+    cd $dir
+    ok=0
+    if [ ! -f $refdir/$ref ]; then echo; echo "Could not find Reference in" $refdir/$ref;  else ok=$(($ok+1)); fi
+    if [ ! -d $scriptdir ]; then echo; echo "Could not find script-dir in" $scriptdir; else ok=$(($ok+1)); fi
+    if [ ! -f $fastadir/$forwnotshred ]; then echo; echo "Could not find draft assembly fasta in" $fastadir/$forwnotshred;else ok=$(($ok+1)); fi
+    if [ ! -f $workdir/$thirdal.al ]; then echo; echo "Could not find final alignment in" $workdir/$thirdal; else ok=$(($ok+1)); fi
+    if [ ! $ok -eq 4 ]; then echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; exit; 
+    else echo; echo " All needed files found! Proceeding with pipeline.."; fi
     
-fi
-exit
 
-#######################################################
-##################   PREPARE FILES  ###################
-#######################################################
-if [ ! -f $dir/$folder/inter/third.al ]; then
-    echo final alignment file is missing! $dir/$folder/inter/third.al
-    echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
-    exit
-fi
-rm $errchr
-$runchrs $folder $ref $notshred $scriptdir 2>&1 | tee -a $oprep
-
-check=`grep Error $oprep | wc -l`
-if [ $check -gt 0 ]; then  
-        echo; echo " Runpipeline second step exited with errors! check output in" $oprep; echo " here:";
-        cat $oprep
-        echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
-        exit; 
+    $runprep 
+#$folder $ref $notshred $scriptdir 2>&1 #| tee -a $oprep
 fi

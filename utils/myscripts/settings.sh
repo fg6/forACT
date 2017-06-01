@@ -19,6 +19,7 @@ aldir=$outdir/aligns
 fastadir=$outdir/fasta
 workdir=$outdir/inter
 splitdir=$fastadir/split
+finaldir=$outdir/unique
 
 # output files:
 oalign=align.output
@@ -34,5 +35,8 @@ forwnotshred=forw$notshredname
 singlefolder=$fastadir/$(basename $forwnotshred .fasta)_fastas
 forwshred=$fastadir/shred$shred\_$forwnotshred 
 forwal=$aldir/$secal.al
+finalal=third.al
 
+foractfa=$finaldir/foract.fasta
+foractal=$finaldir/foract.al
 
