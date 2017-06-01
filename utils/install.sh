@@ -4,6 +4,8 @@ set -o errexit
 thisdir=`pwd`
 
 
+curl https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz > gzstream.tgz
+
 #myscripts=$forACTdir/utils/myscripts
 #shscripts=( setup.sh test.sh debug.sh pipeline.sh )
 #for script in "${shscripts[@]}"; do 

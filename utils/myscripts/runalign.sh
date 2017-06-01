@@ -19,7 +19,6 @@ if [ ! -d $refdir ]; then
    cd $refdir
    cp $fullpathref ref.fasta  
     
-   #$srcdir/findchr/findchr $fullpathref > chr.list 
    $srcdir/grabeachchr/grabeachchr $ref
 
    if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
