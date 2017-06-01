@@ -2,6 +2,7 @@
 set -o errexit
 
 whattodo=$1
+debug=0
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
     echo "     command: command to be run. Options: align, prepfiles"
@@ -13,63 +14,56 @@ if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     exit
 fi
 
-# shred in:
-shred=10000
-
 
 thisdir=`pwd`
-myforACT=MYFORACT
-myref=MYREF
-notshred=MYDRAFT
-dir=MYDESTDIR
-scriptdir=$myforACT/utils/myscripts
-
-
-runalign=$scriptdir/splitrun.sh
-runchrs=$scriptdir/runchrs.sh
-wdir=whole
-
-# output dir:
-workdir=$wdir\_$shred
-refdir=$dir/$workdir/ref
-ref=$(basename $myref) 
+source $thisdir/mysettings.sh
 
 mkdir -p $dir
 cd $dir
 
-errfile=err.runpipe
-errchr=errchr.runpipe
 
+if [ $whattodo == "align" ]; then
+    #######################################################
+    ###############   ALIGN PIPELINE    ##################
+    #######################################################
+    ok=0
+    if [ ! -f $fullpathref ]; then echo; echo "Could not find Reference in" $fullpathref;  else ok=$(($ok+1)); fi
+    if [ ! -d $scriptdir ]; then echo; echo "Could not find script-dir in" $scriptdir; else ok=$(($ok+1)); fi
+    if [ ! -f $notshred ]; then echo; echo "Could not find draft assembly fasta in" $notshred;  else ok=$(($ok+1)); fi
+    if [ ! $ok -eq 3 ]; then echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; exit; 
+    else echo; echo " All input files found! Proceeding with pipeline.."; fi
 
-#######################################################
-###############   GLOBAL PIPELINE    ##################
-#######################################################
-$runpipeline $wdir $myref $notshred $shred $scriptdir 2>&1 | tee -a $errfile
-check=`grep Error $errfile | wc -l`
-if [ $check -gt 0 ]; then  
-    echo; echo " Runpipeline exited with errors!"; echo;
-    cat $errfile
-    echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
-    exit; 
+    $runalign $debug 2>&1 | tee -a $oalign
+# $folder $fullpathref $notshred $shred $scriptdir 2>&1 #| tee -a $oalign
+
+exit
+    # check for errors:
+    check=`grep Error $oalign | wc -l`
+    if [ $check -gt 0 ]; then  
+	echo; echo " Runpipeline exited with errors!"; echo;
+	cat $oalign
+	echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
+	exit; 
+    fi
+    
 fi
-
 exit
 
 #######################################################
 ##################   PREPARE FILES  ###################
 #######################################################
-if [ ! -f $dir/$workdir/inter/third.al ]; then
-    echo final alignment file is missing! $dir/$workdir/inter/third.al
+if [ ! -f $dir/$folder/inter/third.al ]; then
+    echo final alignment file is missing! $dir/$folder/inter/third.al
     echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
     exit
 fi
 rm $errchr
-$runchrs $workdir $(basename $myref) $notshred $scriptdir 2>&1 | tee -a $errchr
+$runchrs $folder $ref $notshred $scriptdir 2>&1 | tee -a $oprep
 
-check=`grep Error $errchr | wc -l`
+check=`grep Error $oprep | wc -l`
 if [ $check -gt 0 ]; then  
-        echo; echo " Runpipeline second step exited with errors! check output in" $errchr; echo " here:";
-        cat $errchr
+        echo; echo " Runpipeline second step exited with errors! check output in" $oprep; echo " here:";
+        cat $oprep
         echo; echo " ****  Error! Something is wrong! Giving up! **** "; echo; 
         exit; 
 fi

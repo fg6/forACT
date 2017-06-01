@@ -26,10 +26,8 @@ sub2="s#MYREF#$myref#g"
 sub3="s#MYDRAFT#$notshred#g"
 sub4="s#MYDESTDIR#$dir#g"
 
-sed $sub1 $myforACT/utils/myscripts/pipeline.sh | sed $sub2 | sed $sub3 | sed $sub4 > $dir/mypipeline.sh
-chmod +x $dir/mypipeline.sh
+sed $sub1 $myforACT/utils/myscripts/settings.sh | sed $sub2 | sed $sub3 | sed $sub4 > $dir/mysettings.sh
+cp  $myforACT/utils/myscripts/pipeline.sh $dir/mypipeline.sh
+chmod +x $dir/*.sh
 
 echo; echo  " Your new project is set in folder: " $dir;
-echo " To launch it: "
-echo "  $ cd " $dir
-echo "  $ ./mypipeline.sh"
