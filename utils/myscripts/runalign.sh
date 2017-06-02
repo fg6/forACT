@@ -35,7 +35,7 @@ if [ ! -d $refdir ]; then
     echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
 else
     if [[ ! -f $refdir/myn50.dat ]]; then
-	$srcdir/fastn50/n50 $fullpathref > $refdir/myn50.dat
+	$srcdir/n50/n50 $fullpathref > $refdir/myn50.dat
 	chrnum=`head -1 $refdir/myn50.dat | awk '{print $4}'`  # chromosomes number
 	refbases=`head -1 $refdir/myn50.dat | awk '{print $2}'`  #  number of bases
 	echo chrnum=$chrnum > $refdir/refinfo.dat
@@ -163,7 +163,7 @@ if [ ! -d $singlefolder ]; then
     echo; echo " Error! Single fasta folder not found in"  $singlefolder; exit
 else
     check=`ls $singlefolder | wc -l`
-    shouldbe=`$srcdir/fastn50/n50 $fastadir/$forwnotshred | awk '{print $4}'`
+    shouldbe=`$srcdir/n50/n50 $fastadir/$forwnotshred | awk '{print $4}'`
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $singlefolder; exit
     fi
