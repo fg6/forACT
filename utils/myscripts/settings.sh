@@ -4,7 +4,7 @@ notshred=MYDRAFT
 dir=MYDESTDIR
 
 scriptdir=MYFORACT/utils/myscripts
-srcdir=~/ana/cpp/  #MYFORACT/utils/mycodes
+srcdir=MYFORACT//utils/mysrcs
 runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
 
