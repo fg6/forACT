@@ -8,4 +8,5 @@ utils/mysrcs/samectgpos/samectgpos
 utils/mysrcs/splitinfastas/splitinfastas
 utils/mysrcs/splitreads/splitreads
 utils/mysrcs/writeselctg/writeselctg
-utils/mysrcs/mylibs/
+utils/mysrcs/mylibs
+utils/mysrcs/mylibs/*
