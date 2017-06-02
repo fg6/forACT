@@ -1,27 +1,9 @@
-#include <vector>
-#include <zlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <algorithm>    // sort
-#include <numeric> // accumulate
-#include <iomanip>  //setprecision
-#include <fstream>
-#include <gzstream.h>
+#include "../myinc/macro.h"
 
-using std::cout;
-using std::endl;
-using std::vector;
-using std::string;
-
-
-static gzFile fp;
-static std::ofstream myfile;
 static int printn=5000; // split in 1K contigs per file
 static string seqfile ;
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
 
 int myreadfasta(char* file);
-
 
 int main(int argc, char *argv[])
 { 

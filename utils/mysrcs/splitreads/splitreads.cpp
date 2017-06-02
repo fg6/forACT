@@ -1,8 +1,7 @@
 
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readfaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
+#include "../myinc/macro.h"
 
-int split(int len);
+static  string myname;
 
 int main(int argc, char *argv[])
 { 
@@ -18,7 +17,7 @@ int main(int argc, char *argv[])
   }
   int len=0;
   len=atoi(argv[2]);  
-//  cout << "Splitting in " << len << "bp" << endl;
+  //  cout << "Splitting in " << len << "bp" << endl;
 
   int write=1;
   // fasta file
@@ -36,9 +35,21 @@ int main(int argc, char *argv[])
   myname = "shred" + to_string(len) + "_" + myname; 
   if(write)myfile.open(myname.c_str());
  
-  
   //read&write
-  readseqs(1);
+  int isfq=fasttype(argv[1]);
+  int err=0;
+  int saveinfo=1;
+  int readseq=1;
+  if(!isfq){
+    err=readfasta(argv[1],saveinfo,"",readseq);
+  }else{
+    err=readfastq(argv[1],saveinfo,"",readseq);
+  }
+  if(err){
+    cout << " Sorry, something went wrong..." << endl;
+    return 1;
+  }
+
   char out[5]={">"};
 
   for (unsigned i=0; i < rseq.size(); i++) { // loop over scaffold/contigs 

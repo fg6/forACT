@@ -4,7 +4,7 @@
 CC=g++
 SOURCES= splitinfastas.cpp 
 
-INCLUDES = -I/nfs/users/nfs_f/fg6/software/GZSTREAM/gzstream -I/nfs/users/nfs_f/fg6/ana/cpp/myinclude 
+INCLUDES = 
 LIBS =  
 
 CFLAGS= -c  $(INCLUDES) 

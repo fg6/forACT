@@ -8,12 +8,12 @@ INCLUDES =
 LIBS =  
 
 CFLAGS= -c  $(INCLUDES) 
-COMPILE = $(CC)  -std=c++11 $(CFLAGS)  
+COMPILE = $(CC)  -std=c++11 $(CFLAGS)
 
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=$(SOURCES:.cpp=)
 
-all: clean iprint $(SOURCES) $(EXECUTABLE) oprint
+all: cleanall iprint $(SOURCES) $(EXECUTABLE) clean oprint 
 
 iprint:
 	@echo '+++ compiling all ... '
@@ -30,7 +30,11 @@ $(EXECUTABLE): $(OBJECTS)
 	$(COMPILE) $< -o $@
 
 clean:
+	@rm -f $(OBJECTS)
+
+cleanall:
 	@echo -n '+++ Cleaning all object files ... '
 	@rm -f $(EXECUTABLE) $(OBJECTS)
 	@echo 'Done.'
+
 

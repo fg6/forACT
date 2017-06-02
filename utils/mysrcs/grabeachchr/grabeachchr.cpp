@@ -1,19 +1,6 @@
 
-//#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readfaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readnwritefaq.h"
+#include "../myinc/macro.h"
 
-
-#include <map>
-template<typename Map>
-void print_map(Map& m)
-{
-   std::cout << '{';
-   for(auto& p: m)
-        std::cout << p.first << ':' << p.second << ' ';
-   std::cout << "}\n";
-}
-static  std::map<string, int> seqmap;
 static vector<int> chrs;
 
 int readals(char* file);

@@ -1,20 +1,10 @@
 
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readfaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
 
-//static int pri=0;
+#include "../myinc/macro.h"
 
-#include <map>
-template<typename Map>
-void print_map(Map& m)
-{
-   std::cout << '{';
-   for(auto& p: m)
-        std::cout << p.first << ':' << p.second << ' ';
-   std::cout << "}\n";
-}
-static  std::map<string, int> seqmap;
+
 static vector<int> chrs;
+static  string myname;
 
 int readals(char* file);
 
@@ -55,13 +45,26 @@ int main(int argc, char *argv[])
     myname.erase(0, pos + delimiter.length());
   }
  
-  fp = gzopen(argv[1],"r");
-  readseqs(1);
+  //read&write
+  int isfq=fasttype(argv[1]);
+  int err=0;
+  int saveinfo=1;
+  int readseq=1;
+  if(!isfq){
+    err=readfasta(argv[1],saveinfo,"",readseq);
+  }else{
+    err=readfastq(argv[1],saveinfo,"",readseq);
+  }
+  if(err){
+    cout << " Sorry, something went wrong..." << endl;
+    return 1;
+  }
+
+  //readseqs(1);
   for(int i=0; i<rname.size(); i++){
     string name=rname[i];
     seqmap[name] = i;
   }
-  gzclose(argv[1]);
 
   if(select){
     chrs.resize(rname.size(),0);

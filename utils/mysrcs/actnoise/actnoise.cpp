@@ -1,10 +1,55 @@
-#include "macro.h"
+#include "../myinc/macro.h"
 
 //const int maxals=10000;
 static int noise=5000; //30K tried for devil //1000 for Mt
 static int minlength=5000; //30K tried for devil // some noise has many als, but all concentrated in a small ref region
 static int newblock=100000;
 static  float minid=80;  // min id 
+
+
+static int longestchr=0;
+static int nchr=0;
+static int nctg=0;
+static string myname1;
+
+static vector<string> majchr(nctg,""); // major chr al per each ctg
+static vector<int> goodctg(nctg,0); // major chr per each ctg
+static vector<int> longestmin(nctg,0);
+static vector< vector<int> > gblocks(nctg, vector<int>(1,-1));   
+static vector< vector<int> > gindex(nctg, vector<int>(1,-1));   
+
+static  vector<int> okblock;
+static  vector<int> minblock; 
+static  vector<int> maxblock; 
+static  vector<int> alblock;
+static  vector<int> majorc;    
+
+struct MYALS
+{
+  vector<string> ctg, chr;
+  vector<int> ctgi, ctgf, chri,chrf,len;
+  vector<string> more1,more2,more3,more4,more5;
+  vector<int> block;
+}als;
+static vector<MYALS>  myals;
+static MYALS empty(string ctg);
+static MYALS fillall(string ctg);
+static MYALS fillals(vector<string> str, vector<int> in, MYALS thisals);
+struct MYCTGS
+{
+  string name;
+  int position;
+  int good;
+  string major;
+  int chrpos;
+
+  bool operator() (MYCTGS i,  MYCTGS j) { 
+    return( (i.chrpos < j.chrpos) || 
+            (i.chrpos == j.chrpos && i.position < j.position )  
+            ); 
+  }
+}ctgs;
+static vector<MYCTGS>  mycontigs;
 
 
 int readals(char* file);

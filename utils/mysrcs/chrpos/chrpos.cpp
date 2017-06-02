@@ -1,21 +1,8 @@
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readnwritefaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
+#include "../myinc/macro.h"
 
 static  vector<int> seqpos;
 static  vector<int> refpos;
 
-#include <map>
-template<typename Map>
-void print_map(Map& m)
-{
-   std::cout << '{';
-   for(auto& p: m)
-        std::cout << p.first << ':' << p.second << ' ';
-   std::cout << "}\n";
-}
- 
-static  std::map<string, int> refmap;
-static  std::map<string, int> seqmap;
 static  std::ofstream myals;
 
 

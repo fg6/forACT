@@ -4,7 +4,7 @@
 CC=g++
 SOURCES= grabeachchr.cpp 
 
-INCLUDES = -I/nfs/users/nfs_f/fg6/software/GZSTREAM/gzstream 
+INCLUDES = 
 LIBS =  
 
 CFLAGS= -c  $(INCLUDES) 

@@ -1,16 +1,5 @@
-//#include "readfastaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
-//#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readnwritefaq.h"
 #include "lowmem.h"
-#include <tuple> // C++11, for std::tie
 
-#include <numeric> // accumulate
-#include <zlib.h>
-#include <stdio.h>
-
-#include <iostream>
-//#include <numeric> // accumulate
-#include <fstream>
 
 int calc(void);
 

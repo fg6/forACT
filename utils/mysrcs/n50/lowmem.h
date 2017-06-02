@@ -2,7 +2,12 @@
 #include <algorithm>    // sort, reverse
 #include <gzstream.h>
 #include <vector>  //setprecision
-
+#include <tuple> // C++11, for std::tie
+#include <numeric> // accumulate
+#include <zlib.h>
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
 
 using std::cout;
 using std::endl;

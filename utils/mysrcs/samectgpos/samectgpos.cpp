@@ -1,28 +1,13 @@
 
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/readfaq.h"
-#include "/nfs/users/nfs_f/fg6/ana/cpp/myinclude/macro.h"
-
-#include <numeric>  // for accumulate
-#include <iterator>     // std::iterator, std::input_iterator_tag
-
+#include "../myinc/macro.h"
 
 static  vector<int> seqpos;
 static  vector<string> seqname;
 
-static int pri=0;
 static  std::ofstream myals;
+static  string myname;
 static  string myname1;
 
-#include <map>
-template<typename Map>
-void print_map(Map& m)
-{
-   std::cout << '{';
-   for(auto& p: m)
-        std::cout << p.first << ':' << p.second << ' ';
-   std::cout << "}\n";
-}
-static  std::map<string, int> seqmap;
 
 int readals(char* file);
 
@@ -63,8 +48,12 @@ int main(int argc, char *argv[])
   myname= "ctgpos_"+ myname;
    
   //draft assembly
+  int isfq=fasttype(argv[1]);
+  int saveinfo=1;
   fp = gzopen(argv[1],"r");
-  readseqs();
+  if(!isfq){
+    readfasta(argv[1],saveinfo);
+  }
   for(int i=0; i<rname.size(); i++){
     string name=rname[i];
     string names=rname[i];
