@@ -12,6 +12,6 @@ cd $fastadir
 
 if [ ! -f "$dir/$outname" ]; then
     #echo Reverting complement scaffolds ...
-    ~/ana/cpp/revertcompl/revertcompl $notshred $alfile
+    $srcdir/revertcompl/revertcompl $notshred $alfile
 fi
 

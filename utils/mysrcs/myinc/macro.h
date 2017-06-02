@@ -45,6 +45,35 @@ static vector<string> seqctgs;
 
 
 
+// ---------------------------------------- //
+string comple(string seq)
+// ---------------------------------------- //
+{
+  // return string complement
+
+  string myalph = "ACGTN";
+  string cseq;
+
+  if(0)cout << " string: " << seq.size() << endl;
+  reverse(seq.begin(),seq.end());
+
+  for (int i=0; i<seq.size(); i++){
+    if(seq[i] == myalph[0] )
+      cseq.insert(i,"T");
+    else if (seq[i] == myalph[1] )
+      cseq.insert(i,"G");
+    else if (seq[i] == myalph[2] )
+      cseq.insert(i,"C");
+    else if (seq[i] == myalph[3] )
+      cseq.insert(i,"A");
+    else if (seq[i] == myalph[4] )
+      cseq.insert(i,"N");
+  }
+  if(0)cout << " comple: " << cseq << endl;
+  return cseq;
+}
+
+
 std::pair<string, string>  getname(string str){
   size_t ns=0;
   size_t nt=0;
