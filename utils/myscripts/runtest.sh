@@ -13,7 +13,7 @@ file=ftp://ftp.sanger.ac.uk/pub/users/fg6/forACT_testdata.tar.gz
 if [[ ! -d forACT_testdata ]]; then
     if [[ ! -f forACT_testdata.tar.gz ]]; then
 	if [[ `wget -S --spider $file 2>&1  | grep exists` ]]; then
-	    wget -nv -c $file 
+	    wget -nv -c $file &> /dev/null 
 	    if [[ "$?" != 0 ]]; then echo " Error while downloading the test data. Exiting now"; rm forACT_testdata.tar.gz; exit; fi
 	else
 	    echo " Error: could not find the test data. Exiting now"; exit; 
@@ -21,12 +21,13 @@ if [[ ! -d forACT_testdata ]]; then
     fi
     tar -xzf forACT_testdata.tar.gz
     if [[ "$?" != 0 ]]; then echo " Error during un-compressing test data. Exiting now"; exit; 
-    #else
-	#rm forACT_testdata.tar.gz
+    else
+	rm forACT_testdata.tar.gz
     fi
 fi
 echo " 1. Data downloaded "
 
+exit
 ### setup project
 cd $myforACT/
 ./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT > /dev/null
