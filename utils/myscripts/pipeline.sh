@@ -1,22 +1,25 @@
 #!/bin/bash
 set -o errexit
 
+thisdir=`pwd`
+source $thisdir/mysettings.sh
+
+
 whattodo=$1
 debug=0
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles"
-    echo "     align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
+    echo "     command: command to be run. Options: align, prepfiles, debug"
+    echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
-    echo "     prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
+    echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
     echo "                Draft contigs are ordered according to the position of their major alignment."
-
+    echo "      * debug: [not functional yet] check if there are problems and get suggestions on how to fix them"
+    echo; echo  "  Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"; echo
     exit
 fi
 
 
-thisdir=`pwd`
-source $thisdir/mysettings.sh
 mkdir -p $dir
 cd $dir
 
@@ -53,4 +56,13 @@ if [ $whattodo == "prepfiles" ]; then
 
     $runprep 
 #$folder $ref $notshred $scriptdir 2>&1 #| tee -a $oprep
+fi
+
+
+
+if [ $whattodo == "debug" ]; then
+  ###################################################
+  echo; echo " Looking for possible issues... "
+  ###################################################
+  #$thisdir/utils/myscripts/debug.sh $myforACT
 fi

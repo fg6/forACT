@@ -14,8 +14,8 @@ fi
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "  command: command to be run. Options: install, setup, test, run, debug"
-    echo "  "
+    echo "  command: command to be run. Options: install, setup, test"
+    echo "   Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"
     echo "  "
 
     exit
@@ -43,7 +43,7 @@ if [ $whattodo == "setup" ]; then
       exit
   fi
   myref=$2
-  notshred=$3   # change to draft?
+  notshred=$3   
   dir=$4
   $thisdir/utils/myscripts/setup.sh  $myforACT $myref $notshred $dir
 fi
@@ -54,18 +54,4 @@ if [ $whattodo == "test" ]; then
   echo; echo " Testing with E.coli data"
   ###################################################
   $thisdir/utils/myscripts/runtest.sh  $myforACT
-fi
-
-if [ $whattodo == "debug" ]; then
-  ###################################################
-  echo; echo " Looking for possible issues... "
-  ###################################################
-  #$thisdir/utils/myscripts/debug.sh $myforACT
-fi
-
-if [ $whattodo == "run" ]; then
-  ###################################################
-  echo; echo " Running your project ..."
-  ###################################################
-  #$thisdir/utils/myscripts/pipeline.sh $myforACT
 fi
