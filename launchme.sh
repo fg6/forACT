@@ -53,7 +53,7 @@ if [ $whattodo == "test" ]; then
   ###################################################
   echo; echo " Testing with E.coli data"
   ###################################################
-  #$thisdir/utils/myscripts/test.sh
+  $thisdir/utils/myscripts/runtest.sh  $myforACT
 fi
 
 if [ $whattodo == "debug" ]; then

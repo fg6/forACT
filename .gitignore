@@ -27,4 +27,7 @@ utils/mysrcs/mylibs/gzstream/test_gzip.C
 utils/mysrcs/mylibs/gzstream/test_gzip.o
 utils/mysrcs/mylibs/gzstream/version
 
-
+test_ecoli
+test_ecoli/forACT	
+test_ecoli/forACT_testdata  
+test_ecoli/forACT_testdata.tar.gz
