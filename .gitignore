@@ -1,3 +1,11 @@
 
 utils/oldpipe.sh
-
+utils/mysrcs/actnoise/actnoise
+utils/mysrcs/chrpos/chrpos
+utils/mysrcs/grabeachchr/grabeachchr
+utils/mysrcs/n50/n50
+utils/mysrcs/samectgpos/samectgpos
+utils/mysrcs/splitinfastas/splitinfastas
+utils/mysrcs/splitreads/splitreads
+utils/mysrcs/writeselctg/writeselctg
+utils/mysrcs/mylibs/
