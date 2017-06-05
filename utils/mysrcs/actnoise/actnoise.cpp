@@ -64,8 +64,9 @@ int main(int argc, char *argv[])
   pri=0;
 
   if(noise==0) newblock=longestchr;
-  if (argc == 1) {
-   fprintf(stderr, "Usage: %s <reads.fq/fa>  <reads.fq/fa>   <alignment> \n", argv[0]); 
+
+  if (argc < 4) {
+   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level>\n", argv[0]); 
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -90,9 +91,13 @@ int main(int argc, char *argv[])
   string reffile = argv[1];
   string seqfile = argv[2];
   string alfile = argv[3];
+  if (argc == 5)  noise= to_int(argv[4]);
+  minlength=noise;
 
-  string myname=myrename(seqfile,"nonoise");
-  myname1=myrename(alfile,"nonoise");
+  string newname="nonoise"+ to_string(noise)+"_";
+  string myname=myrename(seqfile,newname);
+  myname1=myrename(alfile,newname);
+
   //reference: find longest chr
   int err=0;
   int saveinfo=1;

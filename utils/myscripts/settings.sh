@@ -1,3 +1,16 @@
+#### Parameters to set: ####
+
+# the draft assembly contigs/scaffolds are shred in pieces of how many base-pairs? default=10000 bp
+shred=10000
+# alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
+noise=30000
+# Use lfs jobs:
+lfsjobs=1
+
+########################
+
+
+
 myforACT=MYFORACT
 fullpathref=MYREF
 notshred=MYDRAFT
@@ -9,7 +22,6 @@ runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
 
 wdir=whole
-shred=10000
 
 folder=$wdir\_$shred
 refdir=$dir/ref
@@ -37,6 +49,6 @@ forwshred=$fastadir/shred$shred\_$forwnotshred
 forwal=$aldir/$secal.al
 finalal=third.al
 
-foractfa=$finaldir/foract.fasta
-foractal=$finaldir/foract.al
+foractfa=$finaldir/foract$noise.fasta
+foractal=$finaldir/foract$noise.al
 

@@ -17,8 +17,7 @@ fi
 
 thisdir=`pwd`
 scriptdir=$myforACT/utils/myscripts
-# shred in:
-shred=10000
+
 mkdir -p $dir
 
 sub1="s#MYFORACT#$myforACT#g"
@@ -31,3 +30,4 @@ cp  $myforACT/utils/myscripts/pipeline.sh $dir/mypipeline.sh
 chmod +x $dir/*.sh
 
 echo; echo  " Your new project is set in folder: " $dir;
+echo " Modify relevant paramters in " $dir/mysettings.sh
