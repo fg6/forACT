@@ -16,13 +16,15 @@ mkdir -p $alsplitdir
 cd $alsplitdir
 ii=0
 temponame=split$ii\_$outname
+subqueue="s#MYQUEUE#$myqueue#g"
 
 if [ ! -f $alsplitdir/$temponame.out ]; then	    
     for fa in $fastasplit/*; do
 	temponame=split$ii\_$outname
 	
 	if [ ! -f $temponame.out ]; then	    
-	    cp $scriptdir/gensplital.sh gensplital.sh
+	
+	    sed $subqueue $scriptdir/gensplital.sh > gensplital.sh
 	    command=`echo "smalt  map -f ssaha -m 100 -n 15 -O " $refdir/smalt_hash $fa "> $temponame.out"`
 	    echo $command > runalign_$ii.sh
 	    njobs=`bjobs | wc -l`

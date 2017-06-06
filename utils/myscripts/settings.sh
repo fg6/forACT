@@ -6,6 +6,7 @@ shred=10000
 noise=30000
 # Use lfs jobs:
 lfsjobs=1
+myqueue=small
 
 ########################
 

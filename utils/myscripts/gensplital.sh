@@ -3,7 +3,7 @@
 # farm settings
 ncpus=10 
 nmem=2000 
-queue=small
+queue=MYQUEUE
 
 odir=.
 mybin=$odir/$1
