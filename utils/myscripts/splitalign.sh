@@ -25,6 +25,7 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 	if [ ! -f $temponame.out ]; then	    
 	
 	    sed $subqueue $scriptdir/gensplital.sh > gensplital.sh
+	    chmod +x gensplital.sh
 	    command=`echo "smalt  map -f ssaha -m 100 -n 15 -O " $refdir/smalt_hash $fa "> $temponame.out"`
 	    echo $command > runalign_$ii.sh
 	    njobs=`bjobs | wc -l`
@@ -41,14 +42,15 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 fi
 
 
-njobs=`bjobs | grep lign | wc -l`
+njobs=`bjobs | grep "ign_" | wc -l`
 if [[ $njobs > 0 ]]; then
     while [ $njobs -ge 1 ]; do
 	sleep 60
-	njobs=`bjobs | grep lign | wc -l`
+	njobs=`bjobs | grep "ign_" | wc -l`
     done
     sleep 10
 fi
+sleep 600
 
 t1=`ls $alsplitdir/runalign_* | wc -l`
 t2=`grep Success $alsplitdir/outs/out.* | wc -l`

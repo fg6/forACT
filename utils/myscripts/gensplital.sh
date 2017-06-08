@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # farm settings
-ncpus=10 
+ncpus=15 
 nmem=2000 
 queue=MYQUEUE
 
