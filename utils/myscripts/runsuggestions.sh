@@ -18,7 +18,9 @@ echo "                                 If you are comparing genomes with low ide
 
 
 echo; echo " ###### OTHER PARAMETERS #######"
-
+echo "   * noise: Noise level to cut out. IN PROGRESS"
+echo "   * shred: before mapping each contig is shred in chunks, the parameter \"shred\" define the lengths of the chunks."
+echo "            Default is 10Kb, can reduce to 1 or 2 kb for smaller genomes, or to look at more detailed mapping. Reducing this parameter will increase the number of lsf jobs."
 
 
 echo;echo
