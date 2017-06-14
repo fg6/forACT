@@ -16,7 +16,7 @@ fi
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "  command: command to be run. Options: install, test, setup, report, suggestions"
+    echo "  command: command to be run. Options: install, test, setup, report, suggestions, check"
     echo "   Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"
     echo "  "
 

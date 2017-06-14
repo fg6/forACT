@@ -58,7 +58,17 @@ if [ $whattodo == "prepfiles" ]; then
 #$folder $ref $notshred $scriptdir 2>&1 #| tee -a $oprep
 fi
 
+if [ $whattodo == "report" ]; then
+    #######################################################
+    ##################  CREATE REPORT  ###################
+    #######################################################
+    cd $dir
+    ok=0
+    
+    $runreport	
 
+
+fi
 
 if [ $whattodo == "debug" ]; then
   ###################################################
