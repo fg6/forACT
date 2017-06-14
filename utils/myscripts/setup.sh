@@ -27,6 +27,7 @@ sub4="s#MYDESTDIR#$dir#g"
 
 sed $sub1 $myforACT/utils/myscripts/settings.sh | sed $sub2 | sed $sub3 | sed $sub4 > $dir/mysettings.sh
 cp  $myforACT/utils/myscripts/pipeline.sh $dir/mypipeline.sh
+echo $0 $1 $2 $3 $4 > $dir/setupas.txt
 chmod +x $dir/*.sh
 
 echo; echo  " Your new project is set in folder: " $dir;

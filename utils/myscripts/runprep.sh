@@ -39,7 +39,7 @@ file=$workdir/foractnonoise$noise\_$finalal;  location1="Four"
 if  [ ! -f $file ]; then
     #echo Resetting positioning scheme according to ACT ...
     cd $workdir 
-    $srcdir/chrpos/chrpos $refdir/$ref $workdir/nonoise$noise\_selctg_$forwnotshred $workdir/nonoise$finalal
+    $srcdir/chrpos/chrpos $refdir/$ref $workdir/nonoise$noise\_selctg_$forwnotshred $workdir/nonoise$noise\_$finalal
 fi
 echo " 3. Alignment positions reset according to ACT scheme"
 

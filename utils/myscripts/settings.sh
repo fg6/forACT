@@ -4,10 +4,13 @@
 shred=10000
 # alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
 noise=30000
-# Use lfs jobs:
-lfsjobs=1
-myqueue=small
 
+# lfs jobs parameters:
+lfsjobs=1  # lfsjobs=0 not implemented yet
+myqueue=normal
+myjobmem=5000
+myncpus=15
+maxjobs=5  #maximum number of jobs to run at a time
 ########################
 
 

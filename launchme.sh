@@ -12,6 +12,8 @@ else
     myforACT=$launchdir
 fi
 
+
+
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
     echo "  command: command to be run. Options: install, setup, test"
@@ -26,7 +28,7 @@ if [ $whattodo == "install" ]; then
   ###################################################
   echo; echo " Installing forACT ..."
   ###################################################
-  source $thisdir/utils/install.sh  $myforACT
+  source $myforACT/utils/install.sh  $myforACT
 fi
 
 
@@ -45,7 +47,7 @@ if [ $whattodo == "setup" ]; then
   myref=$2
   notshred=$3   
   dir=$4
-  $thisdir/utils/myscripts/setup.sh  $myforACT $myref $notshred $dir
+  $myforACT/utils/myscripts/setup.sh  $myforACT $myref $notshred $dir
 fi
 
 
@@ -53,5 +55,5 @@ if [ $whattodo == "test" ]; then
   ###################################################
   echo; echo " Testing with E.coli data"
   ###################################################
-  $thisdir/utils/myscripts/runtest.sh  $myforACT
+  $myforACT/utils/myscripts/runtest.sh  $myforACT
 fi

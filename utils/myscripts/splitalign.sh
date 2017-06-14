@@ -7,7 +7,7 @@ source $thisdir/mysettings.sh
 fastasplit=$1
 outname=$2
 alsplitdir=$aldir/split_$outname
-maxjobs=5
+
 
 mkdir -p $aldir
 cd $aldir
@@ -17,6 +17,10 @@ cd $alsplitdir
 ii=0
 temponame=split$ii\_$outname
 subqueue="s#MYQUEUE#$myqueue#g"
+submem="s#MYJOBMEM#$myjobmem#g"
+subcpu="s#MYCPUS#$myncpus#g"
+
+
 
 if [ ! -f $alsplitdir/$temponame.out ]; then	    
     for fa in $fastasplit/*; do
@@ -24,7 +28,7 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 	
 	if [ ! -f $temponame.out ]; then	    
 	
-	    sed $subqueue $scriptdir/gensplital.sh > gensplital.sh
+	    sed $subqueue $scriptdir/gensplital.sh | sed $submem | sed $subcpu > gensplital.sh
 	    chmod +x gensplital.sh
 	    command=`echo "smalt  map -f ssaha -m 100 -n 15 -O " $refdir/smalt_hash $fa "> $temponame.out"`
 	    echo $command > runalign_$ii.sh

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # farm settings
-ncpus=15 
-nmem=2000 
+ncpus=MYCPUS
+nmem=MYJOBMEM 
 queue=MYQUEUE
 
 odir=.
