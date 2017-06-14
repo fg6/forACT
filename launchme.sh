@@ -16,7 +16,7 @@ fi
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "  command: command to be run. Options: install, setup, test"
+    echo "  command: command to be run. Options: install, test, setup, report, suggestions"
     echo "   Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"
     echo "  "
 
@@ -57,3 +57,13 @@ if [ $whattodo == "test" ]; then
   ###################################################
   $myforACT/utils/myscripts/runtest.sh  $myforACT
 fi
+
+
+
+if [ $whattodo == "suggestions" ]; then
+  ###################################################
+  #echo  Writing some suggestions for parameters  
+  ###################################################
+  $myforACT/utils/myscripts/runsuggestions.sh  
+fi
+
