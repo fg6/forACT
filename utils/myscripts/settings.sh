@@ -24,6 +24,7 @@ scriptdir=MYFORACT/utils/myscripts
 srcdir=MYFORACT//utils/mysrcs
 runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
+runreport=$scriptdir/runreport.sh
 
 wdir=whole
 
