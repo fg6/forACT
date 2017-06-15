@@ -426,3 +426,19 @@ inline int to_float (const T2& t)
   float rr=ii*100.;
   return rr;
 }
+
+
+
+
+template<class Iterator>
+Iterator Unique(Iterator first, Iterator last) 
+{ // eliminate repetitive elements from sorted vector
+  while (first != last)
+    {
+      Iterator next(first);
+      last = std::remove(++next, last, *first);
+      first = next;
+    }
+  return last;
+}
+
