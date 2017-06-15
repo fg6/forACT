@@ -45,7 +45,7 @@ else
     fi
 
     check=`ls $refdir | wc -l`
-    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + numchr.dat
+    shouldbe=$(($chrnum+4)) # chrs + ref.fasta + refinfo.dat + hash
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
