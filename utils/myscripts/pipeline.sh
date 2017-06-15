@@ -9,7 +9,7 @@ whattodo=$1
 debug=0
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles, debug"
+    echo "     command: command to be run. Options: align, prepfiles, debug,check"
     echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
     echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
@@ -76,3 +76,15 @@ if [ $whattodo == "debug" ]; then
   ###################################################
   #$thisdir/utils/myscripts/debug.sh $myforACT
 fi
+
+
+
+if [ $whattodo == "check" ]; then
+  ###################################################
+  echo; echo " Looking for possible issues... "
+  ###################################################
+  $myforACT/utils/myscripts/runcheck.sh 
+fi
+
+
+
