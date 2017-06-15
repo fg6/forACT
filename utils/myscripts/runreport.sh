@@ -7,18 +7,14 @@ alsfile=$workdir/nonoise$noise\_$thirdal.al
 debug=$1
 
 
-mkdir -p  $outdir
-cd $outdir
+mkdir -p  $outdir/report
+cd $outdir/report
 
 ######## create a report of info ############
-### myn50 info from $refdir/myn50.dat 
 ### variations? > inversions
 ### contigs that join more chr/contig  (misassemblies if one assembly is the reference)
 
-## note: read the alignments after noise cut but before changing positions for act, so to report position in each contig or chr
-
-
-###### Assembly reports #####
+#################################### Assembly reports ###################################
 file1=$refdir/myn50.dat
 refsize=`head -1 $file1 | awk '{print $2}' | awk '{ printf("%'"'"'d\n",$1); }' `
 nrefsize=`head -1 $file1 | awk '{print $2}'`
@@ -38,17 +34,16 @@ echo "*****************************************"
 echo " Reference info:" 
 echo "   Size =" $refsize "bases"
 echo "   Number of chrs =" $refchrs
-echo "   N50 =" $refn50
+echo "   N50 =" $refn50 "bases"
 echo "   Longest chr =" $reflong "bases"
 echo; echo " Draft assembly info:" 
 echo "   Size =" $drsize "bases"
-echo "   Number of chrs =" $drchrs
-echo "   N50 =" $drn50
+echo "   Number of ctgs =" $drchrs
+echo "   N50 =" $drn50 "bases"
 echo "   Longest chr =" $drlong "bases"
 echo; 
 
-
-########## Mapping report ###########
+############################## Mapping report ###############################
 file3=$fastadir/myn50_shred.dat
 if [[ ! -f $file3 ]]; then $srcdir/n50/n50 $fastadir/$shreddraft > $file3; fi
 chunknum=`head -1 $file3 | awk '{print $4}'| awk '{ printf("%'"'"'d\n",$1); }'`
@@ -61,7 +56,6 @@ read avgid refcov <<< $(python $scriptdir/avgid.py $alsfile)
 rcov=`echo $refcov | awk '{ printf("%'"'"'d\n",$1); }'`
 ratio=`echo $refcov*1./$nrefsize`
 percov=`awk "BEGIN {printf \"%.2f\", $refcov*100./$nrefsize}"`
-
 echo "**********************************************************************"
 echo "**** Mapping report for Draft ctgs shred in chunks of" $shred "bases ****"
 echo "**********************************************************************"
@@ -73,14 +67,20 @@ echo " Final global average identity:" $avgid"%"
 # write avg identy per each contig in a file: how to evaluate if there are chunks?
 echo " Reference coverage:" $percov\%   "  ("$rcov "bases)"
 
+
+
+####################### Variations report ##########################
+## writing misfinder.cpp code for this
 echo; 
 echo "*****************************************"
 echo "*********** Variation report ***********"
 echo "*****************************************"
-echo " Number of variations:" 
-echo " Number of inversions:"
-echo " Number of contigs that connects to more than 1 Reference contigs:"
-### contigs that join more chr/contig  (misassemblies if one assembly is the reference) in a file
+$srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_selctg_$forwnotshred $alsfile 
+#echo " Number of variations:" 
+#echo " Number of inversions:"
+#echo " Number of contigs that connects to more than 1 Reference contigs:"
+echo; echo " Detailed ctg report summary in $outdir/report/ctg_report.txt"
+echo " Detailed misassembly report summary in $outdir/report/misassembly_report.txt"
 
 
 echo;echo
