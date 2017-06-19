@@ -26,7 +26,7 @@ if [ ! -d $refdir ]; then
        if [[ $debug == 1 ]]; then
 	   $thiscom 
        else
-	   $thiscom &> /dev/null
+	   echo $thiscom &> /dev/null
        fi
    fi
 fi
@@ -45,7 +45,7 @@ else
     fi
 
     check=`ls $refdir | wc -l`
-    shouldbe=$(($chrnum+4)) # chrs + ref.fasta + refinfo.dat + hash
+    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
@@ -55,7 +55,7 @@ echo " 1. Reference ready"
 echo
 
 
-#######################################################
+######################################################
 ########## FIRST ALIGNMENT: SHRED AND ALIGN  ##########
 #######################################################
 
