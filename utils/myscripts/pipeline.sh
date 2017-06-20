@@ -65,7 +65,7 @@ if [ $whattodo == "report" ]; then
     cd $dir
     ok=0
     
-    $runreport	
+    $runreport | tee report.txt	
 
 
 fi

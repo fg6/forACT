@@ -3,7 +3,7 @@ set -o errexit
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-alsfile=$workdir/nonoise$noise\_$thirdal.al
+alsfile=$workdir/nonoise$noise\_minid$minid\_$thirdal.al
 debug=$1
 
 
@@ -58,6 +58,7 @@ ratio=`echo $refcov*1./$nrefsize`
 percov=`awk "BEGIN {printf \"%.2f\", $refcov*100./$nrefsize}"`
 echo "**********************************************************************"
 echo "**** Mapping report for Draft ctgs shred in chunks of" $shred "bases ****"
+echo "***********  isolated noise <" $noise " and min-id =" $minid "**************"
 echo "**********************************************************************"
 echo " Total number of mapped chunks:" $chunknum
 echo " Initial number of chunks mapped:" $inimapped
@@ -75,7 +76,7 @@ echo;
 echo "*****************************************"
 echo "*********** Variation report ***********"
 echo "*****************************************"
-$srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_selctg_$forwnotshred $alsfile 
+$srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred $alsfile 
 #echo " Number of variations:" 
 #echo " Number of inversions:"
 #echo " Number of contigs that connects to more than 1 Reference contigs:"

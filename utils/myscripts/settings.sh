@@ -4,6 +4,7 @@
 shred=10000
 # alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
 noise=30000
+minid=80
 
 # lfs jobs parameters:
 lfsjobs=1  # lfsjobs=0 not implemented yet

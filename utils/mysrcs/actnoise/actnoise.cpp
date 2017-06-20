@@ -91,10 +91,14 @@ int main(int argc, char *argv[])
   string reffile = argv[1];
   string seqfile = argv[2];
   string alfile = argv[3];
-  if (argc == 5)  noise= to_int(argv[4]);
+  if (argc >= 5)  noise= to_int(argv[4]);
   minlength=noise;
+  int tempid=0;
+  if (argc == 6)  tempid= to_int(argv[5]);
+  minid=tempid*1.;
 
-  string newname="nonoise"+ to_string(noise)+"_";
+ 
+  string newname="nonoise"+ to_string(noise)+"_minid"+to_string(minid)+"_";
   string myname=myrename(seqfile,newname);
   myname1=myrename(alfile,newname);
 

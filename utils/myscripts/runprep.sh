@@ -17,11 +17,11 @@ err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi
 echo " 1. Draft assembly including only mapped contigs ready"
 
-file1=$workdir/nonoise$noise\_selctg_$forwnotshred;  location1="Two" 
-file2=$workdir/nonoise$noise\_$finalal;  location2="Three" 
+file1=$workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred;  location1="Two" 
+file2=$workdir/nonoise$noise\_minid$minid\_$finalal;  location2="Three" 
 if [ ! -f $file1 ] ||  [ ! -f $file2 ]; then 
     cd $workdir 
-    $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise
+    $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise $minid
 fi
 
 cd $dir
@@ -35,17 +35,17 @@ if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi
 echo " 2. Contigs ordered by mapping appearance and noise alignments cut"
 
 
-file=$workdir/foractnonoise$noise\_$finalal;  location1="Four" 
+file=$workdir/foractnonoise$noise\_minid$minid\_$finalal;  location1="Four" 
 if  [ ! -f $file ]; then
     #echo Resetting positioning scheme according to ACT ...
     cd $workdir 
-    $srcdir/chrpos/chrpos $refdir/$ref $workdir/nonoise$noise\_selctg_$forwnotshred $workdir/nonoise$noise\_$finalal
+    $srcdir/chrpos/chrpos $refdir/$ref $workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred $workdir/nonoise$noise\_minid$minid\_$finalal
 fi
 echo " 3. Alignment positions reset according to ACT scheme"
 
 
-thisfasta=$workdir/nonoise$noise\_selctg_$forwnotshred
-thisal=$workdir/foractnonoise$noise\_$finalal
+thisfasta=$workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred
+thisal=$workdir/foractnonoise$noise\_minid$minid\_$finalal
 
 
 ####################################
