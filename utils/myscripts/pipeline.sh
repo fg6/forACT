@@ -65,7 +65,7 @@ if [ $whattodo == "report" ]; then
     cd $dir
     ok=0
     
-    $runreport | tee report.txt	
+    $runreport | tee report_noise$noise\_minid$minid_.txt	
 
 
 fi

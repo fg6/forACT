@@ -180,8 +180,6 @@ int main(int argc, char *argv[])
   rlen.clear();
   gzclose(argv[2]);
   myfile.close();
-  cout << " all done " << endl;
-
 
   return 0;
 }
