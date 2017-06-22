@@ -9,12 +9,13 @@ whattodo=$1
 debug=0
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles, debug,check"
+    echo "     command: command to be run. Options: align, prepfiles, check, report"
     echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
     echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
     echo "                Draft contigs are ordered according to the position of their major alignment."
-    echo "      * debug: [not functional yet] check if there are problems and get suggestions on how to fix them"
+    echo "      * check: check if pipeline ran smoothly"
+    echo "      * report: write a report for the draft, reference assemblies and their mapping" 
     echo; echo  "  Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"; echo
     exit
 fi
