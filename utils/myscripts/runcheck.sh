@@ -20,39 +20,40 @@ if (( $jobs_first < 1 )); then
 fi
 
 if (( $jobs_first != $jobs_second )); then
-    echo Error: Number of jobs are different in first and second alignment! $jobs_first  $jobs_second
+    echo " " Error: Number of jobs are different in first and second alignment! $jobs_first  $jobs_second
     err=$(($err+1))
 else
-    echo Good: same number of jobs in first and second alignment $jobs_first  $jobs_second
+    echo " " Good: same number of jobs in first and second alignment $jobs_first  $jobs_second
 fi
 
+if [[ $lfsjobs == 1 ]]; then
+	sum_jobals_first=`ls $aldir/split_$firstal/outs/out.* | wc -l | awk '{print $1}'`
+	sum_jobals_second=`ls $aldir/split_$secal/outs/out.* | wc -l | awk '{print $1}'`
+	if (( $sum_jobals_first != $sum_jobals_second )); then
+    	echo " " Error: Number of output are different in first and second alignment! $sum_jobals_first $sum_jobals_second
+    	err=$(($err+1))
+	else
+	    echo " " Good: same number of output in first and second alignment  $sum_jobals_first $sum_jobals_second
+	fi
 
-sum_jobals_first=`ls $aldir/split_$firstal/outs/out.* | wc -l | awk '{print $1}'`
-sum_jobals_second=`ls $aldir/split_$secal/outs/out.* | wc -l | awk '{print $1}'`
-if (( $sum_jobals_first != $sum_jobals_second )); then
-    echo Error: Number of output are different in first and second alignment! $sum_jobals_first $sum_jobals_second
-    err=$(($err+1))
-else
-    echo Good: same number of output in first and second alignment  $sum_jobals_first $sum_jobals_second
+	success_first=`grep Success $aldir/split_$firstal/outs/out.* | wc -l | awk '{print $1}'`
+	success_second=`grep Success $aldir/split_$secal/outs/out.* | wc -l | awk '{print $1}'`
+
+	if (( $success_first != $jobs_first )); then
+	    echo " " Error: Number of Successes in first alignment is wrong! $success_first instead of $jobs_first
+	    err=$(($err+1))
+	else
+	    echo  " " Good: All jobs were Succesful in first alignment $success_first, $jobs_first
+	fi
+
+	if (( $success_second != $jobs_second )); then
+	    echo " " Error: Number of Successes in second alignment is wrong! $success_second instead of $jobs_second
+	    err=$(($err+1))
+	else
+	    echo  " " Good: All jobs were Succesful in second alignment  $success_second, $jobs_second
+	fi
 fi
 
-
-success_first=`grep Success $aldir/split_$firstal/outs/out.* | wc -l | awk '{print $1}'`
-success_second=`grep Success $aldir/split_$secal/outs/out.* | wc -l | awk '{print $1}'`
-
-if (( $success_first != $jobs_first )); then
-    echo Error: Number of Successes in first alignment is wrong! $success_first instead of $jobs_first
-    err=$(($err+1))
-else
-    echo  Good: All jobs were Succesful in first alignment $success_first, $jobs_first
-fi
-
-if (( $success_second != $jobs_second )); then
-    echo Error: Number of Successes in second alignment is wrong! $success_second instead of $jobs_second
-    err=$(($err+1))
-else
-    echo  Good: All jobs were Succesful in second alignment  $success_second, $jobs_second
-fi
 
 als_sum_jobs_first=`wc -l $aldir/split_$firstal/*out | tail -1 | awk '{print $1}'`
 als_sum_jobs_second=`wc -l $aldir/split_$secal/*out | tail -1 | awk '{print $1}'`
@@ -63,36 +64,36 @@ global_third=`wc -l $workdir/$thirdal.al| awk '{print $1}'`
 
 
 if (( $als_sum_jobs_first != $global_first )); then
-    echo Error: Number of alignments in first alignment is wrong! sum_single_jobs=$als_sum_jobs_first global=$global_first
+    echo " " Error: Number of alignments in first alignment is wrong! sum_single_jobs=$als_sum_jobs_first global=$global_first
     err=$(($err+1))
 else
-    echo  Good:  Number of alignments in first alignment: sum_single_jobs=$als_sum_jobs_first global=$global_first
+    echo  " " Good:  Number of alignments in first alignment: sum_single_jobs=$als_sum_jobs_first global=$global_first
 fi
 if (( $als_sum_jobs_second != $global_second )); then
-    echo Error: Number of alignments in second alignment is wrong! sum_single_jobs=$als_sum_jobs_second global=$global_second
+    echo " " Error: Number of alignments in second alignment is wrong! sum_single_jobs=$als_sum_jobs_second global=$global_second
     err=$(($err+1))
 else
-    echo  Good:  Number of alignments in second alignment: sum_single_jobs=$als_sum_jobs_second global=$global_second
+    echo  " " Good:  Number of alignments in second alignment: sum_single_jobs=$als_sum_jobs_second global=$global_second
 fi
 
 if (( $global_second != $global_first )); then
-    echo Error: Number of alignments in first alignment different from second: $global_second != $global_first
+    echo " " Error: Number of alignments in first alignment different from second: $global_second != $global_first
     err=$(($err+1))
 else
-    echo  Good:  Same number of alignments in first and second alignments:  $global_second, $global_first
+    echo  " " Good:  Same number of alignments in first and second alignments:  $global_second, $global_first
 fi
 
 if (( $global_second != $global_third )); then
-    echo Error: Number of alignments in second alignment different from third: $global_second != $global_third
+    echo " " Error: Number of alignments in second alignment different from third: $global_second != $global_third
     err=$(($err+1))
 else
-    echo  Good:  Same number of alignments in third and second alignments:  $global_second, $global_third
+    echo  " " Good:  Same number of alignments in third and second alignments:  $global_second, $global_third
 fi
 
 
 echo; 
 if (( $err > 0 )); then
-    echo "   Some errors occurred!"
+    echo " Some errors occurred!"
 else
-    echo "   Everything looks ok!"
+    echo " Everything looks ok!"
 fi
