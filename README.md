@@ -10,6 +10,7 @@ Download repository and install utilities/compile tools:
 	$ ./launchme.sh test
 
 Get information about parameters and settings:
+
 	$ ./launchme.sh suggestions
 	
 ### Run the pipeline for a project: 
@@ -24,7 +25,7 @@ Get information about parameters and settings:
 	$ ./mypipeline.sh align
 	$ ./mypipeline.sh prepfiles
 
-#### Step 3: check if everything ran smoothly and with no errors (only if running lfs jobs):
+#### Step 3: check if everything ran smoothly and with no errors:
         
 	$ ./mypipeline.sh check 
 
