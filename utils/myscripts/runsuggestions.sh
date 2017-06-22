@@ -15,12 +15,17 @@ echo "               Large genomes can potentially be split in hundreds of jobs,
 echo "    * myqueue, myjobmem, myncpus should generally work, but you might want to change them if your lsf jobs crash."
 echo "                                 f.i. increase the myjobmem if the lsf jobs crashed because the jobs exceeded the requested memory."
 echo "                                 If you are comparing genomes with low identity (f.i. different species) the jobs will require longer time and memory"
-
+echo " Alternatively, for very small genomes, the pipeline can run locally changing the parameter":
+echo "    * lfsjobs = 0"
 
 echo; echo " ###### OTHER PARAMETERS #######"
-echo "   * noise: Noise level to cut out. IN PROGRESS"
-echo "   * shred: before mapping each contig is shred in chunks, the parameter \"shred\" define the lengths of the chunks."
-echo "            Default is 10Kb, can reduce to 1 or 2 kb for smaller genomes, or to look at more detailed mapping. Reducing this parameter will increase the number of lsf jobs."
-
+echo " Noise level to cut out. The pipeline cut out isolated alignments < 30K bases. This value can be changed by varying the parameter:"
+echo "   * noise"
+echo " Minimum identity: the pipeline will cut out all alignments with identity < 80%. Change this value by varying the parameter:"
+echo "   * minid"
+echo " Each draft-assembly contig is shred in chunks before mapping against the reference. By default, these chunks are 10 K bases long. Change this value by varying the parameter:"
+echo "   * shred"
+echo "     Reduce to 1 or 2 kb for smaller genomes, or to look at more detailed mapping. Reducing this parameter will increase the number of lsf jobs."
+echo "     The "shred" size corresponds to the red-band size visible in ACT"
 
 echo;echo

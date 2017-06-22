@@ -3,7 +3,7 @@ set -o errexit
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=$1
+debug=0
 
 
 mkdir -p  $outdir
@@ -26,7 +26,7 @@ if [ ! -d $refdir ]; then
        if [[ $debug == 1 ]]; then
 	   $thiscom 
        else
-	   echo $thiscom &> /dev/null
+	   $thiscom #&> /dev/null
        fi
    fi
 fi
@@ -45,7 +45,9 @@ else
     fi
 
     check=`ls $refdir | wc -l`
+    echo $chrnum $check
     shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma
+#    shouldbe=$(($chrnum+4))
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit

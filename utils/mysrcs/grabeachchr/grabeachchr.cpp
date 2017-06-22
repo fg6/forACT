@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   if(ns!=std::string::npos) { 
     myname=myname.substr(ns+1,myname.size());
   }
-  
+
 
   int isfq=fasttype(argv[1]);
   if(otype=="fastq" && isfq) otype="same";
@@ -78,9 +78,9 @@ int main(int argc, char *argv[])
   for(int i=0; i<rname.size(); i++){
     string seq = rseq[i];
     string name = rname[i];
-     
+   
     string thisname= name + "_"+ myname;
-    
+   
     if(chrs[i]){
       myfile.open(thisname.c_str());
       myfile <<  out[0] << name << endl << seq <<endl;

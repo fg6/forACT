@@ -57,19 +57,20 @@ static  std::vector<std::string> allchrs;
 
 
 // new
-static std::map<string, std::pair<int,int> > mchrmapped;    // one el per chr: 0 or 1 if it is not (0) or is (1) mapped  READY
+static std::map<string, std::pair<int,int> > mchrmapped;    // one el per chr: 0 or 1 if it is not (0) or is (1) mapped READY
 static std::map<string, std::pair<int,int> > mctgmapped;    // one el per ctg: 0 or 1 if it is not (0) or is (1) mapped READY
 
-static std::map<string, vector<std::tuple<string,int,int,float>> > mctgs; // one ele per ctg: a vector of chrs mapped to the ctg
+static std::map<string, vector<std::tuple<string,int,int,float>> > mctgs; // one ele per ctg: a vector of chrs mapped to the ctg READY
 static std::map<string, vector<std::tuple<string,int,int,float>>> mchrs;  // one ele per chr: a vector of ctgs mapped to the ctg
 
 
-static std::vector<std::pair<string,int> > fastachrs;  //vector of chr names READY
-static std::vector<std::pair<string,int> > fastactgs;  // vector of ctg names READY
+static std::vector<std::pair<string,int> > fastachrs;  //vector of chr names, length READY
+static std::vector<std::pair<string,int> > fastactgs;  // vector of ctg names, length  READY
 static  vector<string> unmappedchrs;  //vector of unmapped chrs READY
 static std::ofstream misfile;
 static int nmisctg=0;
 static int nmis=0;
+static long int  refsize=0;
 static  vector<string> misassembledctgs;  //vector of unmapped chrs READY
 
 
@@ -127,9 +128,11 @@ int main(int argc, char **argv)
     cout << " Sorry, something went wrong..." << endl;
     return 1;
   }
+  
   for(int c=0; c<rname.size(); c++){
     mchrmapped[rname[c]] = std::make_pair(rlen[c],0);
     fastachrs.push_back(std::make_pair(rname[c],rlen[c]));
+    refsize+=rlen[c];
   }
   rname.clear();
   rlen.clear();
@@ -146,6 +149,7 @@ int main(int argc, char **argv)
   }
   rname.clear();
   rlen.clear();
+
 
   //cout << " Found " << fastachrs.size() << " chromosomes and " << fastactgs.size() << " contigs " << endl;
 
@@ -186,7 +190,7 @@ int readals(char* file){
   int nn=-1;
   int newctg=0;
   int nmappedctgs=1; // not counting nn=0 so adding it here
-
+  long int refcov=0;
 
   std::vector<nALIGNMENTS> ctgals;
 
@@ -203,6 +207,10 @@ int readals(char* file){
     if(0) cout <<  ctg << "\t" <<  chr << "\t" << id << "\t" <<  albases  <<  "\t" 
 	       <<  ctgi << "\t" <<  ctgf << "\t" <<  chri << "\t" <<  chrf << endl;
     
+
+    refcov+=std::abs(chrf-chri);
+
+
     //this chr is mapped, add in mchrmapped
     if(!mchrmapped.count(chr))cout << " Error chr missing in map! " << chr << endl;
     std::get<1>(mchrmapped[chr])=1;
@@ -230,7 +238,7 @@ int readals(char* file){
     else newctg=0;
     
     
-    if(newctg) {
+    if(newctg || infile.eof()){
       nmappedctgs++;
       CheckOneCtg(ctgals);
 
@@ -243,11 +251,15 @@ int readals(char* file){
       // keep filling vectors
       ctgals.push_back(thisal);
     }
-    
+   
     thisal = nALIGNMENTS(); // re-initialize thisal
     prevctg=ctg;  
-  }// end loop 
 
+  }// end loop 
+  //atch last contig
+  nmappedctgs++;
+  CheckOneCtg(ctgals);
+ 
   myfile.close();   
   misfile.close();   
 
@@ -259,6 +271,10 @@ int readals(char* file){
 
   cout << " Found " << nn << " alignments, " 
        << nmappedctgs << " contigs, and " << nmappedchrs << " chromosomes " 
+       << endl;
+  cout << std::fixed << std::setprecision(1) 
+       << " Reference coverage: " <<  refcov*100./refsize << "%"
+       << " (" << refcov << " bases)"
        << endl;
 
   //for(int cc=0; cc<unmappedchrs.size(); cc++)
@@ -276,6 +292,9 @@ int CheckOneCtg(std::vector<nALIGNMENTS> ctgals)
   std::map<string, std::tuple<int,int,float,int> > mappedtochr; 
   vector<std::tuple<string,int,int,float> > thisctglinks;
 
+
+  // add per each covered chr: min_pos, max_pos, are there holes in coverage? 
+  //                           min_ctg_pos, max_ctg_pos, are there unmapped region of ctg?
 
   std::for_each(ctgals.begin(),ctgals.end(), [&] (nALIGNMENTS const& a) {
       int naligned=std::abs(a.ctgf-a.ctgi);
@@ -301,8 +320,8 @@ int CheckOneCtg(std::vector<nALIGNMENTS> ctgals)
     tsum+=std::get<0>(p.second);  //length aligned
     usum+=std::get<1>(p.second);  // unmapped
     string chrname=p.first;
-    int g0=std::get<0>(p.second);
-    int g1=std::get<1>(p.second);
+    int g0=std::get<0>(p.second);//length aligned
+    int g1=std::get<1>(p.second); // unmapped
 
     float g2=std::get<2>(p.second);
     int g3=std::get<3>(p.second);

@@ -66,7 +66,7 @@ echo " Unmapped chunks:" $unmapped
 echo " Final number of chunks mapped (after noise/quality selection):" $finalmapped
 echo " Final global average identity:" $avgid"%"
 # write avg identy per each contig in a file: how to evaluate if there are chunks?
-echo " Reference coverage:" $percov\%   "  ("$rcov "bases)"
+#echo " Reference coverage:" $percov\%   "  ("$rcov "bases)"
 
 
 
