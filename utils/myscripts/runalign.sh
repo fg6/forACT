@@ -26,7 +26,7 @@ if [ ! -d $refdir ]; then
        if [[ $debug == 1 ]]; then
 	   $thiscom 
        else
-	   $thiscom #&> /dev/null
+	   $thiscom &> /dev/null
        fi
    fi
 fi
@@ -46,8 +46,8 @@ else
 
     check=`ls $refdir | wc -l`
     echo $chrnum $check
-    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma
-#    shouldbe=$(($chrnum+4))
+    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
+
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit

@@ -41,7 +41,7 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 			njobs=`bjobs | wc -l`
 	    	done	   	    
 	    	./gensplital.sh  runalign_$ii.sh
-	    	sleep 10
+	    	#sleep 10
             else
 		chmod +x ./runalign_$ii.sh
 		./runalign_$ii.sh
@@ -53,11 +53,11 @@ fi
 
 if [[ $lfsjobs == 1 ]]; then
 
-	njobs=`bjobs | grep "ign_" | wc -l`
+	njobs=`bjobs | grep "split" | wc -l`
 	if [[ $njobs > 0 ]]; then
 	   while [ $njobs -ge 1 ]; do
 		sleep 60
-		njobs=`bjobs | grep "ign_" | wc -l`
+		njobs=`bjobs | grep "split" | wc -l`
     	    done
     	    sleep 10
 	fi
