@@ -4,6 +4,8 @@ set -o errexit
 thisdir=`pwd`
 source $thisdir/mysettings.sh
 alsfile=$workdir/nonoise$noise\_minid$minid\_$thirdal.al
+# old case alsfile=$workdir/nonoise$noise\_$thirdal.al
+
 debug=$1
 
 
@@ -77,6 +79,8 @@ echo "*****************************************"
 echo "*********** Variation report ***********"
 echo "*****************************************"
 $srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred $alsfile 
+# old $srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_selctg_$forwnotshred $alsfile
+
 #echo " Number of variations:" 
 #echo " Number of inversions:"
 #echo " Number of contigs that connects to more than 1 Reference contigs:"
