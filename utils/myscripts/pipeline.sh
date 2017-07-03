@@ -19,7 +19,7 @@ if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo "      * act:  launch act for the latest forACT launched"
     echo "      * act_compare folder_to_compare_to:  launch act for the latest forACT launched and compare with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
     echo "      * act_select chr:  launch act for the latest forACT launched for chromosome/ctg chr"
-    echo "      * act_select_compare folder_to_compare_to chr:  launch act for chromosome/ctg chr for the latest forACT launched compared with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
+    echo "      * act_select_compare chr folder_to_compare_to:  launch act for chromosome/ctg chr for the latest forACT launched compared with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
 
     echo; echo  "  Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"; echo
     exit
@@ -120,9 +120,8 @@ fi
 
 if [ $whattodo == "act_select_compare" ]; then
   ###################################################
-  echo; echo " Launching act... "
   ###################################################
-  $myforACT/utils/myscripts/runact_select.sh 2 $2 $3
+  $myforACT/utils/myscripts/runact_select.sh 2 $2 $3 $4 $5 $6 $7
 fi
 
 
