@@ -152,6 +152,8 @@ int main(int argc, char *argv[])
   readals(argv[3]);
   if(no)cout << " als read " << endl;
 
+
+  //return(0);
   //Cut noise and align:
   orderals();
   if(no)cout << " als filtered " << endl;
@@ -201,7 +203,10 @@ int readals(char* file){
   }
 
   vector<vector<int> > totals(nctg,vector<int>(nchr,0));
-  while(getline(infile,line)){
+  int ccount=0;
+  int tt1=0;
+  int tt2=0;
+  while(getline(infile,line)){  // loop on alignments
     std::stringstream ss(line);
     int ctgi, ctgf, chri,chrf;
     vector<string> str(7);
@@ -210,31 +215,53 @@ int readals(char* file){
     ss >> str[0] >> str[1]  >> str[2]  >> str[3]   >> str[4]  >> str[5]  
        >> pos[0] >> pos[1] >> pos[2] >> pos[3] >> str[6] >> pos[4];
     
+        
     ctg=str[0];
     chr=str[1];
     
+    if(ctg=="fAnaTes1_67" || prevctg=="fAnaTes1_67") pri=0;
+    else pri=0;
+
+    if(0) cout <<  str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
+		 << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << endl;
+    if(pri) tt1++;
+
     // Remove alignment with ID < min-ID
     float id=to_float(str[2])*1./100;
     if(id<minid) {
       continue;
     }
     
+    if(0) cout <<  "   after cut " << str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
+		 << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << endl;
+    if(pri) tt2++;
+
     if(str[0] == prevctg || alnum==0){ // First alignment or same ctg
       thisals=fillals(str,pos,thisals);
       totals[seqmap[ctg]][refmap[chr]]+=(abs(pos[1]-pos[0])); //keep track of how much aligned bases per each chr
+    if(pri)ccount++;
+
+    }else{ // New ctg
       
-    }else{ // New alignment
-     
       //Saving info on prev ctg:
       myals[seqmap[prevctg]]=thisals;
+      
+      if(pri && prevctg!="fAnaTes1_66" && prevctg!="fAnaTes1_10" )
+	cout << "  inside loop " << prevctg << " als: " 
+	     << myals[seqmap[prevctg]].ctg.size() << " " << ccount<< " " 
+	     << "  new ctg is " << ctg << endl;
+
       // Find to which chr there are more bases aligned ? should this be done after cutting noise??
       vector<int>::iterator max=max_element(totals[seqmap[prevctg]].begin(),totals[seqmap[prevctg]].end());
       int imax= *max_element(totals[seqmap[prevctg]].begin(),totals[seqmap[prevctg]].end());
       int ii = std::distance( totals[seqmap[prevctg]].begin(), std::find(totals[seqmap[prevctg]].begin(), totals[seqmap[prevctg]].end(), imax ) );
       majchr[seqmap[prevctg]]=refchrs[ii];
-      if(pri) cout << prevctg <<  " Major al against " << majchr[seqmap[prevctg]] ;
+      if(0) cout << prevctg <<  " Major al against " << majchr[seqmap[prevctg]] << " numb als " << alnum << endl ;
 
       thisals=MYALS();
+      if(myals[seqmap[ctg]].chr[0]!=""){  // if this ctg has already some alignments in myals, add to them (accounts for als file not ordered by ctg name)
+	thisals=myals[seqmap[ctg]];
+      }
       thisals=fillals(str,pos,thisals);
       totals[seqmap[ctg]][refmap[chr]]+=(abs(pos[1]-pos[0])); //???
     }
@@ -242,15 +269,24 @@ int readals(char* file){
     prevctg=str[0];
     alnum++;
   } // end reading al file loop
+
   // catch last alignment:
   myals[seqmap[prevctg]]=thisals;
+
   // Find to which chr there are more bases aligned ? should this be done after cutting noise??
   vector<int>::iterator max=max_element(totals[seqmap[prevctg]].begin(),totals[seqmap[prevctg]].end());
   int imax= *max_element(totals[seqmap[prevctg]].begin(),totals[seqmap[prevctg]].end());
   int ii = std::distance( totals[seqmap[prevctg]].begin(), std::find(totals[seqmap[prevctg]].begin(), totals[seqmap[prevctg]].end(), imax ) );
   majchr[seqmap[prevctg]]=refchrs[ii];
-  //  if(pri)cout << " " << prevctg <<  " Major al against " << <<endl << endl;
+  if(0)cout << " " << prevctg <<  " Major al against " <<majchr[seqmap[prevctg]]  << " numb als " << alnum << endl << endl;
   
+
+
+  if(pri)cout << " final numbers: " << tt1 << " " << tt2 << endl;
+  if(pri)cout << prevctg << " als: " << myals[seqmap["fAnaTes1_67"]].ctg.size() << " " << ccount<< endl;
+  
+
+  pri=0;
   return 0;
 }
 
@@ -271,11 +307,13 @@ int orderals()
      ctg=myals[ictg].ctg[0];
 
      //if(ctg == "fAnaTes1_5" || ctg == "fAnaTes1_32") 
-     if(ctg == "fAnaTes1_122") 
+     if(ctg == "fAnaTes1_67") 
        thispri=0;
      else 
        thispri=0;
      
+     //if(ctg=="fAnaTes1_67" && chr=="seabass_18") pri=1;
+    
 
      int previ=-1;
      int prevctgi=-1;
@@ -305,16 +343,23 @@ int orderals()
 	  });    
      
 
-     if(thispri) cout << endl << "Contig " << ctg << endl;
+     if(thispri) cout << endl << " Contig " << ctg << " als: " << myals[ictg].ctg.size() << endl;
      
      int countgb=0;  // count good blocks for this ctg
      int countmchr=0;  // count good block in the major chr for this ctg
      gindex[ictg].resize(myals[ictg].ctg.size());
      int maj=0;
+     
      for (int j=0; j<myals[ictg].ctg.size(); j++) // loop over als for this ctg
        {
 	 int i=std::get<2>(myindex[j]);
 	
+
+	 /*if(ctg == "fAnaTes1_67" && block < 80 && myals[ictg].chr[i]=="seabass_18") 
+	   thispri=1;
+	 else 
+	 thispri=0;*/
+
 	 // these to use no sorted chr list:
 	 //i=j;
 	 //previn=i-1;
@@ -326,6 +371,12 @@ int orderals()
 	 int thisctgi=myals[ictg].ctgi[i];
 	 int thisctgf=myals[ictg].ctgf[i];      
 	 string thischr=myals[ictg].chr[i];
+
+	 if(0) cout << " is same block? " <<  i << " "<< previ<< " "
+			  <<thisi<< " "<< prevctgi<< " "<<thisctgi 
+			  << " calc: " <<  abs(previ-thisi) << " "<< abs(prevctgi-thisctgi) 
+			  << " "<< newblock << " "
+			  << checknewblock(previ,thisi, prevctgi,thisctgi) << endl;
 
 	 if( (previ==-1 && prevf==-1) ||  // first al 
 	     (thischr == prevchr 
@@ -340,10 +391,10 @@ int orderals()
 	   if(previ==-1 && prevf==-1){ // check if major only at the beginning
 	       if(myals[ictg].chr[i] == majchr[ictg]){ //major al
 		 maj=1;
-		 if(thispri) cout << " major chr " << endl;
+		 //if(thispri) cout << " major chr " << endl;
 	       }else{
 		 maj=0;
-		 if(thispri) cout << " NOT major chr " << endl;
+		 //if(thispri) cout << " NOT major chr " << endl;
 	       }
 	     }
 
@@ -378,14 +429,17 @@ int orderals()
 
 
 	   if(thispri){
-	     if(good)cout << "  Block  " << block  << " is good: als=";
-	     else cout << "  Block  " << block  << " is bad : als=";
+	     if(good)cout << "  Block  " << block  << " is good: ";
+	     else cout << "  Block  " << block  << " is bad: ";
+	     if(maj==1) cout << " this is Major chr,   als=";
+	     else  cout << " this is NOT Major chr,   als=";
 	     cout << alperblock << " for chr " << prevchr <<" " << okblock[block] 
 		  << " min is " << (*min_element(tempmin.begin(),tempmin.end()))
 		  << " max is " << (*max_element(tempmax.begin(),tempmax.end()))
 		  << " lenght is " << blocklength
-		  <<  endl;
-	     cout << "   alblock size " <<  alblock.size() << endl;
+	       //<<  endl;
+	       //cout  
+		  << "      alblock size " <<  alblock.size() << endl;
 	   }
 	   
 	   //reset 
@@ -401,10 +455,10 @@ int orderals()
 	   myals[ictg].block[i]=block; // belongs to block #block
 	   if(myals[ictg].chr[i] == majchr[ictg]){ //major al
 	     maj=1;
-	     if(thispri) cout << " major chr " << endl;
+	     //if(thispri) cout << " major chr " << endl;
 	   }else{
 	     maj=0;
-	     if(thispri) cout << " NOT major chr " << endl;
+	     // if(thispri) cout << " NOT major chr " << endl;
 	   }
 
 
