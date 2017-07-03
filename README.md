@@ -40,7 +40,8 @@ If Step 1 and 2 gave no errors, then launch ACT:
 
 	$ ./mypipeline.sh act  
 To view this project compared to another assembly:
-	$ ./mypipeline.sh act_compare full/path/to/folder/forACT/other/assembly  
+
+	$ ./mypipeline.sh act_compare full/path/to/folder/other_assembly_forACT
 Please note this only works if for the other assembly forACT has been run with the same reference and
 same shred/noise/minid parameters
 
@@ -49,12 +50,15 @@ same shred/noise/minid parameters
 ACT cannot handle genome size > 2.1 GB, for genome of this size run instead single chromosome
 at a time in ACT:
 List possible chromosomes to view:
+
 	$ ./mypipeline.sh act_select list
 View up to 5 chromosomes:
+
 	$ ./mypipeline.sh act_select chr1 chr2 ...
 	
 To view this project compared to another assembly (up to 5 chromosomes):
-	$ ./mypipeline.sh act_select_compare full/path/to/folder/forACT/other/assembly  chr1 chr2 ...
+
+	$ ./mypipeline.sh act_select_compare full/path/to/folder/other_assembly_forACT  chr1 chr2 ...
 Please note this only works if for the other assembly forACT has been run with the same reference and
 same shred/noise/minid parameters	
 
