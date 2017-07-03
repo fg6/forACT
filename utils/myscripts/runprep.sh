@@ -19,6 +19,8 @@ echo " 1. Draft assembly including only mapped contigs ready"
 
 file1=$workdir/nonoise$noise\_minid$minid\_selctg_$forwnotshred;  location1="Two" 
 file2=$workdir/nonoise$noise\_minid$minid\_$finalal;  location2="Three" 
+
+#echo $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise $minid
 if [ ! -f $file1 ] ||  [ ! -f $file2 ]; then 
     cd $workdir 
     $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise $minid
@@ -66,7 +68,9 @@ if [ ! -f $file1 ] || [ ! -f $file2 ]; then
 else
     echo; echo All done! 
     echo; echo  Launch act this way:
-    echo; echo  $scriptdir/launch_act.sh $refdir/$ref  $foractal  $foractfa  \&; echo
+    echo; echo  ./mypipeline.sh act 
+    echo " or to select a single chromosome to visualize:"
+    echo " ./mypipeline.sh act_select chr"
 fi
 
 
