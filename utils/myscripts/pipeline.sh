@@ -9,13 +9,18 @@ whattodo=$1
 debug=0
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles, check, report"
+    echo "     command: command to be run. Options: align, prepfiles, check, report, act, act_compare, act_select, act_select_compare"
     echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
     echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
     echo "                Draft contigs are ordered according to the position of their major alignment."
     echo "      * check: check if pipeline ran smoothly"
     echo "      * report: write a report for the draft, reference assemblies and their mapping" 
+    echo "      * act:  launch act for the latest forACT launched"
+    echo "      * act_compare folder_to_compare_to:  launch act for the latest forACT launched and compare with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
+    echo "      * act_select chr:  launch act for the latest forACT launched for chromosome/ctg chr"
+    echo "      * act_select_compare folder_to_compare_to chr:  launch act for chromosome/ctg chr for the latest forACT launched compared with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
+
     echo; echo  "  Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"; echo
     exit
 fi
@@ -86,6 +91,40 @@ if [ $whattodo == "check" ]; then
   ###################################################
   $myforACT/utils/myscripts/runcheck.sh 
 fi
+
+if [ $whattodo == "act" ]; then
+  ###################################################
+  echo; echo " Launching act... "
+  ###################################################
+  $myforACT/utils/myscripts/runact.sh 1
+fi
+
+if [ $whattodo == "act_compare" ]; then
+  ###################################################
+  echo; echo " Launching act... "
+  ###################################################
+  if [ $# -lt 2 ]; then
+        echo "  Error: Please provide the full path to the forACT-folder for the draft you want to compare to "
+        exit
+  fi
+  echo " Please notice that this will work only if the comparison is done between two forACTs with same noise cut "
+
+  $myforACT/utils/myscripts/runact.sh 2 $2
+fi
+
+if [ $whattodo == "act_select" ]; then
+  ###################################################
+  ###################################################
+  $myforACT/utils/myscripts/runact_select.sh 1 $2
+fi
+
+if [ $whattodo == "act_select_compare" ]; then
+  ###################################################
+  echo; echo " Launching act... "
+  ###################################################
+  $myforACT/utils/myscripts/runact_select.sh 2 $2 $3
+fi
+
 
 
 
