@@ -126,7 +126,7 @@ echo Top Alignment file: $oneals
 echo Bottom Draft Assembly: $thisfasta
 echo Bottom Alignment file: $thisals
 
-#/software/hpag/Artemis/act $onefasta $oneals $thisref $thisals $thisfasta & 
+/software/hpag/Artemis/act $onefasta $oneals $thisref $thisals $thisfasta & 
 
 
    
