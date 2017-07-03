@@ -66,7 +66,7 @@ create_multichr () {
     hereals=nonoise$noise\_minid$minid\_tempal
     thisref=$chr_folder/ref$chrlist.fasta   #$refdir/$chr\_*   
 
-    if [[ ! -f $thisfasta ]] ||  [[ ! -f $thisals ]]; then 
+    if [[ ! -f $thisfasta ]] ||  [[ ! -f $thisals ]]  || [[ ! -f $thisref ]]; then 
 	rm -rf temp
 	mkdir temp
 	cd temp
@@ -77,9 +77,9 @@ create_multichr () {
 	    cat $refdir/$chr\_*  >> $thisref
 	done
 
-	echo Reordering contigs and cutting noise ...         
+	echo "  "Reordering contigs and cutting noise ...         
 	$srcdir/actnoise/actnoise $thisref $globfasta tempal $noise $minid
-	echo Resetting positioning scheme according to ACT ...
+	echo "  "Resetting positioning scheme according to ACT ...
 	$srcdir/chrpos/chrpos $thisref $herefasta $hereals
 	mv foract$hereals  $thisals
 	mv $herefasta $thisfasta
@@ -126,7 +126,7 @@ echo Top Alignment file: $oneals
 echo Bottom Draft Assembly: $thisfasta
 echo Bottom Alignment file: $thisals
 
-/software/hpag/Artemis/act $onefasta $oneals $thisref $thisals $thisfasta & 
+#/software/hpag/Artemis/act $onefasta $oneals $thisref $thisals $thisfasta & 
 
 
    
