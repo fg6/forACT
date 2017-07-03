@@ -55,6 +55,9 @@ forwshred=$fastadir/shred$shred\_$forwnotshred
 forwal=$aldir/$secal.al
 finalal=third.al
 
-foractfa=$finaldir/foract$noise.fasta
-foractal=$finaldir/foract$noise.al
+foractfa=$finaldir/foract$noise\_minid$minid.fasta
+foractal=$finaldir/foract$noise\_minid$minid.al
+
+
+
 
