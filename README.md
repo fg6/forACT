@@ -23,27 +23,40 @@ Get information about parameters and settings:
 
 	$ cd /full/path/to/destdir
 	$ ./mypipeline.sh align
-	$ ./mypipeline.sh prepfiles
-
-#### Step 3: check if everything ran smoothly and with no errors:
-        
+	Check if alignment ran smoothly and with no errors:
 	$ ./mypipeline.sh check 
-
-If everything run smoothly the newly created files will be in /full/path/to/destdir/whole_10000/unique/ folder.
 	
-#### Step 4: Launch ACT
-If Step 2 and 3 gave no errors, then launch ACT:
+	If everything run smoothly then prepare the files for ACT: 
+	$ ./mypipeline.sh prepfiles
+	If no errors, the newly created files will be in /full/path/to/destdir/whole_10000/unique/ folder.
 
-	$ /full/path/to/your/forACT/utils/myscripts/launch_act.sh /full/path/to/destdir/ref/ref.fasta /full/path/to/destdir//whole_10000/unique/foract.al /full/path/to/destdir/whole_10000/unique/foract.fasta
-
-#### Step 5: write a report of the assemblies and alignments:
+#### Step 3: write a report of the assemblies and alignments, and possible misassemblies/re-arrengements:
 
 	$ ./mypipeline.sh report
+	
+#### Step 4: Launch ACT
+If Step 1 and 2 gave no errors, then launch ACT:
+	$ ./mypipeline.sh act  
+	To view this project compared to another assembly:
+	$ ./mypipeline.sh act_compare full/path/to/folder/forACT/other/assembly  
+Please note this only works if for the other assembly forACT has been run with the same reference and
+same shred/noise/minid parameters
 
+#### Step 5: Launch ACT for genome size > 2.1 GB
 *** Warning *** 
-
 ACT cannot handle genome size > 2.1 GB, for genome of this size run instead single chromosome
-at a time in ACT:  in progress
+at a time in ACT:
+	List possible chromosomes to view:
+	$ ./mypipeline.sh act_select list
+	View up to 5 chromosomes:
+	$ ./mypipeline.sh act_select chr1 chr2 ...
+	
+	To view this project compared to another assembly (up to 5 chromosomes):
+	$ ./mypipeline.sh act_select_compare full/path/to/folder/forACT/other/assembly  chr1 chr2 ...
+Please note this only works if for the other assembly forACT has been run with the same reference and
+same shred/noise/minid parameters	
+
+
 
 
 
