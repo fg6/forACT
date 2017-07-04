@@ -9,11 +9,25 @@ source $thisdir/mysettings.sh
 debug=0
 
 
+# check first if assembly sizes are not too big:
+file=$refdir/myn50.dat
+refsize=`head -1 $file | awk '{print $2}' `
+file=$fastadir/myn50.dat
+if [[ ! -f $file ]]; then $srcdir/n50/n50 $notshred > $file; fi
+draftsize=`head -1 $file | awk '{print $2}' `
+
+maxsize=2000000000  # ACT cannot handle assembly with size > 2.1 Gb
+if [[ $refsize -gt $maxsize ]] || [[ $draftsize -gt $maxsize ]]; then
+	echo $refsize, $draftsize, $maxsize
+	echo "  Error: your assembly is too large for ACT to handle. "
+	echo "         Please launch ACT on single chromosomes, or up to 5 chromosomes using:"
+	echo "         ./mypipeline.sh act_select chr1_name chr2_name ...."
+	echo
+fi
+
 
 if [[ $single == 1 ]]; then
 	$scriptdir/launch_act.sh $refdir/$ref  $foractal  $foractfa &
-	
-
 else
 
 	if [ $# -lt 2 ]; then
