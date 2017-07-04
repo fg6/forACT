@@ -3,7 +3,7 @@ Pipeline to prepare alignments between a Reference fasta and a draft assembly fo
 
 Main Pipeline:
 
-Step 1: align
+#### 1: align
 
 * Shreds draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
 * Maps the shredded draft assembly against Reference  (SMALT aligner)
@@ -11,7 +11,7 @@ Step 1: align
 * Shreds the forward draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
 * Maps the shredded forward draft assembly against Reference (SMALT aligner)
 
-Step 2: prepfiles
+#### 2: prepfiles
 * Filters out:
 
 	- alignments with identity < 80% (can vary minimum identity by changing parameter "minid")
