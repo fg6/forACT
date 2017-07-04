@@ -1,6 +1,24 @@
 # forACT
 Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
 
+Main Pipeline:
+
+Step 1: align
+
+* Shreds draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
+* Maps the shredded draft assembly against Reference  (SMALT aligner)
+* Checks orientation of each contig/scaffold with respect to Reference and change to complement the contigs/scaffolds for which majority of chunks are complements. This creates an equivalent draft assembly with only forward contigs/scaffolds
+* Shreds the forward draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
+* Maps the shredded forward draft assembly against Reference (SMALT aligner)
+
+Step 2: prepfiles
+* Filters out:
+
+	- alignments with identity < 80% (can vary minimum identity by changing parameter "minid")
+	- isolated alignments with < 30 K bases (can vary this limit by changing parameter "noise")
+* Re-order position of forward contigs/scaffolds to match each contig/scaffold alignment position in the Reference (when one contig/scaffold map to more than one place in the Reference, the major alignment is considered)
+* Re-define alignment positions according to ACT positioning scheme
+
 ## Instructions
 Download repository and install utilities/compile tools: 
 
