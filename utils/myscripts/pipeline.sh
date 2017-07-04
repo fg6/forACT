@@ -115,7 +115,7 @@ fi
 if [ $whattodo == "act_select" ]; then
   ###################################################
   ###################################################
-  $myforACT/utils/myscripts/runact_select.sh 1 $2
+  $myforACT/utils/myscripts/runact_select.sh 1 $2 $3 $4 $5 $6 $7
 fi
 
 if [ $whattodo == "act_select_compare" ]; then
