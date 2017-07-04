@@ -72,7 +72,8 @@ create_multichr () {
 	cd temp
 	rm -f tempal
 	rm -f $thisref
-	for chr in "${chrs[@]}"; do 
+	for chr in "${chrs[@]}"; do
+	    #echo grabbing $chr
 	    grep -P "\t"$chr"\t"   $globals  >> tempal
 	    cat $refdir/$chr\_*  >> $thisref
 	done
