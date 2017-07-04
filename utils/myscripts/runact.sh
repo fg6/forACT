@@ -18,13 +18,13 @@ draftsize=`head -1 $file | awk '{print $2}' `
 
 maxsize=2000000000  # ACT cannot handle assembly with size > 2.1 Gb
 if [[ $refsize -gt $maxsize ]] || [[ $draftsize -gt $maxsize ]]; then
-	echo $refsize, $draftsize, $maxsize
+#	echo $refsize, $draftsize, $maxsize
 	echo "  Error: your assembly is too large for ACT to handle. "
 	echo "         Please launch ACT on single chromosomes, or up to 5 chromosomes using:"
 	echo "         ./mypipeline.sh act_select chr1_name chr2_name ...."
 	echo
+	exit
 fi
-
 
 if [[ $single == 1 ]]; then
 	$scriptdir/launch_act.sh $refdir/$ref  $foractal  $foractfa &
