@@ -19,13 +19,16 @@ echo " Alternatively, for very small genomes, the pipeline can run locally chang
 echo "    * lfsjobs = 0"
 
 echo; echo " ###### OTHER PARAMETERS #######"
-echo " Noise level to cut out. The pipeline cut out isolated alignments < 30K bases. This value can be changed by varying the parameter:"
-echo "   * noise"
-echo " Minimum identity: the pipeline will cut out all alignments with identity < 80%. Change this value by varying the parameter:"
-echo "   * minid"
-echo " Each draft-assembly contig is shred in chunks before mapping against the reference. By default, these chunks are 10 K bases long. Change this value by varying the parameter:"
-echo "   * shred"
-echo "     Reduce to 1 or 2 kb for smaller genomes, or to look at more detailed mapping. Reducing this parameter will increase the number of lsf jobs."
-echo "     The "shred" size corresponds to the red-band size visible in ACT"
+echo; echo " * shred"
+echo "  Each draft-assembly contig is shred in chunks before mapping against the reference. By default, these chunks are 10 K bases long. Change this value by varying the parameter 'shred'"
+echo "  Reduce to 1 or 2 kb for smaller genomes, or to look at more detailed mapping. Reducing this parameter will increase the number of lsf jobs."
+echo "  The "shred" size corresponds to the red-band size visible in ACT"
+echo "  **** Warning!!  **** After changing 'shred' you NEED to run the pipeline from the beginning, so from the 'align' step"
+
+echo; echo " * noise"; echo "  Noise level to cut out. The pipeline cut out isolated alignments < 30K bases. This value can be changed by varying the parameter 'noise'"
+echo "  **** Warning!!  **** After changing 'noise' you DON'T NEED to rerun the whole pipeline, simply re-run the 'prepfiles' step" 
+
+echo; echo " * minid"; echo "  Minimum identity: the pipeline will cut out all alignments with identity < 80%. Change this value by varying the parameter 'minid'"
+echo "  **** Warning!!  **** After changing 'minid' you DON'T NEED to rerun the whole pipeline, simply re-run the 'prepfiles' step" 
 
 echo;echo
