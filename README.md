@@ -3,15 +3,11 @@ Pipeline to prepare alignments between a Reference fasta and a draft assembly fo
 
 Main Pipeline steps:
 
-#### mypipeline.sh align
-
 * Shreds draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
 * Maps the shredded draft assembly against Reference  (SMALT aligner)
 * Checks orientation of each contig/scaffold with respect to Reference and change to complement the contigs/scaffolds for which majority of chunks are complements. This creates an equivalent draft assembly with only forward contigs/scaffolds
 * Shreds the forward draft assembly contigs/scaffolds in 10K bases (can vary length of chunks by changing parameter "shred")
 * Maps the shredded forward draft assembly against Reference (SMALT aligner)
-
-#### mypipeline.sh prepfiles
 * Filters out:
 
 	- alignments with identity < 80% (can vary minimum identity by changing parameter "minid")
