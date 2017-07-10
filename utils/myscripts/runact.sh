@@ -36,12 +36,12 @@ else
 	fi
 
 	#top
-	alfile1=$dir/whole_$shred/unique/foract$noise\_minid$minid.al
-	afasta1=$dir/whole_$shred/unique/foract$noise\_minid$minid.fasta
+	alfile1=$dir/whole_$shred/unique/foract$name_fornoise\_minid$minid.al
+	afasta1=$dir/whole_$shred/unique/foract$name_fornoise\_minid$minid.fasta
 
 	#bottom
-	alfile2=$comp_to/whole_$shred/unique/foract$noise\_minid$minid.al
-	afasta2=$comp_to/whole_$shred/unique/foract$noise\_minid$minid.fasta
+	alfile2=$comp_to/whole_$shred/unique/foract$name_fornoise\_minid$minid.al
+	afasta2=$comp_to/whole_$shred/unique/foract$name_fornoise\_minid$minid.fasta
 
 
 	if [[ ! -f $alfile1 ]] || [[ ! -f $afasta1 ]]; then

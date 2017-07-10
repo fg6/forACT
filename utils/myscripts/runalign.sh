@@ -56,7 +56,6 @@ fi
 echo " 1. Reference ready"
 echo
 
-
 ######################################################
 ########## FIRST ALIGNMENT: SHRED AND ALIGN  ##########
 #######################################################
@@ -156,8 +155,14 @@ echo " 8. Second alignment done!"
 echo
 
 #######################################################
-###### FIX AL POSITIONS and CREATE SINGLE FASTAS  #####
+##################  FIX AL POSITIONS  #################
 #######################################################
+
+
+#######################################################
+################ CREATE SINGLE FASTAS  ################
+#######################################################
+cd $thisdir
 if [ ! -d $singlefolder ]; then
     $scriptdir/singlefasta.sh $fastadir/$forwnotshred  
 fi
@@ -168,6 +173,11 @@ else
     shouldbe=`$srcdir/n50/n50 $fastadir/$forwnotshred | awk '{print $4}'`
     if [ ! $check -eq $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $singlefolder; exit
+    fi
+    # contig sizes file
+    check=`wc -l $contigsizes | awk '{print $1}'`
+    if [ ! $check -eq $shouldbe ]; then 
+	echo; echo " Error! too many or too few contigs in" $contigsizes; exit
     fi
 fi
 echo " 9. Prepared draft contigs"

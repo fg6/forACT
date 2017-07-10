@@ -3,7 +3,7 @@
 # the draft assembly contigs/scaffolds are shred in pieces of how many base-pairs? default=10000 bp
 shred=10000
 # alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
-noise=30000
+noise=1   # 1 == 0.1% of contig   #30000
 minid=80
 
 # lfs jobs parameters:
@@ -54,9 +54,11 @@ singlefolder=$fastadir/$(basename $forwnotshred .fasta)_fastas
 forwshred=$fastadir/shred$shred\_$forwnotshred 
 forwal=$aldir/$secal.al
 finalal=third.al
+contigsizes=$fastadir/contig.sizes
 
-foractfa=$finaldir/foract$noise\_minid$minid.fasta
-foractal=$finaldir/foract$noise\_minid$minid.al
+name_fornoise=nonoise0.$noise
+foractfa=$finaldir/foract$name_fornoise\_minid$minid.fasta
+foractal=$finaldir/foract$name_fornoise\_minid$minid.al
 
 
 

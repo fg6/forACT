@@ -37,10 +37,10 @@ echo "  Selected chromosomes: " "${chrs[@]}"
 
 create_chr () {    
     # global file (for the whole assembly:
-    globals=$myfolder/whole_$shred/inter/nonoise$noise\_minid$minid\_$finalal
+    globals=$myfolder/whole_$shred/inter/$name_fornoise\_minid$minid\_$finalal
     globfasta=$myfolder/whole_$shred/inter/selctg_forw* #$forwnotshred  
-    herefasta=nonoise$noise\_minid$minid\_$(basename $globfasta)
-    hereals=nonoise$noise\_minid$minid\_tempal
+    herefasta=$name_fornoise\_minid$minid\_$(basename $globfasta)
+    hereals=$name_fornoise\_minid$minid\_tempal
 
     if [[ ! -f $thisfasta ]] ||  [[ ! -f $thisals ]]; then 
 	rm -rf temp
@@ -60,10 +60,10 @@ create_chr () {
 
 create_multichr () {    
     # global file (for the whole assembly:
-    globals=$myfolder/whole_$shred/inter/nonoise$noise\_minid$minid\_$finalal
+    globals=$myfolder/whole_$shred/inter/$name_fornoise\_minid$minid\_$finalal
     globfasta=$myfolder/whole_$shred/inter/selctg_forw* #$forwnotshred  
-    herefasta=nonoise$noise\_minid$minid\_$(basename $globfasta)
-    hereals=nonoise$noise\_minid$minid\_tempal
+    herefasta=$name_fornoise\_minid$minid\_$(basename $globfasta)
+    hereals=$name_fornoise\_minid$minid\_tempal
     thisref=$chr_folder/ref$chrlist.fasta   #$refdir/$chr\_*   
 
     if [[ ! -f $thisfasta ]] ||  [[ ! -f $thisals ]]  || [[ ! -f $thisref ]]; then 

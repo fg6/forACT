@@ -1,9 +1,12 @@
 #include "../myinc/macro.h"
 
 //const int maxals=10000;
-static int noise=5000; //30K tried for devil //1000 for Mt
-static int minlength=5000; //30K tried for devil // some noise has many als, but all concentrated in a small ref region
-static int newblock=100000;
+static float noise=10; //5000; //30K tried for devil //1000 for Mt
+static int minlength=5000; //30K tried for devil // some noise has many als, but all concentrated in a small ref region  
+                   // not used anymore
+static int minnoise=3000; // no used
+static int maxnoise=10000;  
+static int newblock=100000; 
 static  float minid=80;  // min id 
 
 
@@ -23,6 +26,8 @@ static  vector<int> minblock;
 static  vector<int> maxblock; 
 static  vector<int> alblock;
 static  vector<int> majorc;    
+
+static  std::map<string, int> ctgsizes;
 
 struct MYALS
 {
@@ -55,7 +60,7 @@ static vector<MYCTGS>  mycontigs;
 int readals(char* file);
 int orderals();
 int sortnwritectgs();
-std::pair<int,int> checkblock(int als, int maj);
+
 int checknewblock(int pchri, int nchri,int pctgi, int nctgi);
 
 int main(int argc, char *argv[])
@@ -66,7 +71,7 @@ int main(int argc, char *argv[])
   if(noise==0) newblock=longestchr;
 
   if (argc < 4) {
-   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level>\n", argv[0]); 
+   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[0]); 
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -86,17 +91,16 @@ int main(int argc, char *argv[])
   gzclose(argv[3]);
 
 
-
   // read reference and draft assembly
   string reffile = argv[1];
   string seqfile = argv[2];
   string alfile = argv[3];
-  if (argc >= 5)  noise= to_int(argv[4]);
-  minlength=noise;
+  if (argc >= 5)  noise= to_int(argv[4])*1./10;
+  //cout << noise << " " << argv[4] << endl;
+  minlength=maxnoise; // not used anymore, now using ctg length
   int tempid=0;
   if (argc == 6)  tempid= to_int(argv[5]);
   minid=tempid*1.;
-
  
   string newname="nonoise"+ to_string(noise)+"_minid"+to_string(minid)+"_";
   string myname=myrename(seqfile,newname);
@@ -135,6 +139,7 @@ int main(int argc, char *argv[])
   for(int i=0; i<rname.size(); i++){
     string name=rname[i];
     seqmap[name] = i;
+    ctgsizes[name] = rlen[i];
   }
   seqctgs=rname;
   nctg=rname.size();
@@ -147,6 +152,9 @@ int main(int argc, char *argv[])
   longestmin.resize(nctg,longestchr);
   gblocks.resize(nctg, vector<int>(1,-1));
   gindex.resize(nctg, vector<int>(1,-1));
+
+
+  // read contig 
 
   // Read alignments
   readals(argv[3]);
@@ -168,6 +176,7 @@ int main(int argc, char *argv[])
   // write new draft fasta with aligned and ordered ctgs 
   //get seqmap: order of ctgs in seq-fasta
   //write new seq-fasta
+  //cout << " now writing fasta " << myname << " " << seqctgs.size() << endl;
   myfile.open(myname.c_str());
   char fa[5]={">"};
   for(int c=0; c<seqctgs.size(); c++){
@@ -299,21 +308,24 @@ int orderals()
   string ctg, chr;
   int thispri=0;
   
+  int thisctglenght=0;
+  int thisnoise=0;
 
   // loop over ctgs:
   for (int ictg=0; ictg<myals.size(); ictg++){ // loop over ctgs
      
      if(myals[ictg].chr[0]=="") continue;
      ctg=myals[ictg].ctg[0];
+     thisctglenght=ctgsizes[ctg];
+     int percnoise=(int)(noise*thisctglenght/100);  // ex. noise=20
+     thisnoise=std::min(percnoise, maxnoise);
 
-     //if(ctg == "fAnaTes1_5" || ctg == "fAnaTes1_32") 
-     if(ctg == "fAnaTes1_67") 
+     if(ctg == "fAnaTes1_16" || ctg == "fAnaTes1_15") 
        thispri=0;
      else 
        thispri=0;
-     
-     //if(ctg=="fAnaTes1_67" && chr=="seabass_18") pri=1;
-    
+     if(thispri)cout << "  " << ctg << " " << thisctglenght << " " << noise << " " << thisnoise << endl;
+         
 
      int previ=-1;
      int prevctgi=-1;
@@ -417,7 +429,7 @@ int orderals()
 
 	   int blocklength=(*max_element(tempmax.begin(),tempmax.end()))-(*min_element(tempmin.begin(),tempmin.end()));  // in reference
 	   
-	   if(alperblock > noise && blocklength >= minlength)  // good block   
+	   if(alperblock > thisnoise && blocklength >= minlength) // thisnoise) //minlength)  // good block   
 	     good++;
 
 	   countgb+=good;
@@ -493,7 +505,7 @@ int orderals()
        //minblockperchr[refmap[prevchr]].push_back(longestchr);
      }
      int good=0;
-     if(alperblock > noise && blocklength >= minlength)  // good block   
+     if(alperblock > thisnoise && blocklength >= minlength) // thisnoise) //minlength)  // good block   
        good++;
      countgb+=good;
      goodctg[ictg]+=good;
@@ -607,21 +619,6 @@ int sortnwritectgs()
   return 0;
 }
 
-std::pair<int,int> checkblock(int als,int maj)
-{
-  int good=0;
-  int major=0;
-
-  if(als > noise){  // good block   
-    if(maj){ // in major chr
-      major++;
-    }
-    good++;
-  }
-  
-
-  return std::make_pair(good,major);
-}
 
  int checknewblock(int pchri, int nchri,int pctgi, int nctgi)
 {
