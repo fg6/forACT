@@ -11,7 +11,7 @@ Main Pipeline steps:
 * Filters out:
 
 	- alignments with identity < 80% (can vary minimum identity by changing parameter "minid")
-	- isolated alignments with < 30 K bases (can vary this limit by changing parameter "noise")
+	- isolated alignments shorter than 1% of the contig (can vary this limit by changing parameter "noise")
 * Re-order position of forward contigs/scaffolds to match each contig/scaffold alignment position in the Reference (when one contig/scaffold map to more than one place in the Reference, the major alignment is considered)
 * Re-define alignment positions according to ACT positioning scheme
 
