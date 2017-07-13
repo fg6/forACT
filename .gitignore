@@ -26,7 +26,7 @@ utils/mysrcs/mylibs/gzstream/test_gzip
 utils/mysrcs/mylibs/gzstream/test_gzip.C
 utils/mysrcs/mylibs/gzstream/test_gzip.o
 utils/mysrcs/mylibs/gzstream/version
-
+utils/mysrcs/misfinder/misfinder
 test_ecoli
 test_ecoli/forACT	
 test_ecoli/forACT_testdata  
