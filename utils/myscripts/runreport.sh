@@ -82,9 +82,15 @@ $srcdir/misfinder/misfinder $fullpathref $workdir/$name_fornoise\_minid$minid\_s
 # old $srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_selctg_$forwnotshred $alsfile
 mv $outdir/report/ctg_report.txt $outdir/report/ctg_report_$name_fornoise\_minid$minid.txt
 mv  $outdir/report/misassembly_report.txt  $outdir/report/misassembly_report_$name_fornoise\_minid$minid.txt
+mv $outdir/report/chromosomes_report.txt $outdir/report/chromosomes_report_$name_fornoise\_minid$minid.txt
+mv $outdir/report/chromosomes_details.txt $outdir/report/chromosomes_details_$name_fornoise\_minid$minid.txt
+
 
 echo; echo " Detailed ctg report summary in" $outdir/report/ctg_report_$name_fornoise\_minid$minid.txt
 echo " Detailed misassembly report summary in" $outdir/report/misassembly_report_$name_fornoise\_minid$minid.txt
+echo; echo " Chr report summary in" $outdir/report/chromosomes_report_$name_fornoise\_minid$minid.txt
+echo " Detailed chr report summary in" $outdir/report/chromosomes_details_$name_fornoise\_minid$minid.txt
+
 
 
 echo;echo
