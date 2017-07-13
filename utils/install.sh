@@ -35,8 +35,8 @@ export CPLUS_INCLUDE_PATH=$myforACT/utils/mysrcs/mylibs/gzstream:${CPLUS_INCLUDE
 
 cd $myforACT/utils/mysrcs/
 
-srcs=( listchrs actnoise  chrpos grabeachchr   n50  samectgpos	splitinfastas  splitreads  writeselctg revertcompl )
-srcs=( actnoise )
+srcs=( listchrs actnoise  chrpos grabeachchr   n50  samectgpos	splitinfastas  splitreads  writeselctg revertcompl misfinder )
+#srcs=( misfinder )
 
 for code in "${srcs[@]}"; do 
     echo $code
