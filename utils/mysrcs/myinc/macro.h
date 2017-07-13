@@ -52,13 +52,36 @@ string comple(string seq)
   // return string complement
 
   string myalph = "ACGTN";
-  string cseq;
+  string low_myalph = "acgtn";
+  string cseq = "";
 
-  if(0)cout << " string: " << seq.size() << endl;
+  if(0)cout << " string size: " << seq.size() << endl;
   reverse(seq.begin(),seq.end());
 
   for (int i=0; i<seq.size(); i++){
-    if(seq[i] == myalph[0] )
+    //if(i>270)cout << i << " " << seq[i] << " " << seq.size() << " " << cseq.size()<< endl;
+   if(seq[i] == myalph[0] )
+      cseq.append("T");
+    else if (seq[i] == myalph[1] )
+      cseq.append("G");
+    else if (seq[i] == myalph[2] )
+      cseq.append("C");
+    else if (seq[i] == myalph[3] )
+      cseq.append("A");
+    else if (seq[i] == myalph[4] )
+      cseq.append("N");
+    else if(seq[i] == low_myalph[0] )
+      cseq.append("t");
+    else if (seq[i] == low_myalph[1] )
+      cseq.append("g");
+    else if (seq[i] == low_myalph[2] )
+      cseq.append("c");
+    else if (seq[i] == low_myalph[3] )
+      cseq.append("a");
+    else if (seq[i] == low_myalph[4] )
+      cseq.append("n");
+    
+   /*    if(seq[i] == myalph[0] )
       cseq.insert(i,"T");
     else if (seq[i] == myalph[1] )
       cseq.insert(i,"G");
@@ -67,9 +90,9 @@ string comple(string seq)
     else if (seq[i] == myalph[3] )
       cseq.insert(i,"A");
     else if (seq[i] == myalph[4] )
-      cseq.insert(i,"N");
+    cseq.insert(i,"N");*/
   }
-  if(0)cout << " comple: " << cseq << endl;
+  if(0)cout << " comple: " << cseq.size()  << endl;
   return cseq;
 }
 

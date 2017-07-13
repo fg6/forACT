@@ -73,6 +73,7 @@ static int nmis=0;
 static long int  refsize=0;
 static  vector<string> misassembledctgs;  //vector of unmapped chrs READY
 
+static std::map<string, long int > chrcovmap;    // one el per chr: 0 or 1 if it is not (0) or is (1) mapped READY
 
 struct nALIGNMENTS {
   std::string chr,ctg,strand;
@@ -191,7 +192,6 @@ int readals(char* file){
   int newctg=0;
   int nmappedctgs=1; // not counting nn=0 so adding it here
   long int refcov=0;
-
   std::vector<nALIGNMENTS> ctgals;
 
   myfile.open("ctg_report.txt");
@@ -209,6 +209,10 @@ int readals(char* file){
     
 
     refcov+=std::abs(chrf-chri);
+    
+    if(!chrcovmap.count(chr)) chrcovmap[chr]=std::abs(chrf-chri);
+    else chrcovmap[chr]+=std::abs(chrf-chri);
+
 
 
     //this chr is mapped, add in mchrmapped
@@ -274,11 +278,18 @@ int readals(char* file){
        << endl;
   cout << std::fixed << std::setprecision(1) 
        << " Reference coverage: " <<  refcov*100./refsize << "%"
-       << " (" << refcov << " bases)"
+       << " (" << refcov << " bases)"  
        << endl;
 
-  //for(int cc=0; cc<unmappedchrs.size(); cc++)
-  //cout << unmappedchrs[cc]<<endl;
+  /* for ( const auto &p : chrcovmap ){
+    string thischr= p.first;
+    long int thislen=std::get<0>(mchrmapped[p.first]);
+    float thiscov=p.second*100./thislen;
+    cout << thischr << " " << thislen << " " << thiscov << endl;
+    }*/
+
+  
+
 
   return 0;
 }

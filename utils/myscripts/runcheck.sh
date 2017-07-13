@@ -91,6 +91,17 @@ else
 fi
 
 
+initial_bases=`$srcdir/n50/n50 $notshred | awk '{print $2}'`
+forward_bases=`$srcdir/n50/n50 $fastadir/$forwnotshred | awk '{print $2}'`
+
+if (( $initial_bases != $forward_bases )); then
+    echo " " Error: Number of bases in intial and forward draft are different! $initial_bases, $forward_bases
+    err=$(($err+1))
+else
+    echo  " " Good:  Same number of  bases in intial and forward draft  $initial_bases, $forward_bases
+fi
+
+
 echo; 
 if (( $err > 0 )); then
     echo " Some errors occurred!"

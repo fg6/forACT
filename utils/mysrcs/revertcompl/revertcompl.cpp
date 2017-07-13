@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
     seqmap[name] = i;
   }
   
+
   readals(argv[2]);
   char out[5]={">"};
   myfile.open(myname.c_str());
@@ -67,13 +68,15 @@ int main(int argc, char *argv[])
     string name = rname[i];
     string forseq;
 
-    //cout << name << " " << alall[i] << " " << alforward[i] << endl;
+    if(0)cout << name << " " << alall[i] << " " << alforward[i] << endl;
 
     if(alall[i]>0){
       if( alall[i]-alforward[i] >  alall[i]*0.5){
+	if(0)cout << "  complement! " << endl;
 	forseq=comple(seq);
 	comp++;
       }else{
+	if(0)cout << "  forward! " << endl;
 	forseq=seq;
 	forw++;
       }

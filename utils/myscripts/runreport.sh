@@ -80,12 +80,11 @@ echo "*********** Variation report ***********"
 echo "*****************************************"
 $srcdir/misfinder/misfinder $fullpathref $workdir/$name_fornoise\_minid$minid\_selctg_$forwnotshred $alsfile 
 # old $srcdir/misfinder/misfinder $fullpathref $workdir/nonoise$noise\_selctg_$forwnotshred $alsfile
+mv $outdir/report/ctg_report.txt $outdir/report/ctg_report_$name_fornoise\_minid$minid.txt
+mv  $outdir/report/misassembly_report.txt  $outdir/report/misassembly_report_$name_fornoise\_minid$minid.txt
 
-#echo " Number of variations:" 
-#echo " Number of inversions:"
-#echo " Number of contigs that connects to more than 1 Reference contigs:"
-echo; echo " Detailed ctg report summary in $outdir/report/ctg_report.txt"
-echo " Detailed misassembly report summary in $outdir/report/misassembly_report.txt"
+echo; echo " Detailed ctg report summary in" $outdir/report/ctg_report_$name_fornoise\_minid$minid.txt
+echo " Detailed misassembly report summary in" $outdir/report/misassembly_report_$name_fornoise\_minid$minid.txt
 
 
 echo;echo
