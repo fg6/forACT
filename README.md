@@ -49,6 +49,8 @@ If no errors, the newly created files will be in /full/path/to/destdir/whole_100
 #### Step 3: write a report of the assemblies and alignments, and possible misassemblies/re-arrengements:
 
 	$ ./mypipeline.sh report
+	In progress: some variables like "Reference Coverage" or "Structure coverage" definition 
+		are still not fixed, do not take them too seriously for now
 	
 #### Step 4: Launch ACT
 
