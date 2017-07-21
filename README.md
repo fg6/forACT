@@ -1,3 +1,6 @@
+## Requirements
+You will need a g++ version >=4.7  and the zlib in your path for installation
+
 # forACT
 Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
 
