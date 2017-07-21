@@ -27,7 +27,6 @@ if [[ ! -d forACT_testdata ]]; then
 fi
 echo " 1. Data downloaded "
 
-exit
 ### setup project
 cd $myforACT/
 ./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT > /dev/null
