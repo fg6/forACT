@@ -34,6 +34,7 @@ echo " 2. Test project setup in " $myforACT/test_ecoli/forACT
 
 ### run pipeline
 cd $myforACT/test_ecoli/forACT
+sed -i 's/lfsjobs=1/lfsjobs=0/g' mysettings.sh
 ./mypipeline.sh align > /dev/null
 ./mypipeline.sh prepfiles > /dev/null
 
