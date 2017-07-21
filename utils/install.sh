@@ -8,11 +8,14 @@ cd $myforACT/utils/mysrcs
 echo
 
 mkdir -p mylibs
-cd mylibs
-
 
 ### Intalling gzstream (it needs zlib!)
-if [[ ! -d  gzstream ]]; then
+if [[ ! -d  gzstream ]]  || [[ ! -f gzstram/gzstream.o ]]; then
+    
+    rm -rf mylibs
+    mkdir mylibs
+    cd mylibs
+    
     curl -s https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz > gzstream.tgz
     if [[ "$?" != 0 ]]; then
 	echo "Error downloading gzstream, try again"
