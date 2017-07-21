@@ -4,7 +4,7 @@
 CC=g++
 SOURCES= chrpos.cpp 
 
-INCLUDES = 
+INCLUDES =  -I../mylibs/gzstream/
 LIBS =  
 
 CFLAGS= -c  $(INCLUDES) 
@@ -22,7 +22,7 @@ oprint:
 
 # compile source	
 $(EXECUTABLE): $(OBJECTS) 
-	$(CC) -std=c++11 $(OBJECTS) -lgzstream -lz -o $@
+	$(CC) -std=c++11 $(OBJECTS)  -L../mylibs/gzstream/ -lgzstream -lz -o $@
 
 
 # create *.o
