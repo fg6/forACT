@@ -22,13 +22,21 @@ if [[ ! -d  gzstream ]]; then
 	tar -xvzf gzstream.tgz &> /dev/null
 	if [[ "$?" != 0 ]]; then echo " Error during gzstream un-compressing. Exiting now"; exit; fi
 	cd gzstream
-	make &> /dev/null
+	make ##&> /dev/null
+	echo $?
 	if [[ "$?" != 0 ]]; then echo " Error during gzstream compilation. Exiting now"; exit; fi
 	test=`make test | grep "O.K" | wc -l`
+	echo $test
 	if [[ $test == 1 ]]; then echo " "1. gzstream installed; rm ../gzstream.tgz 
 	else  echo  " Gzstream test failed. Exiting now"; exit; fi
     fi
 fi
+ 
+if [[ ! -f gzstream.o ]]; then 
+	echo "  !! Error: gzstream not installed properly!"; 
+	exit
+fi
+
 
 OLD_CPLUS_INCLUDE_PATH=`echo $CPLUS_INCLUDE_PATH`
 export CPLUS_INCLUDE_PATH=$myforACT/utils/mysrcs/mylibs/gzstream:${CPLUS_INCLUDE_PATH}
