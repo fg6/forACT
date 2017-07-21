@@ -7,7 +7,7 @@ noise=1   # 1 == 0.1% of contig   #30000
 minid=80
 
 # lfs jobs parameters:
-lfsjobs=1  # lfsjobs=0 not implemented yet
+lfsjobs=1  # 
 myqueue=normal
 myjobmem=5000
 myncpus=15
