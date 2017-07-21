@@ -42,7 +42,7 @@ sed -i 's/lfsjobs=1/lfsjobs=0/g' mysettings.sh
  ./mypipeline.sh check
 echo
 
-testal=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/forACT_testdata/foractnonoise0.1_minid80.al $myforACT/test_ecoli/forACT_testdata/results/foract.al | wc -l`
+testal=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.al $myforACT/test_ecoli/forACT_testdata/results/foract.al | wc -l`
 testfasta=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.fasta $myforACT/test_ecoli/forACT_testdata/results/foract.fasta | wc -l`
 
 if [[ $testal == 0 ]] && [[ $testfasta == 0 ]]; then
