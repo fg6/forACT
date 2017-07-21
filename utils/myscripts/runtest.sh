@@ -38,6 +38,9 @@ sed -i 's/lfsjobs=1/lfsjobs=0/g' mysettings.sh
 ./mypipeline.sh align > /dev/null
 ./mypipeline.sh prepfiles > /dev/null
 
+### check results
+ ./mypipeline.sh check
+echo
 
 testal=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foract.al $myforACT/test_ecoli/forACT_testdata/results/foractnonoise0.1_minid80.al | wc -l`
 testfasta=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foract.fasta $myforACT/test_ecoli/forACT_testdata/results/foractnonoise0.1_minid80.fasta | wc -l`
