@@ -56,6 +56,20 @@ for code in "${srcs[@]}"; do
 done
 
 
+cd $myforACT/utils/mysrcs/
+echo; echo " Checking installations:"
+exes=( mylibs/gzstream/gzstream.o  listchrs/listchrs actnoise/actnoise  chrpos/chrpos grabeachchr/grabeachchr   n50/n50  samectgpos/samectgpos  splitinfastas/splitinfastas  splitreads/splitreads  writeselctg/writeselctg  revertcompl/revertcompl  misfinder/misfinder )
+
+errs=0
+for exe in "${exes[@]}"; do
+    if [[ ! -f $exe ]]; then 
+        echo cannot find $exe: Error! 
+        errs=$(($errs+1))
+    fi
+done
+if [  $errs -gt 0 ]; then echo " ****  Errors occurred! **** "; echo; exit; 
+else echo " Congrats: installation successful!"; fi
+
 
 ## I guess I need to define the gzstream path only during compilation?
 #export CPLUS_INCLUDE_PATH=$OLD_CPLUS_INCLUDE_PATH
