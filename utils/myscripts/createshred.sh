@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o errexit
+#set -o errexit
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh

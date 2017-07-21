@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o errexit
+#set -o errexit
 
 
 echo; echo "******** Some suggestions for settings and parameters  ********"; echo
