@@ -1,5 +1,3 @@
-## Requirements
-You will need a g++ version >=4.7  and the zlib in your path for installation
 
 # forACT
 Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
@@ -17,6 +15,9 @@ Main Pipeline steps:
 	- isolated alignments shorter than 1% of the contig (can vary this limit by changing parameter "noise")
 * Re-order position of forward contigs/scaffolds to match each contig/scaffold alignment position in the Reference (when one contig/scaffold map to more than one place in the Reference, the major alignment is considered)
 * Re-define alignment positions according to ACT positioning scheme
+
+## Requirements
+You will need a g++ version >=4.7  and the zlib in your path for installation
 
 ## Instructions
 Download repository and install utilities/compile tools: 
