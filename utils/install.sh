@@ -14,9 +14,11 @@ if [[ ! -d  gzstream ]]  || [[ ! -f gzstram/gzstream.o ]]; then
     mkdir mylibs
     cd mylibs
     
-    curl -s https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz > gzstream.tgz
+    #curl -s https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz > gzstream.tgz
+    wget https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz 
+
     if [[ "$?" != 0 ]]; then
-	echo "Error downloading gzstream, try again"
+	echo "Error downloading gzstream, try again" 
 	rm -rf gzstream gzstream.tgz 
 	exit
     else
