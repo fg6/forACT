@@ -28,7 +28,7 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 	
 	if [ ! -f $temponame.out ]; then	    
 	
-	    command=`echo "smalt  map -f ssaha -m 100 -n 15 -O " $refdir/smalt_hash $fa "> $temponame.out"`
+	    command=`echo "$mysmalt  map -f ssaha -m 100 -n 15 -O " $refdir/smalt_hash $fa "> $temponame.out"`
 	    echo $command > runalign_$ii.sh
 
 	

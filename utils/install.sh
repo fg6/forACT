@@ -8,7 +8,7 @@ cd $myforACT/utils/mysrcs
 mkdir -p mylibs
 
 ### Intalling gzstream (it needs zlib!)
-if [[ ! -d  gzstream ]]  || [[ ! -f gzstram/gzstream.o ]]; then
+if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
     
     rm -rf mylibs
     mkdir mylibs
@@ -44,6 +44,12 @@ fi
 #OLD_CPLUS_INCLUDE_PATH=`echo $CPLUS_INCLUDE_PATH`
 #export CPLUS_INCLUDE_PATH=$myforACT/utils/mysrcs/mylibs/gzstream:${CPLUS_INCLUDE_PATH}
 
+cd $myforACT/utils/mysrcs
+if [[ ! -d  mylibs/smalt-0.7.4 ]]; then
+    cd mylibs
+    wget ftp://ftp.sanger.ac.uk/pub/resources/software/smalt/smalt-0.7.4.tgz
+    tar -xvzf smalt-0.7.4.tgz
+fi
 
 
 cd $myforACT/utils/mysrcs/

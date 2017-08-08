@@ -18,7 +18,7 @@ if [ ! -d $refdir ]; then
    $srcdir/grabeachchr/grabeachchr $ref
 
    if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
-       thiscom=`echo smalt  index -k 13 -s 6  smalt_hash $ref `
+       thiscom=`echo $mysmalt  index -k 13 -s 6  smalt_hash $ref `
        if [[ $debug == 1 ]]; then
 	   $thiscom 
 	   

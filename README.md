@@ -17,7 +17,11 @@ Main Pipeline steps:
 * Re-define alignment positions according to ACT positioning scheme
 
 ## Requirements
-You will need a g++ version >=4.7  and the zlib in your path for installation
+You will need a g++ version >=4.7 and the zlib in your path for installation
+The aligner executable is defined in your forACT/utils/myscripts/settings.sh file: it automatically points to a 
+x86\_64 compiled version, more versions you might want to try are in your forACT/utils/mysrcs/mylibs/smalt-0.7.4
+otherwise just pont to your compiled smalt executable in forACT/utils/myscripts/settings.sh
+
 
 ## Instructions
 Download repository and install utilities/compile tools: 

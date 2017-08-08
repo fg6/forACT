@@ -8,6 +8,11 @@ echo are defined in your   /full/path/to/destdir/mysettings.sh
 echo Before running the pipeline you might want to have a look at the settings and change some of the parameters
 
 echo; echo Some parameters you might want to change:
+echo; echo " ###### The SMALT aligner #######"
+echo " the aligner executable is defined in your forACT/utils/myscripts/settings.sh file: it automatically points to a x86_64 compiled version, "
+echo " more version you might want to try are in your forACT/utils/mysrcs/mylibs/smalt-0.7.4"
+echo " otherwise just pont to your compiled smalt executable in forACT/utils/myscripts/settings.sh"
+
 echo; echo " ###### LSF JOBS PARAMETERS #######"
 echo " The pipeline will run mapping jobs using lsf jobs, the parameters for lsf jobs in your /full/path/to/destdir/mysettings.sh are: maxjobs, myqueue, myjobmem, myncpus"
 echo "    * maxjobs: this parameter define how many lsf jobs you want to run in parallel, and includes other jobs not related to the forACT pipeline."

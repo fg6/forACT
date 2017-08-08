@@ -29,17 +29,25 @@ echo " 1. Data downloaded "
 
 ### setup project
 cd $myforACT/
-./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT > /dev/null
+if [[ $debug == 0 ]]; then
+	./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT > /dev/null
+else
+	./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT
+fi
 echo " 2. Test project setup in " $myforACT/test_ecoli/forACT
 
 
 ### run pipeline
 cd $myforACT/test_ecoli/forACT
 sed -i 's/lfsjobs=1/lfsjobs=0/g' mysettings.sh
-./mypipeline.sh align #> /dev/null
-#./mypipeline.sh prepfiles #> /dev/null
+if [[ $debug == 0 ]]; then
+	./mypipeline.sh align > /dev/null
+	./mypipeline.sh prepfiles > /dev/null
+else
+        ./mypipeline.sh align 
+        ./mypipeline.sh prepfiles 
+fi
 
-exit
 
 ### check results
  ./mypipeline.sh check

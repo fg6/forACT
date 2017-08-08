@@ -8,6 +8,9 @@ minid=80
 
 debug=1
 
+# Aligner
+mysmalt=MYFORACT//utils/mysrcs/mylibs/smalt-0.7.4/smalt_x86_64
+
 # lfs jobs parameters:
 lfsjobs=1  # 
 myqueue=normal
