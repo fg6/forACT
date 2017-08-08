@@ -47,6 +47,7 @@ if [[ ! -d  mylibs/smalt-0.7.4 ]]; then
     cd mylibs
     wget ftp://ftp.sanger.ac.uk/pub/resources/software/smalt/smalt-0.7.4.tgz
     tar -xvzf smalt-0.7.4.tgz
+    rm -f smalt-0.7.4.tgz
 fi
 cd $myforACT/utils/mysrcs
 if [[ ! -f mylibs/smalt-0.7.4/smalt_x86_64  ]]; then 
