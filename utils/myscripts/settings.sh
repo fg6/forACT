@@ -6,6 +6,8 @@ shred=10000
 noise=1   # 1 == 0.1% of contig   #30000
 minid=80
 
+debug=1
+
 # lfs jobs parameters:
 lfsjobs=1  # 
 myqueue=normal

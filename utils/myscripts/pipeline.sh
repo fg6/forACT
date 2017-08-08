@@ -6,7 +6,7 @@ source $thisdir/mysettings.sh
 
 
 whattodo=$1
-debug=0
+
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
     echo "     command: command to be run. Options: align, prepfiles, check, report, act, act_compare, act_select, act_select_compare"

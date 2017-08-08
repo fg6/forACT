@@ -3,7 +3,7 @@
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=$1
+
 err=0
 
 

@@ -22,7 +22,7 @@ done
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=0
+
 
 
 if  [[ $chrs == "" ]]; then

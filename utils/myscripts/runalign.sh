@@ -3,13 +3,9 @@
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=0
-
 
 mkdir -p  $outdir
 cd $outdir 
-
-
 
 #######################################################
 ################# PREPARE REFERENCE  ##################
@@ -25,6 +21,7 @@ if [ ! -d $refdir ]; then
        thiscom=`echo smalt  index -k 13 -s 6  smalt_hash $ref `
        if [[ $debug == 1 ]]; then
 	   $thiscom 
+	   
        else
 	   $thiscom &> /dev/null
        fi
@@ -45,7 +42,7 @@ else
     fi
 
     check=`ls $refdir | wc -l`
-    echo $chrnum $check
+    
     shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
 
     if [ ! $check -eq $shouldbe ]; then 

@@ -6,7 +6,7 @@ comp_to=$2
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=0
+
 
 
 # check first if assembly sizes are not too big:

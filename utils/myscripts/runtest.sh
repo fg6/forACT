@@ -32,11 +32,14 @@ cd $myforACT/
 ./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT > /dev/null
 echo " 2. Test project setup in " $myforACT/test_ecoli/forACT
 
+
 ### run pipeline
 cd $myforACT/test_ecoli/forACT
 sed -i 's/lfsjobs=1/lfsjobs=0/g' mysettings.sh
-./mypipeline.sh align > /dev/null
-./mypipeline.sh prepfiles > /dev/null
+./mypipeline.sh align #> /dev/null
+#./mypipeline.sh prepfiles #> /dev/null
+
+exit
 
 ### check results
  ./mypipeline.sh check

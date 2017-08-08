@@ -6,7 +6,7 @@ source $thisdir/mysettings.sh
 alsfile=$workdir/$name_fornoise\_minid$minid\_$thirdal.al
 # old case alsfile=$workdir/nonoise$noise\_$thirdal.al
 
-debug=$1
+
 
 
 mkdir -p  $outdir/report

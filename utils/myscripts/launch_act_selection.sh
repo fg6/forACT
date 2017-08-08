@@ -7,7 +7,7 @@ comp_to=$3
 
 thisdir=`pwd`
 source $thisdir/mysettings.sh
-debug=0
+
 
 
 create_chr () {
