@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     printf("ERROR main:: missing input file 1 !! \n");
     return 1;
   }
-  gzclose(argv[1]);
+  gzclose(fp);
  
   // fasta/q file 
   seqfile = argv[1];

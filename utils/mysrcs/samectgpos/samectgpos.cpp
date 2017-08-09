@@ -23,12 +23,12 @@ int main(int argc, char *argv[])
     printf("ERROR main:: missing input file 1 !! \n");
     return 1;
   }
-  gzclose(argv[1]);
+  gzclose(fp);
   if((fp = gzopen(argv[2],"r")) == NULL){ 
   printf("ERROR main:: missing input file 2 !! \n");
        return 1;
   }
-   gzclose(argv[2]);
+   gzclose(fp);
 
 
   // fasta file - contigs_sel - minl
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
   }
   rname.clear();
   rlen.clear();
-  gzclose(argv[1]);
+  gzclose(fp);
   
   myals.open(myname.c_str()); // written in readals
   readals(argv[2]);

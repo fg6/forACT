@@ -1,4 +1,3 @@
-
 #include "../myinc/macro.h"
 
 static vector<int> chrs;
@@ -19,14 +18,14 @@ int main(int argc, char *argv[])
     printf("ERROR main:: missing input file 1 !! \n");
     return 1;
   }
-  gzclose(argv[1]);
+  gzclose(fp);
   if(argc > 2){ 
     select=1;
     if((fp = gzopen(argv[2],"r")) == NULL){ 
       printf("ERROR main:: missing input file 2 !! \n");
       return 1;
     }
-    gzclose(argv[2]); 
+    gzclose(fp); 
   }
 
   string otype="same";
