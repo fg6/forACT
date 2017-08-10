@@ -1,7 +1,7 @@
 #include "../myinc/macro.h"
 
-static  vector<int> seqpos;
-static  vector<int> refpos;
+static  vector<long int> seqpos;
+static  vector<long int> refpos;
 
 static  std::ofstream myals;
 
@@ -126,16 +126,16 @@ int readals(char* file){
   while(getline(infile,line)){
         std::stringstream ss(line);
         string ctg, chr;
-	int ctgi, ctgf, chri,chrf;
+	long int ctgi, ctgf, chri,chrf;
 	vector<string> more(6);
         ss >> ctg >> chr >> more[0] >> more[1]  >> more[2]  >> more[3] >> ctgi >> ctgf >> chri >> chrf >> more[4] >> more[5];
 
-	int fctgi=ctgi+seqpos[seqmap[ctg]];
-	int fctgf=ctgf+seqpos[seqmap[ctg]];
-	int ri=refmap[chr];
+	long int fctgi=ctgi+seqpos[seqmap[ctg]];
+	long int fctgf=ctgf+seqpos[seqmap[ctg]];
+	long int ri=refmap[chr];
 
-	int fchri=chri+refpos[refmap[chr]];
-	int fchrf=chrf+refpos[refmap[chr]];
+	long int fchri=chri+refpos[refmap[chr]];
+	long int fchrf=chrf+refpos[refmap[chr]];
 
 	//cout <<  ctg << "\t" <<  chr << "\t" <<  more[0] << "\t" <<  more[1]  <<  "\t" <<  more[2]  << "\t" <<  more[3] << "\t" 
 	//   <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t" <<  fchrf << "\t" <<  more[4] << "\t" <<  more[5] << endl;
