@@ -65,13 +65,22 @@ int main(int argc, char *argv[])
 
   refpos[0]=0;
   if(pri)cout << "0 " << refpos[0] << " size is " << rlen[0] << endl;
-  for(int i=0; i<rname.size(); i++){
+  int w10=0;
+  for(long int i=0; i<rname.size(); i++){
     string name=rname[i];
     refmap[name] = i;   // map name to chr order
     
     if(i>0){
-      refpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
-      if(pri)cout << i << " " << refpos[i] << " size is " << rlen[i] << endl;
+      //refpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
+      // accumulate does not handle long int??
+
+      for (long int kk=0; kk<rlen.size(); kk++){
+	refpos[i]+=rlen[kk];
+      }
+      
+      if(refpos[i]<0 && w10<10 && no)
+	cout << i << " " << refpos[i] << " size is " << rlen[i] << endl;
+      w10++;
     }
   }
   if(pri)print_map(refmap);
@@ -95,12 +104,18 @@ int main(int argc, char *argv[])
   seqpos.resize(rlen.size());
   seqpos[0]=0;
   if(pri)cout << "0 " << seqpos[0] << " size is " << rlen[0] << endl;
-  for(int i=0; i<rname.size(); i++){
+  for(long int i=0; i<rname.size(); i++){
     string name=rname[i];
     seqmap[name] = i;
     if(i>0){
-      seqpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
-      if(pri)cout << i << " " << seqpos[i] << " size is " << rlen[i] << endl;
+      
+      //seqpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
+      // accumulate does not handle long int??
+      for (long int kk=0; kk<rlen.size(); kk++){
+	seqpos[i]+=rlen[kk];
+      }
+
+     if(pri)cout << i << " " << seqpos[i] << " size is " << rlen[i] << endl;
     }
   }
   if(pri)print_map(seqmap);
@@ -122,7 +137,7 @@ int readals(char* file){
 
   string prevctg="";
   string prevchr="";
-
+  int pi=0;
   while(getline(infile,line)){
         std::stringstream ss(line);
         string ctg, chr;
@@ -137,9 +152,23 @@ int readals(char* file){
 	long int fchri=chri+refpos[refmap[chr]];
 	long int fchrf=chrf+refpos[refmap[chr]];
 
-	//cout <<  ctg << "\t" <<  chr << "\t" <<  more[0] << "\t" <<  more[1]  <<  "\t" <<  more[2]  << "\t" <<  more[3] << "\t" 
-	//   <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t" <<  fchrf << "\t" <<  more[4] << "\t" <<  more[5] << endl;
+	if(fctgi < 0 ){ //&& chr == "chr21"){
+
+	  if(pi<0){
+	    cout << chri << " " << refpos[refmap[chr]] << " " 
+		 << refmap[chr] << " " << fchri
+		 << endl;
+	    if(0)cout <<  ctg << "\t" <<  chr << "\t" <<  more[0] << "\t" <<  more[1]  <<  "\t" <<  more[2]  
+	       << "\t" <<  more[3] << "\t"  <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t"
+	       <<  fchrf << "\t" <<  more[4] << "\t" <<  more[5] << endl;
+	  }
+	  pi++;
+	}
+
+	if(fctgi < 0 || fctgf < 0 || fchri<0 || fchrf<0)
+	  cout << " Error, possible overflow?? " <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t" <<  fchrf << endl;
+
 	myals <<  ctg << "\t" <<  chr << "\t" <<  more[0] << "\t" <<  more[1]  <<  "\t" <<  more[2]  << "\t" <<  more[3] << "\t" 
-	     <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t" <<  fchrf << "\t" <<  more[4] << "\t" <<  more[5] << endl;
+	      <<  fctgi << "\t" <<  fctgf << "\t" <<  fchri << "\t" <<  fchrf << "\t" <<  more[4] << "\t" <<  more[5] << endl;
   }
 }

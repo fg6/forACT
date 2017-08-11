@@ -20,7 +20,7 @@ static int no=0;
 static int pri=0;
 
 static gzFile fp;
-static  vector<int> rlen;
+static  vector<long int> rlen;
 static  vector<string> rseq;
 static  vector<string> rqual;
 static  vector<string> rname;
@@ -37,9 +37,9 @@ void print_map(Map& m)
    std::cout << "}\n";
 }
 
-static  std::map<string, int> refmap;
-static  std::map<string, int> seqmap;
-static  std::map<int, string> newmap;
+static  std::map<string, long int> refmap;
+static  std::map<string, long int> seqmap;
+static  std::map<long int, string> newmap;
 static vector<string> refchrs;
 static vector<string> seqctgs;
 
