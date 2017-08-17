@@ -52,7 +52,7 @@ if [ ! -f $alsplitdir/$temponame.out ]; then
 fi
 
 echo all done
-
+sleep 30
 if [[ $lfsjobs == 1 ]]; then
 
 	njobs=`bjobs | grep "split" | wc -l`
