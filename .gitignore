@@ -1,4 +1,5 @@
-
+utils/mysrcs/misfinder/misfinder_old.cpp
+utils/mysrcs/listchrs/listchrs
 utils/oldpipe.sh
 utils/mysrcs/actnoise/actnoise
 utils/mysrcs/chrpos/chrpos
