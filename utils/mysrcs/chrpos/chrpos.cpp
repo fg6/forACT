@@ -73,13 +73,14 @@ int main(int argc, char *argv[])
     if(i>0){
       //refpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
       // accumulate does not handle long int??
-
-      for (long int kk=0; kk<rlen.size(); kk++){
+      if(0)cout << endl;
+      for (long int kk=0; kk<i; kk++){
 	refpos[i]+=rlen[kk];
+	if(0)cout << i << " " << kk << " " << refpos[i] << " " << rlen[kk] << endl;
       }
       
-      if(refpos[i]<0 && w10<10 && no)
-	cout << i << " " << refpos[i] << " size is " << rlen[i] << endl;
+      if(((refpos[i]<0 && w10<10) || (w10<10)) && 0)
+	cout << "    final " << i << " " << refpos[i] << " size is " << rlen[i] << endl;
       w10++;
     }
   }
@@ -111,7 +112,7 @@ int main(int argc, char *argv[])
       
       //seqpos[i]=std::accumulate(rlen.begin(), rlen.begin()+i, 0); 
       // accumulate does not handle long int??
-      for (long int kk=0; kk<rlen.size(); kk++){
+      for (long int kk=0; kk<i; kk++){
 	seqpos[i]+=rlen[kk];
       }
 
