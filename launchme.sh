@@ -1,6 +1,5 @@
 #!/bin/bash
-#set -o errexit
-
+#this is a test
 whattodo=$1
 
 thisdir=`pwd`
