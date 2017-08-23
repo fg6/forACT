@@ -23,6 +23,9 @@ The aligner executable (Smalt from http://www.sanger.ac.uk/science/tools/smalt-0
 x86\_64 compiled version, more versions you might want to try are in your forACT/utils/mysrcs/mylibs/smalt-0.7.4
 otherwise just pont to your compiled smalt executable in forACT/utils/myscripts/settings.sh
 
+## External packages
+The seq_factotum downloads and installs the gzstream library to handle gzip input files (https://www.cs.unc.edu/Research/compgeom/gzstream/)
+
 
 ## Instructions
 Download repository and install utilities/compile tools: 
