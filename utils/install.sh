@@ -58,23 +58,27 @@ fi
 
 cd $myforACT/utils/mysrcs/
 
-srcs=( listchrs actnoise  chrpos grabeachchr   n50  samectgpos	splitinfastas  splitreads  writeselctg revertcompl misfinder )
-#srcs=( misfinder )
+srcs=( listchrs actnoise  chrpos grabeachchr   n50  samectgpos	splitinfastas  splitreads  writeselctg revertcompl misfinder locate_misjoints )
+srcs=( locate_misjoints )
 
 for code in "${srcs[@]}"; do 
-    echo $code
     cd $myforACT/utils/mysrcs/$code
-    make all
+
+    if [[ ! -f $code ]] || [[ $code -ot $code.cpp ]] || [[ $code -ot $myforACT/utils/mysrcs/myinc/macro.h ]]; then
+	echo "  " $code
+        make all
+    fi
+
 done
 
 
 cd $myforACT/utils/mysrcs/
 echo; echo " Checking installations:"
-exes=( mylibs/gzstream/gzstream.o  mylibs/smalt-0.7.4/smalt_x86_64  listchrs/listchrs actnoise/actnoise  chrpos/chrpos grabeachchr/grabeachchr   n50/n50  samectgpos/samectgpos  splitinfastas/splitinfastas  splitreads/splitreads  writeselctg/writeselctg  revertcompl/revertcompl  misfinder/misfinder )
+#exes=( mylibs/gzstream/gzstream.o  mylibs/smalt-0.7.4/smalt_x86_64  listchrs/listchrs actnoise/actnoise  chrpos/chrpos grabeachchr/grabeachchr   n50/n50  samectgpos/samectgpos  splitinfastas/splitinfastas  splitreads/splitreads  writeselctg/writeselctg  revertcompl/revertcompl  misfinder/misfinder )
 
 errs=0
-for exe in "${exes[@]}"; do
-    if [[ ! -f $exe ]]; then 
+for code in "${srcs[@]}"; do
+    if [[ ! -f $myforACT/utils/mysrcs/$code/$code ]]; then 
         echo cannot find $exe: Error! 
         errs=$(($errs+1))
     fi

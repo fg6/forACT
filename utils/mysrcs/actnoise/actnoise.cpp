@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   if(noise==0) newblock=longestchr;
 
   if (argc < 4) {
-   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[0]); 
+   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[1]); 
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 

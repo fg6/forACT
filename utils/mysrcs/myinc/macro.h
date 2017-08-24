@@ -450,9 +450,6 @@ inline int to_float (const T2& t)
   return rr;
 }
 
-
-
-
 template<class Iterator>
 Iterator Unique(Iterator first, Iterator last) 
 { // eliminate repetitive elements from sorted vector
@@ -465,3 +462,7 @@ Iterator Unique(Iterator first, Iterator last)
   return last;
 }
 
+
+bool pair_second_comp(const std::pair<string,long int> &a,const std::pair<string, long int> &b){
+    return a.second<b.second;
+}
