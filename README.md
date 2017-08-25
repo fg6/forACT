@@ -26,7 +26,6 @@ otherwise just pont to your compiled smalt executable in forACT/utils/myscripts/
 ## External packages
 forACT downloads and installs the gzstream library to handle gzip input files (https://www.cs.unc.edu/Research/compgeom/gzstream/)
 
-
 ## Instructions
 Download repository and install utilities/compile tools: 
 
