@@ -17,6 +17,16 @@ myqueue=normal
 myjobmem=5000
 myncpus=15
 maxjobs=5  #maximum number of jobs to run at a time
+
+
+
+###### Mis-joint analysis using synteny
+min_len_perc=0.25  # percent min_lenght to consider as possible misjoint wrt major al (reduce noise and small repeats)
+min_len=200000     # absolute min_lenght to consider as possible misjoint
+min_len_max=500000  # min_lenght for a major al  (== ignore scaffold if major alignment block is < min_len_max
+
+
+
 ########################
 
 
@@ -31,7 +41,7 @@ srcdir=MYFORACT//utils/mysrcs
 runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
 runreport=$scriptdir/runreport.sh
-
+runmisjoints=$scriptdir/runlocate_misjoint.sh
 wdir=whole
 
 folder=$wdir\_$shred

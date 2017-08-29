@@ -59,7 +59,6 @@ fi
 cd $myforACT/utils/mysrcs/
 
 srcs=( listchrs actnoise  chrpos grabeachchr   n50  samectgpos	splitinfastas  splitreads  writeselctg revertcompl misfinder locate_misjoints )
-srcs=( locate_misjoints )
 
 for code in "${srcs[@]}"; do 
     cd $myforACT/utils/mysrcs/$code
