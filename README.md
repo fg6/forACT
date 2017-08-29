@@ -62,8 +62,12 @@ If no errors, the newly created files will be in /full/path/to/destdir/whole_100
 	$ ./mypipeline.sh report
 	In progress: some variables like "Reference Coverage" or "Structure coverage" definition 
 		are still not fixed, do not take them too seriously for now
+#### Step 4: for chromosome-assigned super-scaffolds (Sinteny Groups): look for inter-chromosome rearrengments/misjoints:
+
+	$ ./mypipeline.sh misjoints
 	
-#### Step 4: Launch ACT
+	
+#### Step 5: Launch ACT
 
 If Step 1 and 2 gave no errors, then launch ACT:
 
@@ -74,7 +78,7 @@ To view this project compared to another assembly:
 Please note this only works if for the other assembly forACT has been run with the same reference and
 same shred/noise/minid parameters
 
-#### Step 5: Launch ACT for genome size > 2.1 GB
+#### Step 6: Launch ACT for genome size > 2.1 GB
 *** Warning *** 
 ACT cannot handle genome size > 2.1 GB, for genome of this size run instead single chromosome
 at a time in ACT:
