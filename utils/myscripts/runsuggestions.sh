@@ -23,6 +23,18 @@ echo "                                 If you are comparing genomes with low ide
 echo " Alternatively, for very small genomes, the pipeline can run locally changing the parameter":
 echo "    * lfsjobs = 0"
 
+
+echo; echo " ###### For Sinteny Groups: locate inter-chromosome rearrengment/misjoint #######"
+echo " The 'misjoints' option will make the pipeline to look for blocks of alignments in the same scaffold that map to different chromosomes of the reference"
+echo " These 'blocks' can be real rearrengments in the genome under study, or assembly or scaffolding errors (misjoints)"
+echo; echo " * min_len_max"
+echo "  Only consider scaffolds with the largest block mapped to a chromosome at least min_len_max bp long"
+echo; echo " * min_len, min_len_perc"
+echo "  Ignore all shorter blocks which are either < min_len or < min_len_perc % of the largest block"
+
+
+
+
 echo; echo " ###### OTHER PARAMETERS #######"
 echo; echo " * shred"
 echo "  Each draft-assembly contig is shred in chunks before mapping against the reference. By default, these chunks are 10 K bases long. Change this value by varying the parameter 'shred'"
