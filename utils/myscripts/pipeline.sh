@@ -16,7 +16,7 @@ if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo "                Draft contigs are ordered according to the position of their major alignment."
     echo "      * check: check if pipeline ran smoothly"
     echo "      * report: write a report for the draft, reference assemblies and their mapping" 
-    echo "      * misjoint: list possible scaffold mis-joints: only for chromosome-assigned scaffolds"
+    echo "      * misjoints: list possible scaffold mis-joints: only for chromosome-assigned scaffolds"
     echo "      * act:  launch act for the latest forACT launched"
     echo "      * act_compare folder_to_compare_to:  launch act for the latest forACT launched and compare with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
     echo "      * act_select chr1...chr5:  launch act for the latest forACT launched for chromosomes/ctgs chr1 to chr5 (up to 5 chromosomes)"
