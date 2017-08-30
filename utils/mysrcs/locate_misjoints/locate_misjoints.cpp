@@ -286,7 +286,16 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals)
 	
 	// new block start
 	block_bp.push_back(std::make_pair(thisseq.find_last_of("NNN") + previous_pos + 1, 0));
-	
+
+
+	if(0 && ctg == "fAnaTes1_74"){
+	  long int t1=thisseq.find_first_of("NNN");
+	  long int t2= thisseq.find_last_of("NNN");
+	  cout << t1 << " " << t2 << endl;
+	  cout << thisseq.size() << endl;
+	  cout << ctg_seqs[a.ctg].substr(thisseq.find_first_of("NNN")-5, 10) << endl;
+	}	
+
       }else{ 
 	bases_per_block[ntt-1]+=naligned; // sum aligned bases to present block
 	block_length[ntt-1]=std::make_pair(std::min(this_pos,std::get<0>(block_length[ntt-1])),std::max(max_pos,std::get<1>(block_length[ntt-1])));  
@@ -329,7 +338,7 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals)
        << std::get<0>(block_length[ii]) << ", last bp: " 
        << std::get<1>(block_length[ii])  << " \tcovers " 
        << std::get<1>(block_length[ii])-std::get<0>(block_length[ii]) 
-       << " bp\tsub-scaffold edges : " << std::get<0>(block_bp[ii]) << "-" << std::get<1>(block_bp[ii]);
+       << " bp\t\tsub-scaffold edges : " << std::get<0>(block_bp[ii]) << " - " << std::get<1>(block_bp[ii]);
     ii++;
   }
 
