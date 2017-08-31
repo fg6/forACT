@@ -13,7 +13,7 @@ cd $outdir/report
 ## writing misfinder.cpp code for this
 echo; 
 echo "*****************************************************************************************************************"
-echo "************** Report possible misjoints for chromosome-assegned scaffolds (Synteny Groups)  ********************" 
+echo "************** Report possible misjoints for chromosome-assigned scaffolds (Synteny Groups)  ********************" 
 echo "*****************************************************************************************************************"
 $srcdir/locate_misjoints/locate_misjoints $workdir/$name_fornoise\_minid$minid\_selctg_$forwnotshred $alsfile  $min_len_max $min_len_perc $min_len
 mv $outdir/report/misjoints_details.txt $outdir/report/misjoints_details_$name_fornoise\_minid$minid.txt

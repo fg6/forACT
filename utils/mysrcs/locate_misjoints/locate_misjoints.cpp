@@ -14,10 +14,10 @@ struct nALIGNMENTS {
   float id;
 } nalignments;
 
-static int readals(char* file);
+static int ReadAls(char* file);
 static int LocateMisJ(std::vector<nALIGNMENTS> ctgals);
 static int AnalyseCtg(std::vector<nALIGNMENTS> ctgals);
-
+static int nbreak=0;
 
 
 // possible misjoint selection:
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
   cout << endl<< " Selected filters: " << endl
        << "  Min length for longest alignment to a single chr: " << min_len_for_max << " bp" <<endl
        << "  Min length for shorter alignments to supplementary chrs: " 
-       << min_len_perc << "% of longest or " << min_len << " bp" << endl;
+       << min_len_perc*100 << "% of longest or " << min_len << " bp" << endl;
 
 
   int err=0; int saveinfo=1; int readseq=1;
@@ -75,15 +75,24 @@ int main(int argc, char **argv)
   //  ****** READ ALIGNMENTS ******* //
   //  ****************************** //
   myfile.open("misjoints_details.txt");
-  readals(argv[2]);
+  ReadAls(argv[2]);
   myfile.close();   
 
+  
+  if(nbreak)
+    cout << endl << "\n **************  REPORT SUMMARY  *****************" << endl 
+      //<< endl 
+	 << "  ****** " << nbreak << " possible breaking points found ******" 
+      // << endl
+	 << endl <<   " *************************************************\n  "<< endl;
+  else
+    cout << endl << " No breaking points found " << endl;
 
   return 0;
 }
 
 
-int readals(char* file){
+int ReadAls(char* file){
   std::ifstream infile(file);
   string line;
 
@@ -217,12 +226,6 @@ int AnalyseCtg(std::vector<nALIGNMENTS> ctgals)
   ctgals.erase(std::remove_if(ctgals.begin(), ctgals.end(), [&](nALIGNMENTS const& x){
 	return !(std::find(linkedchr.begin(), linkedchr.end(), x.chr) != linkedchr.end()); }), ctgals.end());
 
-  // all remaining alignments:
-  /*int ff=0;
-  std::for_each(ctgals.begin(),ctgals.end(), [&] (nALIGNMENTS const& a) {
-      ff++;
-      });*/
-
 
   LocateMisJ(ctgals);
  
@@ -324,6 +327,8 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals)
   for(string b : blocks) {
     block_len.push_back(std::count(als_per_block.begin(), als_per_block.end(), b));
   } 
+
+  nbreak+=blocks.size()-1;
 
   tt << "   This sequence aligns mostly to " << chrs.size() << " chromosomes "
        << " and it is divided in about " << blocks.size() 
