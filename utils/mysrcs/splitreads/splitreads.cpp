@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 { 
 
   if (argc < 3) {
-   fprintf(stderr, "Shred each read/contig in read/contig of length $length \n Usage: %s <reads.fasta> length \n", argv[0]);
+   fprintf(stderr, "Shred each read/contig in read/contig of length <length> \n Usage: %s <reads.fasta> <length> \n", argv[0]);
    
    return 1;
   }	
@@ -17,10 +17,8 @@ int main(int argc, char *argv[])
   }
   int len=0;
   len=atoi(argv[2]);  
-  //  cout << "Splitting in " << len << "bp" << endl;
-
-  int write=1;
-  // fasta file
+ 
+  int write=1; // fasta file
   string seqfile = argv[1];
 
   // output file name
@@ -60,8 +58,6 @@ int main(int argc, char *argv[])
       string thisname = name + "_" + to_string(i+1); //+ " split_in_" + to_string(len);
       myfile <<  out[0] << thisname <<  endl;
       myfile << s.substr(i, len) << endl;
-      //cout <<  out[0] << thisname <<  endl;
-      //cout << s.substr(i, len) << endl;
     }
   }
 

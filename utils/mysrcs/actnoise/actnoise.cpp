@@ -1,7 +1,7 @@
 #include "../myinc/macro.h"
 
 //const int maxals=10000;
-static float noise=10; //5000; //30K tried for devil //1000 for Mt
+static float noise=10; //0.2 for 20% of major
 static int minlength=5000; //30K tried for devil // some noise has many als, but all concentrated in a small ref region  
                    // not used anymore
 static int minnoise=3000; // no used
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   if(noise==0) newblock=longestchr;
 
   if (argc < 4) {
-   fprintf(stderr, "Usage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[1]); 
+   fprintf(stderr, "Remove short blocks of isolated alignemnts (noise)\nUsage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[1]); 
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -96,7 +96,6 @@ int main(int argc, char *argv[])
   string seqfile = argv[2];
   string alfile = argv[3];
   if (argc >= 5)  noise= to_int(argv[4])*1./10;
-  //cout << noise << " " << argv[4] << endl;
   minlength=maxnoise; // not used anymore, now using ctg length
   int tempid=0;
   if (argc == 6)  tempid= to_int(argv[5]);
@@ -125,8 +124,6 @@ int main(int argc, char *argv[])
   rname.clear();
   rlen.clear();
 
-  if(no)cout << " ref done " << endl;
-
   // draft
   err=0;
   saveinfo=1;
@@ -154,14 +151,10 @@ int main(int argc, char *argv[])
   gindex.resize(nctg, vector<int>(1,-1));
 
 
-  // read contig 
-
   // Read alignments
   readals(argv[3]);
   if(no)cout << " als read " << endl;
 
-
-  //return(0);
   //Cut noise and align:
   orderals();
   if(no)cout << " als filtered " << endl;

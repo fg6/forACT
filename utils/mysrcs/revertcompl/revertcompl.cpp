@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
   }
   gzclose(fp);
   if((fp = gzopen(argv[2],"r")) == NULL){ 
-  printf("ERROR main:: missing input file 2 !! \n");
-       return 1;
+    printf("ERROR main:: missing input file 2 !! \n");
+    return 1;
   }
-   gzclose(fp);
+  gzclose(fp);
 
 
   // fasta file - contigs_sel - minl
@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
     return 1;
   }
 
-
   for(int i=0; i<rname.size(); i++){
     string name=rname[i];
     seqmap[name] = i;
@@ -67,8 +66,6 @@ int main(int argc, char *argv[])
     string seq = rseq[i];
     string name = rname[i];
     string forseq;
-
-    if(0)cout << name << " " << alall[i] << " " << alforward[i] << endl;
 
     if(alall[i]>0){
       if( alall[i]-alforward[i] >  alall[i]*0.5){

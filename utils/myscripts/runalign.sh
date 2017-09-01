@@ -180,7 +180,7 @@ fi
 echo " 9. Prepared draft contigs"
 echo
 
-#### fix positions of shred ctg/scaffold:  (only if not using Zemin tabs)
+#### fix positions of shred ctg/scaffold:  (only if not using Zemin tabs) [ it changes ctg names from ctg1_1, ctg1_100000, ... in ctg1,...]
 file=$workdir/$thirdal.al; location="Ten"
 if [ ! -f $workdir/$thirdal.al ]; then
     $scriptdir/fixpos.sh $forwshred $forwal $thirdal 
