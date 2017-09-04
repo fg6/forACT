@@ -75,18 +75,26 @@ int main(int argc, char **argv)
   //  ****** READ ALIGNMENTS ******* //
   //  ****************************** //
   myfile.open("misjoints_details.txt");
-  ReadAls(argv[2]);
-  myfile.close();   
+  myfile << endl<< " Selected filters: " << endl
+       << "  Min length for longest alignment to a single chr: " << min_len_for_max << " bp" <<endl
+       << "  Min length for shorter alignments to supplementary chrs: "
+       << min_len_perc*100 << "% of longest or " << min_len << " bp" << endl;
 
-  
+  ReadAls(argv[2]);
+
+
+  std::stringstream tt; 
   if(nbreak)
-    cout << endl << "\n **************  REPORT SUMMARY  *****************" << endl 
-      //<< endl 
+    tt << endl << "\n **************  REPORT SUMMARY  *****************" << endl 
 	 << "  ****** " << nbreak << " possible breaking points found ******" 
-      // << endl
 	 << endl <<   " *************************************************\n  "<< endl;
   else
-    cout << endl << " No breaking points found " << endl;
+    tt << endl << " No breaking points found " << endl;
+
+  cout << tt.str() <<  endl ;
+  myfile << tt.str() << endl;
+  myfile.close();
+
 
   return 0;
 }
