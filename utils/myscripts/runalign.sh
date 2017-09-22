@@ -73,7 +73,11 @@ echo
 cd $thisdir
 file=$fastadir/split/split0_shred$shred\_$notshredname;  location="Three" 
 if [ ! -f $file  ]; then 
-    $scriptdir/splitshred.sh  $splitdir $shreddraft
+    if [[ $aligner == "smalt" ]]; then
+	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  #done
+     else
+	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  $splitlen
+    fi
 fi
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
@@ -84,11 +88,20 @@ echo
 ## align  fastas
 file=$aldir/$firstal.al; location="Four"
 if [ ! -f  $aldir/split_$firstal/split0_$firstal.out  ]; then 
-    $scriptdir/splitalign.sh  $splitdir $firstal
+    if [[ $aligner == "smalt" ]]; then
+	$scriptdir/splitalign.sh  $splitdir $firstal
+    else
+	$scriptdir/splitalign_minimap.sh  $splitdir $firstal $aldir/split_$firstal
+    fi
 fi
 if [ ! -f $file ]; then
-    for file in $aldir/split_$firstal/*.out; do
-	awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12"\t"$9}' $file  >> $aldir/$firstal.al
+    for ofile in $aldir/split_$firstal/*.out; do
+	if [[ $aligner == "smalt" ]]; then
+	    awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12"\t"$9}' $ofile  >> $aldir/$firstal.al
+	else
+	    cat $ofile | awk '{print $1"\t"$6"\t"$12"\t"0"\t"0"\t"0"\t"$3"\t"$4"\t"$8"\t"$9"\t"0"\t"$11"\t"$5}'  | sed 's#\t+#\tF#g' | sed 's#\t-#\tR#g' >> $aldir/$firstal.al 	
+	    
+	fi
     done
 fi
 checkfile=`$scriptdir/checkfile.sh $file $location`
@@ -127,22 +140,36 @@ echo
 ### split shreded fasta in fasta of 1M contigs ###
 file=$fastadir/splitforw/split0_$(basename $forwshred); location="Seven"
 if [ ! -f  $file ]; then 
-    $scriptdir/splitshred.sh $fastadir/splitforw  $(basename $forwshred)  
+    if [[ $aligner == "smalt" ]]; then
+	$scriptdir/splitshred.sh $fastadir/splitforw  $forwshred 
+	#$scriptdir/splitshred.sh $fastadir/splitforw  $(basename $forwshred)  
+    else
+	$scriptdir/splitshred.sh  $fastadir/splitforw  $forwshred $splitlen
+    fi
 fi
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then echo; echo "   " $checkfile; exit; fi
 echo " 7. Forward draft shreded "
 echo
-
 ## align  fastas
 file=$forwal; location="Eigth"
 if [ ! -f  $aldir/split_$secal/split0_$secal.out  ]; then 
-    $scriptdir/splitalign.sh $fastadir/splitforw $secal 
+    if [[ $aligner == "smalt" ]]; then
+	$scriptdir/splitalign.sh $fastadir/splitforw $secal 
+    else
+    	$scriptdir/splitalign_minimap.sh  $fastadir/splitforw $secal	
+    fi
 fi
+
 if [ ! -f $file ]; then
-    for file in $aldir/split_$secal/*.out; do
-	awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12}' $file >> $forwal
+    for ofile in $aldir/split_$secal/*.out; do
+	if [[ $aligner == "smalt" ]]; then
+	    awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12}' $ofile >> $forwal
+	else
+	    cat $ofile | awk '{print $1"\t"$6"\t"$12"\t"0"\t"0"\t"0"\t"$3"\t"$4"\t"$8"\t"$9"\t"0"\t"$11"\t"$5}'  | sed 's#\t+#\tF#g' | sed 's#\t-#\tR#g' >>  $forwal	
+
+	fi
     done
 fi
 checkfile=`$scriptdir/checkfile.sh $file $location`

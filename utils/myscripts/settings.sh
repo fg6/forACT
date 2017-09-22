@@ -10,6 +10,8 @@ debug=1
 
 # Aligner
 mysmalt=MYFORACT//utils/mysrcs/mylibs/smalt-0.7.4/smalt_x86_64
+myminimap2=MYFORACT//utils/mysrcs/mylibs/minimap2/minimap2
+aligner=minimap2 #smalt
 
 # lfs jobs parameters:
 lfsjobs=1  # 
@@ -24,6 +26,7 @@ maxjobs=5  #maximum number of jobs to run at a time
 min_len_perc=0.25  # percent min_lenght to consider as possible misjoint wrt major al (reduce noise and small repeats)
 min_len=200000     # absolute min_lenght to consider as possible misjoint
 min_len_max=500000  # min_lenght for a major al  (== ignore scaffold if major alignment block is < min_len_max
+splitlen=5000000
 
 
 

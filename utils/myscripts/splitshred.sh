@@ -6,6 +6,7 @@ source $thisdir/mysettings.sh
 
 dir=$1
 shredfasta=$2
+split_size=$3
 
 mkdir -p $dir
 cd $dir
@@ -14,6 +15,6 @@ cd $dir
 # if the original shreaded fasta has less than 5000 contigs, a single fasta will be produced
 if [ ! -f $dir/split0_$shred ]; then
     cd $dir
-    $srcdir/splitinfastas/splitinfastas ../$shredfasta
+    $srcdir/splitinfastas/splitinfastas $shredfasta $split_size $aligner   #done
 fi
 

@@ -2,15 +2,17 @@
 
 static int printn=5000; // split in 1K contigs per file
 static string seqfile ;
+static string aligner="smalt";
 
-int myreadfasta(char* file);
+int split_by_ctgs(char* file);
+int split_by_size(char* file);
 
 int main(int argc, char *argv[])
 { 
   int select=0;
   
   if (argc == 1) {
-   fprintf(stderr, "Usage: %s <reads.fq/fa>  \n", argv[0]);
+   fprintf(stderr, "Usage: %s <reads.fq/fa>  <splitting_size>\n", argv[0]);
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -19,20 +21,143 @@ int main(int argc, char *argv[])
   }
   gzclose(fp);
  
+
   // fasta/q file 
   seqfile = argv[1];
-  
-  myreadfasta(argv[1]);
+  if(argc>2) 
+    printn=to_int(argv[2]);
+  if(argc>3) 
+    aligner=to_string(argv[3]);
  
+  cout << argc << " " << seqfile << " " <<  aligner << " " << printn << endl;
+  //cout << argv[1] << " " << argv[2] << " " << argv[3] << endl;
+  if(aligner == "smalt")
+    split_by_ctgs(argv[1]);
+  else
+    split_by_size(argv[1]);
+
+ 
+
 
   return 0;
 }
 
 
 // ---------------------------------------- //
-int myreadfasta(char* file)
+int split_by_size(char* file)
 // ---------------------------------------- //
 { 
+
+  if(0)cout << " splitting by size " << endl;
+
+  igzstream infile(file);
+  char fq[5]={"@"};
+  char fa[5]={">"};
+  char plus[5]={"+"};
+  int nseq=0;
+
+ 
+  string read;
+  string lname;
+  string lcomment="";   
+  string lseq="";
+  int seqlen=0;
+  int quallen=0;
+  string lqual;
+  int seqlines=0;
+  int ctgfound=0;
+
+
+  int stop=1;
+  int ll=0;
+  int line=0;
+  int lprint=0;
+
+  while(stop){
+    
+    string myname="";
+    string aname="";
+
+    getline(infile,read);
+   
+    if(read.substr(0,1)==fa){  // name
+      nseq++;
+      
+      if(nseq>1){ // previous
+	ctgfound++;
+	//cout << " read new contig " << read << " " << lprint << endl;
+
+	if(lprint>=printn){ //next file
+	  myfile.close();
+	  ll++;
+	  aname="split"+to_string(ll)+"_";
+	  myname=myrename(seqfile,aname);
+	  myfile.open(myname);  
+	  //cout << "   new file opened " << myname << endl;
+	  lprint=0;
+	}else if(lprint==0){ // first ctg
+	  aname="split"+to_string(ll)+"_";
+	  myname=myrename(seqfile,aname);
+	  myfile.open(myname);  
+	  //cout << "   first file opened " << myname << " " << lname<< endl;
+	}
+
+	lprint+=seqlen;	
+	//cout << " writing new contig in file " << myname << " " << lname << " " << lprint << endl;
+	myfile << lname << endl << lseq << endl;
+	
+      }
+      
+      lname=read;
+
+      lseq="";
+      lqual="";
+
+      seqlen=0;
+      seqlines=0;
+      quallen=0;
+    }else{ // sequence 
+      lseq.append(read);
+      seqlines++;
+      seqlen+=read.size();
+    }
+ 
+    // EOF
+    if(infile.eof()){ // previous
+      ctgfound++;
+
+      if(lprint>=printn){ //next file
+	myfile.close();
+	ll++;
+	aname="split"+to_string(ll)+"_";
+	myname=myrename(seqfile,aname);
+	myfile.open(myname);  
+	//	cout << "   new file opened " << myname << endl;
+      }
+      myfile << lname << endl << lseq << endl;
+      myfile.close();
+
+      stop=0;
+    }
+  }//read loop
+
+
+  if(!ctgfound) {
+    cout << "Could not find contig/scaffold with requested lenght or name!" << endl;
+    return 1;
+  }
+  return 0;
+}
+
+
+
+
+// ---------------------------------------- //
+int split_by_ctgs(char* file)
+// ---------------------------------------- //
+{ 
+
+  cout << "split in printn" << endl;
   igzstream infile(file);
   char fq[5]={"@"};
   char fa[5]={">"};

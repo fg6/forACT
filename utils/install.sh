@@ -55,6 +55,22 @@ if [[ ! -f mylibs/smalt-0.7.4/smalt_x86_64  ]]; then
 	exit
 fi
 
+cd $myforACT/utils/mysrcs
+if [[ ! -f  mylibs/minimap2/minimap2 ]]; then
+    cd mylibs
+    git clone https://github.com/lh3/minimap2.git
+    cd minimap2
+    git checkout ea5a0cd17da3752d396473c56f074a3ab5ede613  # release 2.2
+    make 
+fi
+
+cd $myforACT/utils/mysrcs
+if [[ ! -f mylibs/minimap2/minimap2 ]]; then 
+        echo "  !! Error: minimap2 not installed properly!"; 
+        errs=$(($errs+1))
+        exit
+fi
+
 
 cd $myforACT/utils/mysrcs/
 
