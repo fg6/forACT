@@ -24,7 +24,7 @@ file2=$workdir/$name_fornoise\_minid$minid\_$finalal;  location2="Three"
 
 if [ ! -f $file1 ] ||  [ ! -f $file2 ]; then 
     cd $workdir 
-    $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise $minid
+    $srcdir/actnoise/actnoise $refdir/$ref $workdir/selctg_$forwnotshred $workdir/$finalal $noise $minid $aligner
 fi
 
 cd $dir

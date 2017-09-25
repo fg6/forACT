@@ -26,7 +26,7 @@ static  vector<int> minblock;
 static  vector<int> maxblock; 
 static  vector<int> alblock;
 static  vector<int> majorc;    
-
+static string aligner = "smalt";
 static  std::map<string, int> ctgsizes;
 
 struct MYALS
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   if(noise==0) newblock=longestchr;
 
   if (argc < 4) {
-   fprintf(stderr, "Remove short blocks of isolated alignemnts (noise)\nUsage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid>\n", argv[1]); 
+   fprintf(stderr, "Remove short blocks of isolated alignemnts (noise)\nUsage: %s <reference.fasta>  <draft.fasta>   <alignment>  <noise_level> <minid> <aligner> \n", argv[1]); 
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -98,9 +98,11 @@ int main(int argc, char *argv[])
   if (argc >= 5)  noise= to_int(argv[4])*1./10;
   minlength=maxnoise; // not used anymore, now using ctg length
   int tempid=0;
-  if (argc == 6)  tempid= to_int(argv[5]);
+  if (argc >= 6)  tempid= to_int(argv[5]);
   minid=tempid*1.;
- 
+  
+  if(argc>6) aligner = argv[6];
+
   string newname="nonoise"+ to_string(noise)+"_minid"+to_string(minid)+"_";
   string myname=myrename(seqfile,newname);
   myname1=myrename(alfile,newname);
@@ -230,10 +232,11 @@ int readals(char* file){
 
     // Remove alignment with ID < min-ID
     float id=to_float(str[2])*1./100;
-    if(id<minid) {
+    if(id<minid && aligner == "smalt") {
+      continue;
+    }else if(id<55 &&  aligner != "smalt") {
       continue;
     }
-    
     if(0) cout <<  "   after cut " << str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
 		 << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << endl;
     if(pri) tt2++;
