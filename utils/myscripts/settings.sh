@@ -11,7 +11,9 @@ debug=1
 # Aligner
 mysmalt=MYFORACT//utils/mysrcs/mylibs/smalt-0.7.4/smalt_x86_64
 myminimap2=MYFORACT//utils/mysrcs/mylibs/minimap2/minimap2
+mybwa=MYFORACT//utils/mysrcs/mylibs/bwa/bwa
 aligner=minimap2 #smalt
+
 
 # lfs jobs parameters:
 lfsjobs=1  # 

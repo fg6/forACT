@@ -10,11 +10,9 @@ mkdir -p mylibs
 ### Intalling gzstream (it needs zlib!)
 if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
     
-    rm -rf mylibs
-    mkdir mylibs
+    rm -rf mylibs/gzstream
     cd mylibs
     
-    #curl -s https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz > gzstream.tgz
     wget https://www.cs.unc.edu/Research/compgeom/gzstream/gzstream.tgz 
 
     if [[ "$?" != 0 ]]; then
@@ -57,6 +55,7 @@ fi
 
 cd $myforACT/utils/mysrcs
 if [[ ! -f  mylibs/minimap2/minimap2 ]]; then
+    rm -rf mylibs/minimap2
     cd mylibs
     git clone https://github.com/lh3/minimap2.git
     cd minimap2
@@ -70,6 +69,24 @@ if [[ ! -f mylibs/minimap2/minimap2 ]]; then
         errs=$(($errs+1))
         exit
 fi
+
+
+cd $myforACT/utils/mysrcs
+if [[ ! -f  mylibs/bwa/bwa ]]; then
+    rm -rf mylibs/bwa
+    cd mylibs
+    git clone https://github.com/lh3/bwa.git
+    cd bwa
+    make 
+fi
+cd $myforACT/utils/mysrcs
+if [[ ! -f mylibs/bwa/bwa ]]; then 
+        echo "  !! Error: bwa not installed properly!"; 
+        errs=$(($errs+1))
+        exit
+fi
+
+
 
 
 cd $myforACT/utils/mysrcs/
