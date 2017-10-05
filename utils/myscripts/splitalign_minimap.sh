@@ -7,7 +7,7 @@ source $thisdir/mysettings.sh
 fastasplit=$1
 outname=$2
 alsplitdir=$aldir/split_$outname
-option=$4  #minimap
+option=$3  #minimap
 
 mkdir -p $aldir
 cd $aldir
@@ -35,9 +35,8 @@ if [[ $inparallel == "yes" ]]; then  # waitfor is not working
 	    	 
 	    if [ ! -f $temponame.out ]; then
 		if [[ $option == "c" ]]; then		
-		    command=`echo "$myminimap2" -c $refdir/ref.fasta $fa "> $temponame.out &"`
+		    command=`echo "$myminimap2" -c -x asm5 ref.mmi  $fa "> $temponame.out &"`
 		else
-		    #command=`echo "$myminimap2"   $refdir/ref.fasta $fa "> $temponame.out &"`
 		    command=`echo "$myminimap2" -x asm5 ref.mmi  $fa "> $temponame.out &"`
 		fi
 		#if [[ $ii == 0 ]]; then 
@@ -69,10 +68,9 @@ else
 	    temponame=split$ii\_$outname
 	
 	    if [ ! -f $temponame.out ]; then
-		if [[ $option == "c" ]]; then		
-		    command=`echo "$myminimap2" -c $refdir/ref.fasta $fa "> $temponame.out"`
+		if [[ $option == "c" ]]; then	
+		    command=`echo "$myminimap2" -c -x asm5  ref.mmi  $fa "> $temponame.out"`
 		else
-		    #command=`echo "$myminimap2"  $refdir/ref.fasta $fa "> $temponame.out"`
 		    command=`echo "$myminimap2" -x asm5  ref.mmi  $fa "> $temponame.out"`
 		fi
 		echo $command > runalign_$ii.sh

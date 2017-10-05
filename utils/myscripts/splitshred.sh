@@ -15,6 +15,6 @@ cd $dir
 # if the original shreaded fasta has less than 5000 contigs, a single fasta will be produced
 if [ ! -f $dir/split0_$shred ]; then
     cd $dir
-    $srcdir/splitinfastas/splitinfastas $shredfasta $split_size $aligner   #done
+    $srcdir/splitinfastas/splitinfastas $shredfasta  $aligner $split_size  #done
 fi
 

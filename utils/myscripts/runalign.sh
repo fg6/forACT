@@ -158,26 +158,26 @@ if [ ! -f  $aldir/split_$secal/split0_$secal.out  ]; then
     if [[ $aligner == "smalt" ]]; then
 	$scriptdir/splitalign.sh $fastadir/splitforw $secal 
     else
-    	$scriptdir/splitalign_minimap.sh  $fastadir/splitforw $secal	
+    	$scriptdir/splitalign_minimap.sh  $fastadir/splitforw $secal  #c not needed
     fi
 fi
 
 if [ ! -f $file ]; then
     for ofile in $aldir/split_$secal/*.out; do
 	if [[ $aligner == "smalt" ]]; then
-	    awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12}' $ofile >> $forwal
+	    cat $ofile | sed 's#:# #g' | awk '{print $5"\t"$6"\t"$13"\t"$4"\t"22"\t"1"\t"$7"\t"$8"\t"$9"\t"$10"\t"0.0"\t"$14"\t"$3}' >> $forwal  ## need to check this
+	    #awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12}' $ofile >> $forwal
 	else
-	    cat $ofile | awk '{print $1"\t"$6"\t"$12"\t"0"\t"0"\t"0"\t"$3"\t"$4"\t"$8"\t"$9"\t"0"\t"$11"\t"$5}'  | sed 's#\t+#\tF#g' | sed 's#\t-#\tR#g' >>  $forwal	
-
+	    cat $ofile | awk '{print $1"\t"$6"\t"$10*100/$11"\t"0"\t"0"\t"0"\t"$3"\t"$4"\t"$8"\t"$9"\t"0"\t"$11"\t"$12}' >>  $forwal
 	fi
     done
 fi
+
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then echo; echo "   " $checkfile; exit; fi
 echo " 8. Second alignment done!"
 echo
-
 #######################################################
 ##################  FIX AL POSITIONS  #################
 #######################################################
@@ -206,6 +206,7 @@ else
 fi
 echo " 9. Prepared draft contigs"
 echo
+
 
 #### fix positions of shred ctg/scaffold:  (only if not using Zemin tabs) [ it changes ctg names from ctg1_1, ctg1_100000, ... in ctg1,...]
 file=$workdir/$thirdal.al; location="Ten"

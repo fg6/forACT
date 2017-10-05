@@ -37,7 +37,6 @@ if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi
 
 echo " 2. Contigs ordered by mapping appearance and noise alignments cut"
 
-
 file=$workdir/foract$name_fornoise\_minid$minid\_$finalal;  location1="Four" 
 if  [ ! -f $file ]; then
     #echo Resetting positioning scheme according to ACT ...

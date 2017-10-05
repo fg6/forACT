@@ -58,6 +58,7 @@ read avgid refcov <<< $(python $scriptdir/avgid.py $alsfile)
 rcov=`echo $refcov | awk '{ printf("%'"'"'d\n",$1); }'`
 ratio=`echo $refcov*1./$nrefsize`
 percov=`awk "BEGIN {printf \"%.2f\", $refcov*100./$nrefsize}"`
+basesmapped=`awk '{ sum+=$12} END {print sum}' $workdir/$name_fornoise\_minid$minid\_$finalal | awk '{ printf("%'"'"'d\n",$1); }'` 
 echo "**********************************************************************"
 echo "**** Mapping report for Draft ctgs shred in chunks of" $shred "bases ****"
 echo "***********  isolated noise <" $noise " and min-id =" $minid "**************"
@@ -66,6 +67,7 @@ echo " Total number of mapped chunks:" $chunknum
 echo " Initial number of chunks mapped:" $inimapped
 echo " Unmapped chunks:" $unmapped 
 echo " Final number of chunks mapped (after noise/quality selection):" $finalmapped
+echo " Number of bases mapped: " $basesmapped
 echo " Final global average identity:" $avgid"%"
 # write avg identy per each contig in a file: how to evaluate if there are chunks?
 #echo " Reference coverage:" $percov\%   "  ("$rcov "bases)"

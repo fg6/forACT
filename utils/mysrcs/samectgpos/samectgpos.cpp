@@ -94,8 +94,8 @@ int readals(char* file){
         std::stringstream ss(line);
         string ctg, chr;
 	int ctgi, ctgf, chri,chrf;
-	vector<string> more(7);
-        ss >> ctg >> chr >> more[0] >> more[1]  >> more[2]  >> more[3] >> ctgi >> ctgf >> chri >> chrf >> more[4] >> more[5]>> more[6];
+	vector<string> more(8);
+        ss >> ctg >> chr >> more[0] >> more[1]  >> more[2]  >> more[3] >> ctgi >> ctgf >> chri >> chrf >> more[4] >> more[5]>> more[6]>> more[7];
 
 	int thisctg=seqmap[ctg];
 
@@ -106,6 +106,6 @@ int readals(char* file){
 	//   <<  fctgi << "\t" <<  fctgf << endl;
 
 	myals <<  seqname[thisctg] << "\t" <<  chr << "\t" <<  more[0] << "\t" <<  more[1]  <<  "\t" <<  more[2]  << "\t" <<  more[3] << "\t" 
-	   <<  fctgi << "\t" <<  fctgf << "\t" <<  chri << "\t" <<  chrf << "\t" <<  more[4] << "\t" <<  more[5] << "\t" << more[6] << endl;
+	   <<  fctgi << "\t" <<  fctgf << "\t" <<  chri << "\t" <<  chrf << "\t" <<  more[4] << "\t" <<  more[5] << "\t" << more[6] << "\t" << more[7] << endl;
   }
 }

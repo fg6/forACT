@@ -1,6 +1,6 @@
 #include "../myinc/macro.h"
 
-static int printn=5000; // split in 1K contigs per file
+static int printn=1000; // split in 1K contigs per file
 static string seqfile ;
 static string aligner="smalt";
 
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
   int select=0;
   
   if (argc == 1) {
-   fprintf(stderr, "Usage: %s <reads.fq/fa>  <splitting_size>\n", argv[0]);
+   fprintf(stderr, "Usage: %s <reads.fq/fa>  <aligner> <splitting_size>\n", argv[0]);
    return 1;
   }	
   if((fp = gzopen(argv[1],"r")) == NULL){ 
@@ -25,12 +25,17 @@ int main(int argc, char *argv[])
   // fasta/q file 
   seqfile = argv[1];
   if(argc>2) 
-    printn=to_int(argv[2]);
+    aligner=to_string(argv[2]);
   if(argc>3) 
-    aligner=to_string(argv[3]);
+    printn=to_int(argv[3]);
  
   cout << argc << " " << seqfile << " " <<  aligner << " " << printn << endl;
-  //cout << argv[1] << " " << argv[2] << " " << argv[3] << endl;
+
+  cout << aligner << endl;
+  //if(aligner == "smalt"){
+  // cout << "ok" << endl;
+  //}
+  
   if(aligner == "smalt")
     split_by_ctgs(argv[1]);
   else
@@ -48,7 +53,7 @@ int split_by_size(char* file)
 // ---------------------------------------- //
 { 
 
-  if(0)cout << " splitting by size " << endl;
+  if(1)cout << " splitting by size " << endl;
 
   igzstream infile(file);
   char fq[5]={"@"};

@@ -11,6 +11,7 @@ static  float minid=80;  // min id
 
 
 static int longestchr=0;
+static int yes=1;
 static int nchr=0;
 static int nctg=0;
 static string myname1;
@@ -39,7 +40,7 @@ struct MYALS
 static vector<MYALS>  myals;
 static MYALS empty(string ctg);
 static MYALS fillall(string ctg);
-static MYALS fillals(vector<string> str, vector<int> in, MYALS thisals);
+static MYALS fillals(vector<string> str, vector<long int> in, MYALS thisals);
 struct MYCTGS
 {
   string name;
@@ -60,8 +61,8 @@ static vector<MYCTGS>  mycontigs;
 int readals(char* file);
 int orderals();
 int sortnwritectgs();
-
 int checknewblock(int pchri, int nchri,int pctgi, int nctgi);
+
 
 int main(int argc, char *argv[])
 { 
@@ -214,12 +215,15 @@ int readals(char* file){
     std::stringstream ss(line);
     int ctgi, ctgf, chri,chrf;
     vector<string> str(7);
-    vector<int> pos(6);
+    vector<long int> pos(6);
+    
+    int mapscore;
+    string mycigar;
 
     ss >> str[0] >> str[1]  >> str[2]  >> str[3]   >> str[4]  >> str[5]  
-       >> pos[0] >> pos[1] >> pos[2] >> pos[3] >> str[6] >> pos[4];
-    
-        
+       >> pos[0] >> pos[1] >> pos[2] >> pos[3] >> str[6] >> pos[4] >> mapscore; 
+		    
+		    
     ctg=str[0];
     chr=str[1];
     
@@ -227,17 +231,28 @@ int readals(char* file){
     else pri=0;
 
     if(0) cout <<  str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
-		 << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << endl;
+	       << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << " " << mapscore << endl;
+     if(0) cout << " " << mycigar << endl;
     if(pri) tt1++;
 
     // Remove alignment with ID < min-ID
-    float id=to_float(str[2])*1./100;
-    if(id<minid && aligner == "smalt") {
+    float id;  
+    id=to_float(str[2])*1./100;  // id perc from smalt
+    
+    
+    if(id<minid)
       continue;
-    }else if(id<55 &&  aligner != "smalt") {
-      continue;
+    
+    if(aligner == "smalt") {
+      //cout << mapscore << endl;
+      if(mapscore<10)
+	continue;
     }
-    if(0) cout <<  "   after cut " << str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
+    /*else{
+      if(mapscore<20)   
+	continue;
+	}*/
+    if(0) cout <<  "   after cuts " << str[0] << " " <<  str[1]  << " " <<  str[2]  << " " <<  str[3]   << " " <<  str[4]  << " " <<  str[5]  
 		 << " " <<  pos[0] << " " <<  pos[1] << " " <<  pos[2] << " " <<  pos[3] << " " <<  str[6] << " " <<  pos[4] << endl;
     if(pri) tt2++;
 
@@ -629,7 +644,7 @@ int sortnwritectgs()
   return nblock;
 }
 
-MYALS fillals(vector<string> str, vector<int> in, MYALS thisals){
+MYALS fillals(vector<string> str, vector<long int> in, MYALS thisals){
   thisals.ctg.push_back(str[0]);
   thisals.chr.push_back(str[1]);
   thisals.more1.push_back(str[2]);
