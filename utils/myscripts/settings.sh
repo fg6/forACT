@@ -47,7 +47,7 @@ runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
 runreport=$scriptdir/runreport.sh
 runmisjoints=$scriptdir/runlocate_misjoint.sh
-wdir=whole
+wdir=$aligner
 
 folder=$wdir\_$shred
 refdir=$dir/ref
