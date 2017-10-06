@@ -16,14 +16,16 @@ if [ ! -d $refdir ]; then
    cp $fullpathref ref.fasta  
     
    $srcdir/grabeachchr/grabeachchr $ref
-
-   if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
-       thiscom=`echo $mysmalt  index -k 13 -s 6  smalt_hash $ref `
-       if [[ $debug == 1 ]]; then
-	   $thiscom 
-	   
-       else
-	   $thiscom &> /dev/null
+  
+   if [[ $aligner == "smalt" ]]; then	
+       if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
+       	  thiscom=`echo $mysmalt  index -k 13 -s 6  smalt_hash $ref `
+          if [[ $debug == 1 ]]; then
+	     $thiscom 
+	  
+          else
+	      $thiscom &> /dev/null
+          fi
        fi
    fi
 fi
@@ -43,9 +45,9 @@ else
 
     check=`ls $refdir | wc -l`
     
-    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
+    shouldbe=$(($chrnum+3)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
 
-    if [ ! $check -eq $shouldbe ]; then 
+    if [ ! $check -ge $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
     fi
@@ -75,7 +77,7 @@ file=$fastadir/split/split0_shred$shred\_$notshredname;  location="Three"
 if [ ! -f $file  ]; then 
     if [[ $aligner == "smalt" ]]; then
 	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  #done
-     else
+    else  #minimap2 and bwa
 	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  $splitlen
     fi
 fi
@@ -90,10 +92,14 @@ file=$aldir/$firstal.al; location="Four"
 if [ ! -f  $aldir/split_$firstal/split0_$firstal.out  ]; then 
     if [[ $aligner == "smalt" ]]; then
 	$scriptdir/splitalign.sh  $splitdir $firstal
-    else
+    elif [[ $aligner == "minimap2" ]]; then
 	$scriptdir/splitalign_minimap.sh  $splitdir $firstal $aldir/split_$firstal
+    else
+	$scriptdir/splitalign_bwa.sh  $splitdir $firstal $aldir/split_$firstal
     fi
 fi
+
+exit
 if [ ! -f $file ]; then
     for ofile in $aldir/split_$firstal/*.out; do
 	if [[ $aligner == "smalt" ]]; then
