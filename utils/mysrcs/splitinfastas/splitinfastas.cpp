@@ -29,9 +29,9 @@ int main(int argc, char *argv[])
   if(argc>3) 
     printn=to_int(argv[3]);
  
-  cout << argc << " " << seqfile << " " <<  aligner << " " << printn << endl;
+  if(0) cout << argc << " " << seqfile << " " <<  aligner << " " << printn << endl;
 
-  cout << aligner << endl;
+  if(0)cout << aligner << endl;
   //if(aligner == "smalt"){
   // cout << "ok" << endl;
   //}
@@ -53,7 +53,7 @@ int split_by_size(char* file)
 // ---------------------------------------- //
 { 
 
-  if(1)cout << " splitting by size " << endl;
+  if(0)cout << " splitting by size " << endl;
 
   igzstream infile(file);
   char fq[5]={"@"};
@@ -162,7 +162,7 @@ int split_by_ctgs(char* file)
 // ---------------------------------------- //
 { 
 
-  cout << "split in printn" << endl;
+  if(0)cout << "split in printn" << endl;
   igzstream infile(file);
   char fq[5]={"@"};
   char fa[5]={">"};
