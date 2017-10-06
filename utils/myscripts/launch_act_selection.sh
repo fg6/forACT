@@ -65,5 +65,5 @@ echo " " Draft Assembly: $fasta
 echo " " Alignment file: $alfile
 
 
-/software/hpag/Artemis/act $ref $alfile $fasta & 
+$myforACT/utils/mysrcs/Artemis/act $ref $alfile $fasta & 
 

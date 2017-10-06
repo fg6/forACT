@@ -81,6 +81,8 @@ if [ ! -f $file  ]; then
 	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  $splitlen
     fi
 fi
+
+
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi
@@ -99,7 +101,7 @@ if [ ! -f  $aldir/split_$firstal/split0_$firstal.out  ]; then
     fi
 fi
 
-exit
+
 if [ ! -f $file ]; then
     for ofile in $aldir/split_$firstal/*.out; do
 	if [[ $aligner == "smalt" ]]; then

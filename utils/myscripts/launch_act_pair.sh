@@ -5,6 +5,7 @@ tals=$3
 bfasta=$4
 bals=$5
 
+source $thisdir/mysettings.sh
 
 
 echo Running ACT with files:
@@ -14,5 +15,6 @@ echo Top Alignment file: $tals
 echo Bottom Draft Assembly: $bfasta 
 echo Bottom Alignment file: $bals
 
-/software/hpag/Artemis/act  $tfasta $tals $ref $bals $bfasta & 
+
+$myforACT/utils/mysrcs/Artemis/act  $tfasta $tals $ref $bals $bfasta & 
 

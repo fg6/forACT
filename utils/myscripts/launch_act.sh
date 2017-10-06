@@ -16,5 +16,6 @@ echo Draft Assembly: $fasta
 echo Alignment file: $alfile
 
 
-/software/hpag/Artemis/act $ref $alfile $fasta & 
+source $thisdir/mysettings.sh
+$myforACT/utils/mysrcs/Artemis/act $ref $alfile $fasta & 
 
