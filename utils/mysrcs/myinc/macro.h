@@ -364,7 +364,7 @@ int readfasta(char* file, int saveinfo=0,  string otype="", int readseq=0, int m
 	    }
 		  
 	    if(otype.size()){
-	      if(thispri)cout << " writing in " << myfile << endl; 
+	      //if(thispri)cout << " writing in " << myfile << endl; 
 
 	      myfile << fa << lname ;
 	      if(lcomment.size()) myfile << " " << lcomment <<endl;
