@@ -327,9 +327,16 @@ int CheckOneCtg(std::vector<nALIGNMENTS> ctgals)
     myfile << " " << thisctg 
 	 << " :  Multiple chromosome mapping: " << endl;
     misfile << " " << thisctg 
-	 << " :  Multiple chromosome mapping: " << endl;
+	 << " :  Multiple chromosome mapping: ";
     nmisctg++;
     misassembledctgs.push_back(thisctg);
+
+    //vector<string> links;
+    for ( const auto &p : thisctglinks ){
+      misfile <<std::get<0>(p) << ", ";
+	//links.push_back(std::get<0>(p));
+    }
+    misfile <<endl;
 
     int nbreaks=-1;
     for ( const auto &p : thisctglinks ){

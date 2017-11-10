@@ -34,6 +34,7 @@ if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
 fi
  
 cd $myforACT/utils/mysrcs
+mkdir -p Artemis
 
 if [[ ! -f  $myforACT/utils/mysrcs/Artemis/act ]]; then
     echo Installing ACT ...
