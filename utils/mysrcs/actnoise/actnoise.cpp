@@ -5,7 +5,7 @@ static float noise=10; //0.2 for 20% of major
 static int minlength=5000; //30K tried for devil // some noise has many als, but all concentrated in a small ref region  
                    // not used anymore
 static int minnoise=3000; // no used
-static int maxnoise=10000;  
+//static int maxnoise=10000;  
 static int newblock=100000; 
 static  float minid=80;  // min id 
 
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
   string seqfile = argv[2];
   string alfile = argv[3];
   if (argc >= 5)  noise= to_int(argv[4])*1./10;
-  minlength=maxnoise; // not used anymore, now using ctg length
+  minlength=10000; //maxnoise; // not used anymore, now using ctg length  !!! still using???? !!!
   int tempid=0;
   if (argc >= 6)  tempid= to_int(argv[5]);
   minid=tempid*1.;
@@ -329,7 +329,7 @@ int orderals()
      ctg=myals[ictg].ctg[0];
      thisctglenght=ctgsizes[ctg];
      int percnoise=(int)(noise*thisctglenght/100);  // ex. noise=20
-     thisnoise=std::min(percnoise, maxnoise);
+     thisnoise=percnoise;   //std::min(percnoise, maxnoise);
 
      if(ctg == "fAnaTes1_16" || ctg == "fAnaTes1_15") 
        thispri=0;

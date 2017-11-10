@@ -37,8 +37,8 @@ echo "  Selected chromosomes: " "${chrs[@]}"
 
 create_chr () {    
     # global file (for the whole assembly:
-    globals=$myfolder/whole_$shred/inter/$name_fornoise\_minid$minid\_$finalal
-    globfasta=$myfolder/whole_$shred/inter/selctg_forw* #$forwnotshred  
+    globals=$myfolder/$aligner\_$shred/inter/$name_fornoise\_minid$minid\_$finalal
+    globfasta=$myfolder/$aligner\_$shred/inter/selctg_forw* #$forwnotshred  
     herefasta=$name_fornoise\_minid$minid\_$(basename $globfasta)
     hereals=$name_fornoise\_minid$minid\_tempal
 
@@ -49,9 +49,10 @@ create_chr () {
 	grep -P "\t"$chr"\t"   $globals  > tempal
     
 	echo Reordering contigs and cutting noise ...         
-	$srcdir/actnoise/actnoise $thisref $globfasta tempal $noise $minid
+	$srcdir/actnoise/actnoise $thisref $globfasta tempal $noise $minid $aligner
 	echo Resetting positioning scheme according to ACT ...
 	$srcdir/chrpos/chrpos $thisref $herefasta $hereals
+       
 	mv foract$hereals  $thisals
 	mv $herefasta $thisfasta
 
@@ -60,8 +61,8 @@ create_chr () {
 
 create_multichr () {    
     # global file (for the whole assembly:
-    globals=$myfolder/whole_$shred/inter/$name_fornoise\_minid$minid\_$finalal
-    globfasta=$myfolder/whole_$shred/inter/selctg_forw* #$forwnotshred  
+    globals=$myfolder/$aligner\_$shred/inter/$name_fornoise\_minid$minid\_$finalal
+    globfasta=$myfolder/$aligner\_$shred/inter/selctg_forw* #$forwnotshred  
     herefasta=$name_fornoise\_minid$minid\_$(basename $globfasta)
     hereals=$name_fornoise\_minid$minid\_tempal
     thisref=$chr_folder/ref$chrlist.fasta   #$refdir/$chr\_*   
@@ -77,9 +78,8 @@ create_multichr () {
 	    grep -P "\t"$chr"\t"   $globals  >> tempal
 	    cat $refdir/$chr\_*  >> $thisref
 	done
-
-	echo "  "Reordering contigs and cutting noise ...         
-	$srcdir/actnoise/actnoise $thisref $globfasta tempal $noise $minid
+		
+	$srcdir/actnoise/actnoise $thisref $globfasta tempal $noise $minid $aligner
 	echo "  "Resetting positioning scheme according to ACT ...
 	$srcdir/chrpos/chrpos $thisref $herefasta $hereals
 	mv foract$hereals  $thisals
@@ -90,14 +90,14 @@ create_multichr () {
 
 
 myfolder=`pwd`
-chr_folder=$myfolder/whole_$shred/unique/chrs$noise/
+chr_folder=$myfolder/$aligner\_$shred/unique/chrs$noise/
 mkdir -p $chr_folder
 cd $chr_folder
 
 
 # files to plot:
-thisfasta=$myfolder/whole_$shred/unique/chrs$noise/for$chrlist\.fasta
-thisals=$myfolder/whole_$shred/unique/chrs$noise/for$chrlist\.al
+thisfasta=$myfolder/$aligner\_$shred/unique/chrs$noise/for$chrlist\.fasta
+thisals=$myfolder/$aligner\_$shred/unique/chrs$noise/for$chrlist\.al
 create_multichr
 
 if [[ $single == 1 ]]; then
@@ -110,13 +110,13 @@ oneals=$thisals
 
 # if comparison
 myfolder=$comp_to
-chr_folder=$myfolder/whole_$shred/unique/chrs$noise/
+chr_folder=$myfolder/$aligner\_$shred/unique/chrs$noise/
 mkdir -p $chr_folder
 cd $chr_folder
 
 # files to plot:
-thisfasta=$myfolder/whole_$shred/unique/chrs$noise/for$chrlist\.fasta
-thisals=$myfolder/whole_$shred/unique/chrs$noise/for$chrlist\.al
+thisfasta=$myfolder/$aligner\_$shred/unique/chrs$noise/for$chrlist\.fasta
+thisals=$myfolder/$aligner\_$shred/unique/chrs$noise/for$chrlist\.al
 create_multichr
 
 

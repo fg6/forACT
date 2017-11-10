@@ -18,12 +18,12 @@ fi
 
 
 #top
-alfile1=$folder1/whole_$shred/unique/foract$noise\_minid$minid.al  
-afasta1=$folder1/whole_$shred/unique/foract$noise\_minid$minid.fasta
+alfile1=$folder1/$aligner\_$shred/unique/foract$noise\_minid$minid.al  
+afasta1=$folder1/$aligner\_$shred/unique/foract$noise\_minid$minid.fasta
 
 #bottom
-alfile2=$folder2/whole_$shred/unique/foract$noise\_minid$minid.al 
-afasta2=$folder2/whole_$shred/unique/foract$noise\_minid$minid.fasta
+alfile2=$folder2/$aligner\_$shred/unique/foract$noise\_minid$minid.al 
+afasta2=$folder2/$aligner\_$shred/unique/foract$noise\_minid$minid.fasta
 
 
 

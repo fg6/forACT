@@ -99,7 +99,7 @@ if [ ! -f  $aldir/split_$firstal/split0_$firstal.out  ]; then
     fi
 fi
 
-exit
+
 if [ ! -f $file ]; then
     for ofile in $aldir/split_$firstal/*.out; do
 	if [[ $aligner == "smalt" ]]; then

@@ -1,10 +1,10 @@
 #### Parameters to set: ####
 
 # the draft assembly contigs/scaffolds are shred in pieces of how many base-pairs? default=10000 bp
-shred=10000
+shred=10000000
 # alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
 noise=2   # 1 == 0.1% of contig   #30000
-minid=70
+minid=10
 
 debug=1
 
@@ -18,9 +18,9 @@ aligner=minimap2 #smalt
 # lfs jobs parameters:
 lfsjobs=1  # 
 myqueue=normal
-myjobmem=5000
-myncpus=15
-maxjobs=5  #maximum number of jobs to run at a time
+myjobmem=8000
+myncpus=1
+maxjobs=100  #maximum number of jobs to run at a time
 
 
 

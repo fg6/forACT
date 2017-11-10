@@ -53,14 +53,14 @@ fi
  ./mypipeline.sh check
 echo
 
-testal=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.al $myforACT/test_ecoli/forACT_testdata/results/foract.al | wc -l`
-testfasta=`diff $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.fasta $myforACT/test_ecoli/forACT_testdata/results/foract.fasta | wc -l`
+testal=`diff $myforACT/test_ecoli/forACT/$aligner\_10000/unique/foractnonoise0.1_minid80.al $myforACT/test_ecoli/forACT_testdata/results/foract.al | wc -l`
+testfasta=`diff $myforACT/test_ecoli/forACT/$aligner\_10000/unique/foractnonoise0.1_minid80.fasta $myforACT/test_ecoli/forACT_testdata/results/foract.fasta | wc -l`
 
 if [[ $testal == 0 ]] && [[ $testfasta == 0 ]]; then
     echo " 3. Pipeline run: "
     echo  " *****  Test succeded ***** "
     echo; echo " To launch act:"
-    echo " " $myforACT/utils/myscripts/launch_act.sh $myforACT/test_ecoli/forACT/ref/ref.fasta $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.al  $myforACT/test_ecoli/forACT/whole_10000/unique/foractnonoise0.1_minid80.fasta  &
+    echo " " $myforACT/utils/myscripts/launch_act.sh $myforACT/test_ecoli/forACT/ref/ref.fasta $myforACT/test_ecoli/forACT/$aligner\_10000/unique/foractnonoise0.1_minid80.al  $myforACT/test_ecoli/forACT/$aligner\_10000/unique/foractnonoise0.1_minid80.fasta  &
 
 else
     echo " Errors! "
