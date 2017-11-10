@@ -81,6 +81,8 @@ if [ ! -f $file  ]; then
 	$scriptdir/splitshred.sh  $splitdir $fastadir/$shreddraft  $splitlen
     fi
 fi
+
+
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi

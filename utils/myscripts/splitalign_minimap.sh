@@ -21,8 +21,8 @@ submem="s#MYJOBMEM#$myjobmem#g"
 subcpu="s#MYCPUS#$myncpus#g"
 waitfor="split"
 
-echo index
-time $myminimap2 -x asm5 -d ref.mmi $refdir/ref.fasta
+
+$myminimap2 -x asm5 -d ref.mmi $refdir/ref.fasta &> index.log
 
 if [[ $inparallel == "yes" ]]; then  # waitfor is not working
     echo inparallel
@@ -88,17 +88,18 @@ else
 	    	    sleep 1
 		else
 		    chmod +x ./runalign_$ii.sh
-		    ./runalign_$ii.sh
+		    ./runalign_$ii.sh &> al_$ii.log
 		fi
 	    fi
 	    ii=$(($ii+1))
 	done
     fi
 fi # inparallel or not
-echo all jobs launched
+
 
 sleep 30
 if [[ $lfsjobs == 1 ]]; then
+        echo all jobs launched
 
 	njobs=`bjobs | grep $waitfor | wc -l`
 	echo $waitfor $njobs

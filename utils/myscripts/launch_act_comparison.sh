@@ -47,5 +47,5 @@ echo Bottom Alignment file: $alfile2
 
 
 
-/software/hpag/Artemis/act  $afasta1 $alfile1 $ref $alfile2 $afasta2 & 
+/Artemis/act  $afasta1 $alfile1 $ref $alfile2 $afasta2 & 
 

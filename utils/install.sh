@@ -34,6 +34,25 @@ if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
 fi
  
 cd $myforACT/utils/mysrcs
+
+if [[ ! -f  $myforACT/utils/mysrcs/Artemis/act ]]; then
+    echo Installing ACT ...
+    rm -rf $myforACT/utils/mysrcs/Artemis
+    cd $myforACT/utils/mysrcs/
+    git clone https://github.com/sanger-pathogens/Artemis.git 
+    cd Artemis/
+    make &> install.log
+fi
+
+cd $myforACT/utils/mysrcs
+if [[ ! -f  $myforACT/utils/mysrcs/Artemis/act ]]; then
+        echo "  !! Error: ACT  not installed properly!";
+        exit
+fi
+
+
+
+cd $myforACT/utils/mysrcs
 if [[ ! -f mylibs/gzstream/gzstream.o ]]; then 
 	echo "  !! Error: gzstream not installed properly!"; 
 	exit

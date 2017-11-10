@@ -92,27 +92,35 @@ int split_by_size(char* file)
 	ctgfound++;
 	//cout << " read new contig " << read << " " << lprint << endl;
 
+	
 	if(lprint>=printn){ //next file
 	  myfile.close();
 	  ll++;
 	  aname="split"+to_string(ll)+"_";
 	  myname=myrename(seqfile,aname);
 	  myfile.open(myname);  
-	  //cout << "   new file opened " << myname << endl;
+	  cout << "   new file opened " << myname << endl;
 	  lprint=0;
-	}else if(lprint==0){ // first ctg
+	}
+	/*else if(lprint==0){ // first ctg
 	  aname="split"+to_string(ll)+"_";
 	  myname=myrename(seqfile,aname);
 	  myfile.open(myname);  
-	  //cout << "   first file opened " << myname << " " << lname<< endl;
-	}
+	  cout << "   first file opened " << myname << " " << lname<< endl;
+	  }*/
 
 	lprint+=seqlen;	
 	//cout << " writing new contig in file " << myname << " " << lname << " " << lprint << endl;
 	myfile << lname << endl << lseq << endl;
 	
       }
-      
+      if(nseq==1){ // first ctg
+	aname="split"+to_string(ll)+"_";
+	myname=myrename(seqfile,aname);
+	myfile.open(myname);  
+	//cout << "   first file opened " << myname << " " << lname<< endl;
+      }
+
       lname=read;
 
       lseq="";
@@ -137,7 +145,7 @@ int split_by_size(char* file)
 	aname="split"+to_string(ll)+"_";
 	myname=myrename(seqfile,aname);
 	myfile.open(myname);  
-	//	cout << "   new file opened " << myname << endl;
+	//cout << "   new file opened " << myname << endl;
       }
       myfile << lname << endl << lseq << endl;
       myfile.close();
