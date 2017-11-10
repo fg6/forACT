@@ -333,7 +333,8 @@ int CheckOneCtg(std::vector<nALIGNMENTS> ctgals)
 
     //vector<string> links;
     for ( const auto &p : thisctglinks ){
-      misfile <<std::get<0>(p) << ", ";
+      string thischr=std::get<0>(p);
+      misfile << thischr << ": " <<  std::get<4>(mappedtochr[thischr]) << "-" << std::get<5>(mappedtochr[thischr]) << ",   ";
 	//links.push_back(std::get<0>(p));
     }
     misfile <<endl;
