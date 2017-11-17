@@ -1,6 +1,6 @@
 
 # forACT
-Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
+Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT, adding bwa aligner
 
 Main Pipeline steps:
 
