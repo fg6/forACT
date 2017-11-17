@@ -1,41 +1,45 @@
 #### Parameters to set: ####
 
-# the draft assembly contigs/scaffolds are shred in pieces of how many base-pairs? default=10000 bp
-shred=10000000
+aligner=minimap2
+
 # alignment < noise base-pairs will be considered noise and not show in ACT. default=30000 bp. (for smaller genomes reduce up to 5000 bp)
 noise=2   # 1 == 0.1% of contig   #30000
-minid=10
-
 debug=1
 
 # Aligner
 mysmalt=MYFORACT//utils/mysrcs/mylibs/smalt-0.7.4/smalt_x86_64
 myminimap2=MYFORACT//utils/mysrcs/mylibs/minimap2/minimap2
 mybwa=MYFORACT//utils/mysrcs/mylibs/bwa/bwa
-aligner=minimap2 #smalt
+
 
 
 # lfs jobs parameters:
 lfsjobs=1  # 
 myqueue=normal
-myjobmem=8000
-myncpus=1
 maxjobs=100  #maximum number of jobs to run at a time
 
 
 
 ###### Mis-joint analysis using synteny
-min_len_perc=0.25  # percent min_lenght to consider as possible misjoint wrt major al (reduce noise and small repeats)
-min_len=200000     # absolute min_lenght to consider as possible misjoint
+min_len=300000     # absolute min_lenght to consider as possible misjoint
 min_len_max=500000  # min_lenght for a major al  (== ignore scaffold if major alignment block is < min_len_max
 splitlen=5000000
 
 
+##### the draft assembly contigs/scaffolds are shred in pieces of how many base-pairs?
+shred=10000000
+minid=10
+myjobmem=8000
+myncpus=1
+
+if [[ $aligner == "smalt" ]]; then
+	shred=10000
+	minid=70
+	myjobmem=5000
+	myncpus=15
+fi
 
 ########################
-
-
-
 myforACT=MYFORACT
 fullpathref=MYREF
 notshred=MYDRAFT
@@ -47,6 +51,7 @@ runalign=$scriptdir/runalign.sh
 runprep=$scriptdir/runprep.sh
 runreport=$scriptdir/runreport.sh
 runmisjoints=$scriptdir/runlocate_misjoint.sh
+runcirclize=$scriptdir/runcirclize.sh
 wdir=$aligner
 
 folder=$wdir\_$shred
@@ -80,6 +85,12 @@ name_fornoise=nonoise0.$noise
 foractfa=$finaldir/foract$name_fornoise\_minid$minid.fasta
 foractal=$finaldir/foract$name_fornoise\_minid$minid.al
 
-
-
+### misjoint analysis ###
+misals_file=$outdir/report/misjoints_details_$name_fornoise\_minid$minid\_$min_len.txt
+chrass_file=$outdir/report/chr_assignment_$name_fornoise\_minid$minid\_$min_len.txt
+bedfile=$outdir/report/bedfile_$name_fornoise\_minid$minid\_$min_len.txt
+circl_fig=circos_$name_fornoise\_minid$minid\_$min_len
+d=$(basename $dir)
+title_fig=$d\_$aligner\_minid$minid\_$min_len
+unplaced="unplaced"
 

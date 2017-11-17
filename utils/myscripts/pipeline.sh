@@ -9,7 +9,7 @@ whattodo=$1
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles, check, report, act, act_compare, act_select, act_select_compare"
+    echo "     command: command to be run. Options: align, prepfiles, check, report, misjoint, circlize, act, act_compare, act_select, act_select_compare"
     echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
     echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
@@ -25,6 +25,8 @@ if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo  "  Check" https://github.com/fg6/forACT/blob/misfinder/README.md "for detailed instructions"; echo
     exit
 fi
+
+alsfile=$workdir/$name_fornoise\_minid$minid\_$thirdal.al
 
 
 mkdir -p $dir
@@ -62,7 +64,6 @@ if [ $whattodo == "prepfiles" ]; then
     
 
     $runprep 
-#$folder $ref $notshred $scriptdir 2>&1 #| tee -a $oprep
 fi
 
 if [ $whattodo == "report" ]; then
@@ -72,6 +73,11 @@ if [ $whattodo == "report" ]; then
     cd $dir
     ok=0
     
+    if [[ ! -f $alsfile ]]; then
+	echo; echo " Error: cannot find file with alignments " 
+	exit
+    fi
+
     $runreport | tee report_noise$noise\_minid$minid.txt	
 
 
@@ -83,7 +89,24 @@ if [ $whattodo == "misjoints" ]; then
     ##################  LOCATE POSSIBLE MIS_JOINTS #########
     #######################################################
     cd $dir
+    if [[ ! -f $alsfile ]]; then
+	echo; echo " Error: cannot find file with alignments " $alsfile
+	exit
+    fi
     $runmisjoints  
+fi
+
+if [ $whattodo == "circlize" ]; then
+    #######################################################
+    ##################  LOCATE POSSIBLE MIS_JOINTS #########
+    #######################################################
+    cd $dir
+    if [[ ! -f $misals_file ]]; then
+	echo; echo " Error: cannot find file with misjoints " $misals_file
+	echo "   run " $0 "misjoints first"
+	exit
+    fi
+    $runcirclize 
 fi
 
 if [ $whattodo == "debug" ]; then
@@ -99,6 +122,12 @@ if [ $whattodo == "check" ]; then
   ###################################################
   echo; echo " Looking for possible issues... "
   ###################################################
+
+  if [[ ! -f $workdir/$thirdal.al ]]; then
+      echo; echo " Error: cannot find file with alignments " $workdir/$thirdal.al
+      exit
+  fi
+
   $myforACT/utils/myscripts/runcheck.sh 
 fi
 

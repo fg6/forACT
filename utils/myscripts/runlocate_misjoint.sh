@@ -4,19 +4,24 @@
 thisdir=`pwd`
 source $thisdir/mysettings.sh
 alsfile=$workdir/$name_fornoise\_minid$minid\_$thirdal.al
-# old case alsfile=$workdir/nonoise$noise\_$thirdal.al
 
 mkdir -p  $outdir/report
 cd $outdir/report
 
 ####################### Report possible misjoint for chromosome-assigned scaffolds (Synteny Groups)  ##########################
-## writing misfinder.cpp code for this
 echo; 
 echo "*****************************************************************************************************************"
 echo "************** Report possible misjoints for chromosome-assigned scaffolds (Synteny Groups)  ********************" 
 echo "*****************************************************************************************************************"
-$srcdir/locate_misjoints/locate_misjoints $workdir/$name_fornoise\_minid$minid\_selctg_$forwnotshred $alsfile  $min_len_max $min_len_perc $min_len
-mv $outdir/report/misjoints_details.txt $outdir/report/misjoints_details_$name_fornoise\_minid$minid.txt
+$srcdir/locate_misjoints/locate_misjoints $workdir/$name_fornoise\_minid$minid\_selctg_$forwnotshred $alsfile $refdir/ref.fasta $splitlen $min_len_max $min_len
 
-echo; echo " Misjoint report summary in" $outdir/report/misjoints_details_$name_fornoise\_minid$minid.txt
+if [[ -f $outdir/report/alfile.txt ]] &&  [[ -s $outdir/report/alfile.txt ]] ; then
+	mv $outdir/report/alfile.txt  $misals_file
+	mv $outdir/report/majorfiles.txt   $chrass_file
+	mv $outdir/report/bedfile.txt $bedfile
+	echo; echo " Misjoint report in" $outdir/report/misjoints_details_$name_fornoise\_minid$minid\_$min_len.txt	
+else
+	rm -f $outdir/report/alfile.txt $outdir/report/majorfiles.txt $outdir/report/bedfile.txt
+	echo; echo " No misjoints found with the required parameters "
+fi
 echo;echo
