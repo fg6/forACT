@@ -26,26 +26,29 @@ if [[ ! -f  $refdir/ref.fasta.bwt ]]; then
 fi
 
 ii=0
-if [ ! -f $alsplitdir/$temponame.sam ]; then	    
+if [ ! -f $alsplitdir/$temponame.out ]; then	    
     for fa in $fastasplit/*; do
 	temponame=split$ii\_$outname
 	
 	if [ ! -f $temponame.out ]; then
-	    command=`echo "$mybwa mem -t 5 $refdir/ref.fasta $fa | samtools view -q 1 -F 4 -F 256 -F 0x900 | grep -v XA:Z | grep -v SA:Z   - > $temponame.sam"`
+	    awkcommand=`echo '{print \$1, \$2, \$3, \$4, \$5, \$6, \$7, \$8, \$9, \$11, \$12, \$13, \$14}'`
+	    # 4 == unmapped  256==secondary   0x900 == 0x800 (supplementary) + 0x100 (secondary) 
+	    command=`echo "$mybwa mem -t 5 $refdir/ref.fasta $fa | samtools view -q 1 -F 4 -F 0x900 | grep -v XA:Z | grep -v SA:Z | awk '$awkcommand' > $temponame.out"`
 	    echo $command > runalign_$ii.sh
-	    
-
+	  
 	    
 	    if [[ $lfsjobs == 1 ]]; then
 	        sed $subqueue $scriptdir/gensplital.sh | sed $submem | sed $subcpu > gensplital.sh
         	chmod +x gensplital.sh
-	    	njobs=`bjobs | wc -l`	   	    
-	    	#while [ $njobs -ge $maxjobs ]; do
-       		#    sleep 30
-		#    njobs=`bjobs | wc -l`
-	    	#done	   	    
-	    	#./gensplital.sh  runalign_$ii.sh
-	    	#sleep 1
+	    	njobs=`bjobs | wc -l`	   	
+		echo $njobs
+	    	while [ $njobs -ge $maxjobs ]; do
+		    echo "waiting for some jobs to finish...sleeping zzz.."
+       		    sleep 30
+		    njobs=`bjobs | wc -l`
+	    	done	   	    
+	    	./gensplital.sh  runalign_$ii.sh
+	    	sleep 1
 	    else
 		chmod +x ./runalign_$ii.sh
 		./runalign_$ii.sh
@@ -56,9 +59,9 @@ if [ ! -f $alsplitdir/$temponame.sam ]; then
 fi
 
 echo all jobs launched
-exit
-sleep 30
+sleep 1
 if [[ $lfsjobs == 1 ]]; then
+    echo "waiting for all jobs to finish...sleeping zzz.."
 
 	njobs=`bjobs | grep $waitfor | wc -l`
 	echo $waitfor $njobs

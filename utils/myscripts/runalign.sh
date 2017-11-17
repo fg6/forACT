@@ -106,12 +106,18 @@ if [ ! -f $file ]; then
     for ofile in $aldir/split_$firstal/*.out; do
 	if [[ $aligner == "smalt" ]]; then
 	    awk '{print $3"\t"$4"\t"$11"\t"$2"\t"20"\t"1"\t"$5"\t"$6"\t"$7"\t"$8"\t"0.0"\t"$12"\t"$9}' $ofile  >> $aldir/$firstal.al
-	else
+	elif [[ $aligner == "minimap2" ]]; then
 	    cat $ofile | awk '{print $1"\t"$6"\t"$12"\t"0"\t"0"\t"0"\t"$3"\t"$4"\t"$8"\t"$9"\t"0"\t"$11"\t"$5}'  | sed 's#\t+#\tF#g' | sed 's#\t-#\tR#g' >> $aldir/$firstal.al 	
+	else # bwa
+	    cat $ofile   >> $aldir/$firstal.bwatemp
+	    
+	    ## do somehing with $aldir/$firstal.bwatemp and get  $aldir/$firstal.al 	
 	    
 	fi
     done
 fi
+exit
+
 checkfile=`$scriptdir/checkfile.sh $file $location`
 err=`echo $checkfile | tail -1`
 if [[ $err > 0 ]]; then  echo; echo "   " $checkfile; exit; fi
