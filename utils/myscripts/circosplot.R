@@ -44,8 +44,8 @@ circos.SVs <- function(x, gx, title, colour){
   basic_gap=1
   large_gap=20
 
-  chr_len=sum(v1)
-  scaff_len=sum(v2)
+  chr_len=sum(as.numeric(v1))
+  scaff_len=sum(as.numeric(v2))
 
   #gaps <- as.vector(large_gap)
   #gaps <- append(gaps,rep(basic_gap,chrnum-1))

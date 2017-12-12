@@ -29,16 +29,23 @@ fi
 cd $outdir/figs
 
 
-grep -v $unplaced $misals_file > als.file
-grep -v $unplaced $chrass_file > chrs.file
+if [[ ! -f chrs.file ]] || [[ ! -f als.file ]]; then 
+	grep -v $unplaced $misals_file > als.file	
+	grep -v $unplaced $chrass_file > chrs.file
+else
+	echo " Using existing files, if need to recreate them pls first remove them:"
+	echo $outdir/figs/als.file and $outdir/figs/chrs.file
+fi
     
 if [[ ! -f ./my_plot.png ]]; then
+    echo "now running..."
     rm -f err.log 
     Rscript  $scriptdir/circosplot.R $title_fig > err.log 
     exe_error=$?
     error_status=$(( `grep "Error" err.log | wc -l` == 1 ? 1 : $exe_error ))  
 
     if [[ $error_status == 1 ]]; then
+	cat err.log
 	exit
     fi
 
@@ -60,6 +67,8 @@ fi
 
 if [[ $err == 0 ]]; then
     echo; echo " Circos plots in folder " $outdir/figs
+else
+    echo; echo " Error while producing the circos plot "
 fi
 
-rm als.file chrs.file
+#rm als.file chrs.file
