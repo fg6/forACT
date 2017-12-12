@@ -9,7 +9,7 @@ whattodo=$1
 
 if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo; echo "  Usage:" $(basename $0) \<command\> 
-    echo "     command: command to be run. Options: align, prepfiles, check, report, misjoint, circlize, act, act_compare, act_select, act_select_compare"
+    echo "     command: command to be run. Options: align, prepfiles, check, report, misjoints, circlize, act, act_compare, act_select, act_select_compare"
     echo "      * align: shred draft assemblies and align against Reference. A draft contig is re-oriented "
     echo "                if most of the shreded pieces are complements wrt the Reference"
     echo "      * prepfiles: the alignment files and the fasta files are prepared to be compatible with the format required by ACT. "
