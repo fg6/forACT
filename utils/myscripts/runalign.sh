@@ -27,6 +27,11 @@ if [ ! -d $refdir ]; then
 	      $thiscom &> /dev/null
           fi
        fi
+
+       if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
+	    echo; echo " Error! Smalt could not write the hash!";
+	    echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
+       fi
    fi
 fi
 if [ ! -d $refdir ]; then
