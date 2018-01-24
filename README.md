@@ -1,6 +1,9 @@
 
 # forACT
-Pipeline to prepare alignments between a Reference fasta and a draft assembly for ACT.
+Pipeline to prepare alignments between a Reference fasta and a draft assembly; then uses the ACT pipeline (http://www.sanger.ac.uk/science/tools/artemis-comparison-tool-act) to visualize genome comparison interactively.
+Printout a summary of the assembly analysed, and possible inter-chromosomal misjoints (if comparing with a reference)
+For chromosome assigned scaffolds there is also the possibiliy to have circos-like plots for a quick general view.
+Please notice that ACT will not work for genomes ~> 2.1 Gbp; in this case you can still plot the comparison but have to select 1 to 5 chromosomes to show at a time. To decide which chromosomes to plot, you can make use of the misassembly report to see if and which chromosomes get mixed-up by the assembly.
 
 Main Pipeline steps:
 
@@ -24,7 +27,7 @@ x86\_64 compiled version, more versions you might want to try are in your forACT
 otherwise just pont to your compiled smalt executable in forACT/utils/myscripts/settings.sh
 
 ## External packages
-forACT downloads and installs the gzstream library to handle gzip input files (https://www.cs.unc.edu/Research/compgeom/gzstream/)
+forACT downloads and installs the gzstream library to handle gzip input files (https://www.cs.unc.edu/Research/compgeom/gzstream/). It also uses the external software ACT, smalt and minimap2 (https://github.com/lh3/minimap2).
 
 ## Instructions
 Download repository and install utilities/compile tools: 
@@ -65,9 +68,13 @@ If no errors, the newly created files will be in /full/path/to/destdir/[aligner]
 #### Step 4: for chromosome-assigned super-scaffolds: look for inter-chromosome rearrengments/misjoints:
 
 	$ ./mypipeline.sh misjoints
+	
 and then
+
 	$ ./mypipeline.sh circlize
-for circos type plots. Be aware that in these plots only the possible inter-chromosomal misassemblies are plot.
+	
+for circos type plots. Be aware that in these plots only
+and only the alignment to the major chromosome per each scaffold and the possible inter-chromosomal misassemblies are visualized.
 	
 	
 #### Step 5: Launch ACT
@@ -78,7 +85,7 @@ If Step 1 and 2 gave no errors, then launch ACT:
 To view this project compared to another assembly:
 
 	$ ./mypipeline.sh act_compare full/path/to/folder/other_assembly_forACT
-Please note this only works if for the other assembly forACT has been run with the same reference and
+Please note this only works if the other assembly forACT has been run with the same reference and
 same shred/noise/minid parameters
 
 #### Step 6: Launch ACT for genome size > 2.1 GB
