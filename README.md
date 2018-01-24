@@ -55,16 +55,19 @@ Check if alignment ran smoothly and with no errors:
 If everything run smoothly then prepare the files for ACT: 
 
 	$ ./mypipeline.sh prepfiles
-If no errors, the newly created files will be in /full/path/to/destdir/whole_10000/unique/ folder.
+If no errors, the newly created files will be in /full/path/to/destdir/[aligner]_10000/unique/ folder.
 
 #### Step 3: write a report of the assemblies and alignments, and possible misassemblies/re-arrengements:
 
 	$ ./mypipeline.sh report
 	In progress: some variables like "Reference Coverage" or "Structure coverage" definition 
 		are still not fixed, do not take them too seriously for now
-#### Step 4: for chromosome-assigned super-scaffolds (Sinteny Groups): look for inter-chromosome rearrengments/misjoints:
+#### Step 4: for chromosome-assigned super-scaffolds: look for inter-chromosome rearrengments/misjoints:
 
 	$ ./mypipeline.sh misjoints
+and then
+	$ ./mypipeline.sh circlize
+for circos type plots. Be aware that in these plots only the possible inter-chromosomal misassemblies are plot.
 	
 	
 #### Step 5: Launch ACT

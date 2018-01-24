@@ -17,12 +17,13 @@ if [ $# -lt 1 ] || [ $1 == '-h' ]; then
     echo "      * check: check if pipeline ran smoothly"
     echo "      * report: write a report for the draft, reference assemblies and their mapping" 
     echo "      * misjoints: list possible scaffold mis-joints: only for chromosome-assigned scaffolds"
+    echo "      * circlize: plot in a circos plot misjoints. Only after mypipeline.sh misjoints"
     echo "      * act:  launch act for the latest forACT launched"
     echo "      * act_compare folder_to_compare_to:  launch act for the latest forACT launched and compare with another forACT (needs additional input the ull path to the forACT-folder to compare to)"
     echo "      * act_select chr1...chr5:  launch act for the latest forACT launched for chromosomes/ctgs chr1 to chr5 (up to 5 chromosomes)"
     echo "      * act_select_compare folder_to_compare_to chr1..chr5:  launch act for chromosomes/ctgs chr1 to chr5 for the latest forACT launched compared with another forACT (needs additional input the full path to the forACT-folder to compare to), up to 5 chromosomes"
 
-    echo; echo  "  Check" https://github.com/fg6/forACT/blob/misfinder/README.md "for detailed instructions"; echo
+    echo; echo  "  Check" https://github.com/fg6/forACT/blob/master/README.md "for detailed instructions"; echo
     exit
 fi
 
