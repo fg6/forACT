@@ -310,7 +310,7 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
   vector<std::pair<long int, long int> > block_length;
   vector<string> blocks;
   vector<std::pair<long int, long int> > block_bp; //block breaking points
-  string strand="+";
+  vector<string> strand_per_block;
 
   long int max_al = major_al.second; 
   string major_chr= major_al.first ; 
@@ -345,14 +345,17 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
   vector<string> chrblocks;
   chrblocks.push_back(ctgals[0].chr);
 
+
   float meanid=ctgals[0].id;
   int nals_block=1;
   vector<float> percid;
 
   int atleast_onelarge=0;
   int ccount=0;
-  string thisstrand="+";
+  int plus_strand=0;
+  int nstrand=0;
   std::for_each(ctgals.begin(),ctgals.end(), [&] (nALIGNMENTS const& a) {   // only works if sorted by ctg position:
+ 
       long int naligned=std::abs(a.ctgf-a.ctgi);
       this_pos=std::min(a.ctgi,a.ctgf);
       max_pos=std::max(a.ctgi,a.ctgf);
@@ -361,13 +364,23 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
       ref_max=std::max(a.chrf,a.chri);
       als_per_block.push_back(a.chr);  
     
+      
+      // New Block
       if(a.chr != previous_chr
-	|| ((a.chr == previous_chr) && a.chr != major_chr
-	 && (checknewblock(previous_chri,a.chri,previous_chrf,a.chrf)))){  // New Block
+	 || ((a.chr == previous_chr) && a.chr != major_chr
+	     && (checknewblock(previous_chri,a.chri,previous_chrf,a.chrf)))){  
 	
 	if(bases_per_block[ntt-1] > min_len 
 	   && previous_chr != major_chr)atleast_onelarge++;
 
+	// Previous 
+	if ( plus_strand*1./nstrand > 0.8 ) { strand_per_block.push_back("+"); }
+	else if ( plus_strand*1./nstrand < 0.2 ) { strand_per_block.push_back("-"); }
+	else {
+	  strand_per_block.push_back(".");
+	  //cout << plus_strand << " " << nstrand << " " << plus_strand*1./nstrand << endl;
+	}
+       
 
 	//if(a.chr != previous_chr) nbreak+=1;
 
@@ -384,14 +397,23 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
 	
 	// new block start
 	block_bp.push_back(std::make_pair(thisseq.find_last_of("NNN") + previous_pos + 1, 0));
+ 
+	// First al in block
+	if ( a.strand == "F")
+	  plus_strand=1;
+	nstrand=1;
 
-      }else{ 
+      }else{  // Continuing previous Block
 	meanid+=a.id;
 	nals_block++;
 
 	bases_per_block[ntt-1]+=naligned; // sum aligned bases to present block
 	block_length[ntt-1]=std::make_pair(std::min(this_pos,std::get<0>(block_length[ntt-1])),std::max(max_pos,std::get<1>(block_length[ntt-1])));  
 	block_length_inref[ntt-1]=std::make_pair(std::min(ref_min,std::get<0>(block_length_inref[ntt-1])),std::max(ref_max,std::get<1>(block_length_inref[ntt-1])));  
+
+	if ( a.strand == "F")
+	  plus_strand+=1;
+	nstrand+=1;
 
       }
         
@@ -407,7 +429,10 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
   thisseq =ctg_seqs[ctgals[ctgals.size()-1].ctg].substr(previous_pos,this_pos-previous_pos);
   std::get<1>(block_bp[ntt-1])=thisseq.find_first_of("NNN") + previous_pos + 1; // end of previous block at NNN  (-1, bc ntt starts from 1)
   percid.push_back(meanid/nals_block);
-
+  if ( plus_strand*1./nstrand > 0.8 ) strand_per_block.push_back("+");
+  else if ( plus_strand*1./nstrand < 0.2 ) strand_per_block.push_back("-");
+  else strand_per_block.push_back("NA");
+  
   // previous block
   if(bases_per_block[ntt-1] > min_len 
      && previous_chr != major_chr)atleast_onelarge++;
@@ -445,6 +470,7 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
 
       
       if(ii>0 && n != "chrY" && major_chr != "chrY") tt << endl;
+
       if(n != "chrY" && major_chr != "chrY")
 	tt << "    Block " << ii+1 << " maps to " << n 
 	   << ":  " << bases_per_block[ii] << " bp mapped, first pb: "
@@ -464,7 +490,7 @@ int LocateMisJ(std::vector<nALIGNMENTS> ctgals, std::pair<string, int> major_al)
 	
 	//bedfile << ctg << " " << std::get<0>(block_bp[ii]) << " " << std::get<1>(block_bp[ii])
 	bedfile << ctg << " " << std::get<0>(block_length[ii]) << " " << std::get<1>(block_length[ii])
-		<< " maps_to_" << n << " 150 " << strand <<  endl;
+		<< " maps_to_" << n << " 150 " << strand_per_block[ii] <<  endl;
 
       }
     }
