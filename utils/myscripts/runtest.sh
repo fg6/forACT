@@ -7,6 +7,7 @@ thisdir=`pwd`
 mkdir -p $myforACT/test_ecoli
 cd $myforACT/test_ecoli
 
+#test done with minimap2, noise 0.1 and id 80. shred says 10000, but actually not shred
 
 ### download data
 file=ftp://ftp.sanger.ac.uk/pub/users/fg6/forACT_testdata.tar.gz
@@ -34,6 +35,7 @@ if [[ $debug == 0 ]]; then
 else
 	./launchme.sh setup $myforACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta  $myforACT/test_ecoli/forACT_testdata/draft.fasta $myforACT/test_ecoli/forACT
 fi
+#sed -i "s#aligner=minimap2#aligner=smalt#g#" $myforACT/test_ecoli/forACT/mysettings.sh 
 echo " 2. Test project setup in " $myforACT/test_ecoli/forACT
 
 
@@ -55,8 +57,8 @@ echo
 
 source mysettings.sh
 
-testal=`diff $myforACT/test_ecoli/forACT/$aligner\_$shred/unique/foract$name_fornoise\_minid$minid.al $myforACT/test_ecoli/forACT_testdata/results/foract.al | wc -l`
-testfasta=`diff $myforACT/test_ecoli/forACT/$aligner\_$shred/unique/foract$name_fornoise\_minid$minid.fasta $myforACT/test_ecoli/forACT_testdata/results/foract.fasta | wc -l`
+testal=`diff $myforACT/test_ecoli/forACT/$aligner\_$shred/unique/foract$name_fornoise\_minid$minid.al $myforACT/test_ecoli/forACT_testdata/results/minimap2_foractnonoise0.2_minid10.al | wc -l`
+testfasta=`diff $myforACT/test_ecoli/forACT/$aligner\_$shred/unique/foract$name_fornoise\_minid$minid.fasta $myforACT/test_ecoli/forACT_testdata/results/minimap2_foractnonoise0.2_minid10.fasta | wc -l`
 
 if [[ $testal == 0 ]] && [[ $testfasta == 0 ]]; then
     echo " 3. Pipeline run: "
