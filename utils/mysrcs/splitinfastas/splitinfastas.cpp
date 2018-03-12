@@ -99,7 +99,7 @@ int split_by_size(char* file)
 	  aname="split"+to_string(ll)+"_";
 	  myname=myrename(seqfile,aname);
 	  myfile.open(myname);  
-	  cout << "   new file opened " << myname << endl;
+	  //cout << "   new file opened " << myname << endl;
 	  lprint=0;
 	}
 	/*else if(lprint==0){ // first ctg
