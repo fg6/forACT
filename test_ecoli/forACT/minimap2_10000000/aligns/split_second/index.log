@@ -1,8 +1,0 @@
-[M::mm_idx_gen::0.163*1.01] collected minimizers
-[M::mm_idx_gen::0.201*1.33] sorted minimizers
-[M::main::0.240*1.28] loaded/built the index for 1 target sequence(s)
-[M::mm_idx_stat] kmer size: 19; skip: 19; is_HPC: 0; #seq: 1
-[M::mm_idx_stat::0.247*1.26] distinct minimizers: 454545 (99.24% are singletons); average occurrences: 1.021; average spacing: 9.997
-[M::main] Version: 2.2-r409
-[M::main] CMD: /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT//utils/mysrcs/mylibs/minimap2/minimap2 -x asm5 -d ref.mmi /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT/ref/ref.fasta
-[M::main] Real time: 0.252 sec; CPU: 0.320 sec

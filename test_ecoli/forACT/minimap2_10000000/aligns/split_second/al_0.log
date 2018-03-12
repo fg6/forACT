@@ -1,8 +1,0 @@
-[M::main::0.043*1.03] loaded/built the index for 1 target sequence(s)
-[M::mm_mapopt_update::0.050*0.95] mid_occ = 12
-[M::mm_idx_stat] kmer size: 19; skip: 19; is_HPC: 0; #seq: 1
-[M::mm_idx_stat::0.056*1.00] distinct minimizers: 454545 (99.24% are singletons); average occurrences: 1.021; average spacing: 9.997
-[M::worker_pipeline::0.383*1.00] mapped 2 sequences
-[M::main] Version: 2.2-r409
-[M::main] CMD: /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT//utils/mysrcs/mylibs/minimap2/minimap2 -x asm5 ref.mmi /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT/minimap2_10000000/fasta/splitforw/split0_shred10000000_forwdraft.fasta
-[M::main] Real time: 0.392 sec; CPU: 0.392 sec
