@@ -1,0 +1,1 @@
+/lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT//utils/mysrcs/mylibs/minimap2/minimap2 -x asm5 ref.mmi /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT/minimap2_10000000/fasta/split/split0_shred10000000_draft.fasta > split0_first.out

@@ -1,0 +1,1 @@
+/lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/launchme.sh setup /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT_testdata/Escherichiacoli-K-12.fasta /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT_testdata/draft.fasta /lustre/scratch117/sciops/team117/hpag/fg6/analysis/forACT/test_ecoli/forACT
