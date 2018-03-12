@@ -4,29 +4,21 @@
 myforACT=$1
 thisdir=`pwd`
 
-mkdir -p $myforACT/test_ecoli
+
 cd $myforACT/test_ecoli
 
 #test done with minimap2, noise 0.1 and id 80. shred says 10000, but actually not shred
 
 ### download data
-file=ftp://ftp.sanger.ac.uk/pub/users/fg6/forACT_testdata.tar.gz
+
 if [[ ! -d forACT_testdata ]]; then
-    if [[ ! -f forACT_testdata.tar.gz ]]; then
-	if [[ `wget -S --spider $file 2>&1  | grep exists` ]]; then
-	    wget -nv -c $file &> /dev/null 
-	    if [[ "$?" != 0 ]]; then echo " Error while downloading the test data. Exiting now"; rm forACT_testdata.tar.gz; exit; fi
-	else
-	    echo " Error: could not find the test data. Exiting now"; exit; 
-	fi
-    fi
     tar -xzf forACT_testdata.tar.gz
     if [[ "$?" != 0 ]]; then echo " Error during un-compressing test data. Exiting now"; exit; 
     else
 	rm forACT_testdata.tar.gz
     fi
 fi
-echo " 1. Data downloaded "
+echo " 1. Data ready"
 
 ### setup project
 cd $myforACT/
