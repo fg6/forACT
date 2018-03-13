@@ -17,7 +17,7 @@ if [ ! -d $refdir ]; then
     
    $srcdir/grabeachchr/grabeachchr $ref
   
-   if [[ $aligner == "smalt" ]]; then	
+#   if [[ $aligner == "smalt" ]]; then	
        if [ ! -f smalt_hash.sma ] || [ ! -f smalt_hash.smi ]; then
        	  thiscom=`echo $mysmalt  index -k 13 -s 6  smalt_hash $ref `
           if [[ $debug == 1 ]]; then
@@ -32,8 +32,9 @@ if [ ! -d $refdir ]; then
 	    echo; echo " Error! Smalt could not write the hash!";
 	    echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
        fi
-   fi
+#  fi
 fi
+
 if [ ! -d $refdir ]; then
     echo; echo " Error! Reference temp location not found in"  $refdir;
     echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
@@ -50,9 +51,10 @@ else
 
     check=`ls $refdir | wc -l`
     
-    shouldbe=$(($chrnum+3)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
+    shouldbe=$(($chrnum+5)) # chrs + ref.fasta + refinfo.dat + hash.smi + hash.sma + myn50.dat
 
-    if [ ! $check -ge $shouldbe ]; then 
+
+    if [  $check -ne $shouldbe ]; then 
 	echo; echo " Error! too many or too few single fastas in" $refdir $shouldbe $check
 	echo; echo " ****  Something went wrong! Giving up! **** "; echo; exit
     fi
