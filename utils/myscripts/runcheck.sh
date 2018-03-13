@@ -77,8 +77,13 @@ else
 fi
 
 if (( $global_second != $global_first )); then
-    echo " " Error: Number of alignments in first alignment different from second: $global_second != $global_first
-    err=$(($err+1))
+    if [[ $aligner == "smalt" ]]; then
+	echo " " Error: Number of alignments in first alignment different from second: $global_second != $global_first
+        err=$(($err+1))
+    else
+	echo "  Warning: Number" of alignments in first alignment different from second: $global_second != $global_first
+	echo "           Ignore this warning if the difference is small and every other check is ok"
+    fi
 else
     echo  " " Good:  Same number of alignments in first and second alignments:  $global_second, $global_first
 fi
