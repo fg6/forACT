@@ -7,6 +7,16 @@ thisdir=`pwd`
 cd $myforACT/utils/mysrcs
 mkdir -p mylibs
 
+
+### Check if maven is installed
+maven=`command -v mvn | wc -l `
+if [[ $maven -eq 0 ]];then
+   echo Error: cannot find maven, please install it before running forACT!
+   exit 1
+fi 
+
+
+
 ### Intalling gzstream (it needs zlib!)
 if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
     
@@ -26,13 +36,15 @@ if [[ ! -d  mylibs/gzstream ]]  || [[ ! -f mylibs/gzstream/gzstream.o ]]; then
 	make &> /dev/null
 	
 	if [[ "$?" != 0 ]]; then echo " Error during gzstream compilation. Exiting now"; exit; fi
-	test=`make test | grep "O.K" | wc -l`
+        make test |grep "O.K" > canc        
+        test=`wc -l canc| awk {'print $1'}`
 
 	if [[ $test == 1 ]]; then echo " "1. gzstream installed; rm ../gzstream.tgz 
 	else  echo  " Gzstream test failed. Exiting now"; exit; fi
     fi
 fi
- 
+
+
 cd $myforACT/utils/mysrcs
 mkdir -p Artemis
 
