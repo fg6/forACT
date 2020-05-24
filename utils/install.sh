@@ -42,7 +42,9 @@ if [[ ! -f  $myforACT/utils/mysrcs/Artemis/act ]]; then
     cd $myforACT/utils/mysrcs/
     git clone https://github.com/sanger-pathogens/Artemis.git 
     cd Artemis/
-    make &> install.log
+    #OLD    make &> install.log
+    mvn validate
+    mvn clean package
 fi
 
 cd $myforACT/utils/mysrcs
