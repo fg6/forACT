@@ -20,6 +20,7 @@ Main Pipeline steps:
 * Re-define alignment positions according to ACT positioning scheme
 
 ## Requirements
+The new version of Artemis require maven to properly install act, please make sure it's in your PATH.
 You will need a g++ version >=4.7 and the zlib in your path for installation
 
 The aligner executable (Smalt from http://www.sanger.ac.uk/science/tools/smalt-0) is defined in your forACT/utils/myscripts/settings.sh file: it automatically points to a 
